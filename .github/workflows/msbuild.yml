@@ -1,0 +1,30 @@
+name: MSBuild
+
+on: [push, pull_request]
+
+jobs:
+  msbuild:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Release, ReleaseAVX2]
+
+    steps:
+    - uses: actions/checkout@v4.1.7
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore NuGet packages
+      working-directory: ${{ github.workspace }}
+      run: nuget restore
+
+    - name: Build
+      working-directory: ${{ github.workspace }}
+      run: msbuild Amalgam.sln /p:Platform=x64 /p:Configuration=${{ matrix.configuration }}
+
+    - uses: actions/upload-artifact@v4.3.4
+      with:
+        name: Amalgam${{ matrix.configuration }}
+        path: output/${{ matrix.configuration }}/*.dll
