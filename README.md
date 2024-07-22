@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/Amalgamx64Release.zip">
+  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/AmalgamRelease.zip">
     <img src=".github/assets/download.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
-  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/Amalgamx64ReleaseAVX2.zip">
+  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/AmalgamReleaseAVX2.zip">
     <img src=".github/assets/download_avx2.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
 </p>
