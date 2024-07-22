@@ -7,8 +7,23 @@
   </a>
 </p>
 
-# Amalgam
+# Amalgam by rei-kes for Team Fortress 2
+With a few more features here and there, notable changes include;
+- A killstreak changer that doesn't work
+- Backtrack to crosshair
+- Player cosmetics removal
+- Fast stop that utilizes counter strafing
+- Capture flag esp/chams/glow and return timer
+- Teleporter recharge timer
+- Pickup timer that works
+- Hurt teammates chams when playing as medic
+- PS2/Low graphic models toggle
+- Ping reducer with a target ping
+- Force enabled game fixes and pure bypass because why would you ever not want those
+- And possibly more
+
+This is uploaded as an archive of my changes (and because the original repo went byebye).
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/Viceroyy/AmalgamEdits)](/../../stargazers)
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/AmalgamEdits/msbuild.yml?branch=master)](/../../actions)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/AmalgamEdits/msbuild.yml?branch=main)](/../../actions)
 [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Viceroyy/AmalgamEdits)](/../../commits/)
