@@ -22,6 +22,21 @@ MAKE_HOOK(ModelRender_DrawModelExecute, U::Memory.GetVFunc(I::ModelRender, 19), 
 	if (Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot() || G::Unload)
 		return CALL_ORIGINAL(ecx, pState, pInfo, pBoneToWorld);
 
+	if (Vars::Visuals::Removals::Cosmetics.Value && pInfo.pModel)
+	{
+		auto pEntity = I::ClientEntityList->GetClientEntity(pInfo.entity_index)->As<CTFPlayer>();
+		if (pEntity && pEntity != H::Entities.GetLocal())
+		{
+			const char* name = I::ModelInfoClient->GetModelName(pInfo.pModel);
+			if (name)
+			{
+				std::string sname = name;
+				if (sname.find("player/items") != std::string::npos)
+					return;
+			}
+		}
+	}
+
 	if (F::Chams.bRendering)
 		return F::Chams.RenderHandler(pState, pInfo, pBoneToWorld);
 	if (F::Glow.bRendering)

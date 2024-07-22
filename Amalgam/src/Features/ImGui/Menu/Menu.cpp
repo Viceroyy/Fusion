@@ -610,6 +610,7 @@ void CMenu::MenuVisuals()
 				FToggle("Convar queries", Vars::Visuals::Removals::ConvarQueries, FToggle_Middle);
 				FToggle("Post processing", Vars::Visuals::Removals::PostProcessing);
 				FToggle("DSP", Vars::Visuals::Removals::DSP, FToggle_Middle);
+				FToggle("Cosmetics", Vars::Visuals::Removals::Cosmetics);
 			} EndSection();
 			if (Section("UI"))
 			{

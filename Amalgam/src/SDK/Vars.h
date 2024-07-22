@@ -424,6 +424,7 @@ namespace Vars
 			CVar(ViewPunch, false, VISUAL)
 			CVar(AngleForcing, false, VISUAL)
 			CVar(MOTD, false, VISUAL)
+			CVar(Cosmetics, false, VISUAL)
 			CVar(ConvarQueries, false, VISUAL)
 			CVar(PostProcessing, false, VISUAL)
 			CVar(DSP, false, VISUAL)
