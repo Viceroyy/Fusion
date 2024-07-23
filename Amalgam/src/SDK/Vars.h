@@ -657,6 +657,22 @@ namespace Vars
 		SUBNAMESPACE_END(Steam)
 	NAMESPACE_END(Misc)
 
+	NAMESPACE_BEGIN(Fonts);
+		SUBNAMESPACE_BEGIN(FONT_ESP)
+			CVar(szName, std::string("Small Fonts"), VISUAL)
+			CVar(nTall, 12, VISUAL)
+			CVar(nWeight, 800, VISUAL)
+			CVar(nFlags, int(0x200), VISUAL);
+		SUBNAMESPACE_END(FONT_ESP);
+
+		SUBNAMESPACE_BEGIN(FONT_INDICATORS)
+			CVar(szName, std::string("Verdana"), VISUAL)
+			CVar(nTall, 12, VISUAL)
+			CVar(nWeight, 800, VISUAL)
+			CVar(nFlags, int(0x200), VISUAL);
+		SUBNAMESPACE_END(FONT_INDICATORS);
+	NAMESPACE_END(Fonts)
+
 	NAMESPACE_BEGIN(Colors)
 		CVar(FOVCircle, Color_t(255, 255, 255, 100), VISUAL)
 		CVar(Relative, false, VISUAL)

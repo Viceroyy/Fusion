@@ -13,13 +13,13 @@ bool CSpectatorList::GetSpectators(CTFPlayer* pLocal)
 			std::wstring szMode;
 			switch (pPlayer->m_iObserverMode())
 			{
-				case OBS_MODE_NONE: default: continue;
 				case OBS_MODE_DEATHCAM:		{ szMode = L"Deathcam"; break; }
 				case OBS_MODE_FREEZECAM:	{ szMode = L"Freezecam"; break; }
 				case OBS_MODE_FIXED:		{ szMode = L"Fixed"; break; }
 				case OBS_MODE_FIRSTPERSON:  { szMode = L"1st"; break; }
-				case OBS_MODE_THIRDPERSON:  { szMode = L"3rd"; break; }
+				case OBS_MODE_THIRDPERSON:	{ szMode = L"3rd"; break; }
 				case OBS_MODE_ROAMING:		{ szMode = L"Roaming"; break; }
+				default:					{ continue; }
 			}
 
 			int respawnIn = 0; float respawnTime = 0;

@@ -85,6 +85,7 @@ void CCore::Load()
 	F::EventListener.Setup({ "item_pickup" });
 
 	F::Configs.LoadConfig(F::Configs.sCurrentConfig, false);
+	H::Fonts.Reload();
 	F::Menu.ConfigLoaded = true;
 
 	SDK::Output("Amalgam", "Loaded", { 175, 150, 255, 255 });

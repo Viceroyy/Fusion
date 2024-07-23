@@ -1,7 +1,8 @@
 #pragma once
 #include "../../../Utils/Feature/Feature.h"
-#include "../../Definitions/Interfaces/IMatSystemSurface.h"
+#include "../../Definitions/Interfaces.h"
 #include <unordered_map>
+#include "../../Vars.h"
 
 enum EFonts
 {

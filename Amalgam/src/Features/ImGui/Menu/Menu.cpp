@@ -840,6 +840,28 @@ void CMenu::MenuVisuals()
 					H::Fonts.Reload(Vars::Menu::DPI.Map["default"]);
 			} EndSection();
 
+			/* Column 2 */
+			TableNextColumn();
+
+			static std::vector fontFlagNames{ "Italic", "Underline", "Strikeout", "Symbol", "Antialias", "Gaussian", "Rotary", "Dropshadow", "Additive", "Outline", "Custom" };
+			static std::vector fontFlagValues{ 0x001, 0x002, 0x004, 0x008, 0x010, 0x020, 0x040, 0x080, 0x100, 0x200, 0x400 };
+
+			if (Section("Fonts"))
+			{
+				FSDropdown("ESP font name", Vars::Fonts::FONT_ESP::szName, {}, FDropdown_Left);
+				FSlider("ESP font height", Vars::Fonts::FONT_ESP::nTall, 7, 15);
+				FSlider("ESP font weight", Vars::Fonts::FONT_ESP::nWeight, 0, 900, 100);
+				FDropdown("ESP font flags", Vars::Fonts::FONT_ESP::nFlags, fontFlagNames, fontFlagValues, FDropdown_Multi);
+
+				FSDropdown("Indicator font name", Vars::Fonts::FONT_INDICATORS::szName, {}, FDropdown_Left);
+				FSlider("Indicator font height", Vars::Fonts::FONT_INDICATORS::nTall, 7, 15);
+				FSlider("Indicator font weight", Vars::Fonts::FONT_INDICATORS::nWeight, 0, 900, 100);
+				FDropdown("Indicator font flags", Vars::Fonts::FONT_INDICATORS::nFlags, fontFlagNames, fontFlagValues, FDropdown_Multi);
+
+				if (FButton("Apply fonts"))
+					H::Fonts.Reload();
+			} EndSection();
+
 			EndTable();
 		}
 	}
