@@ -15,10 +15,11 @@ With a few more features here and there, notable changes include;
 - Fast stop that utilizes counter strafing
 - Capture flag esp/chams/glow and return timer
 - Teleporter recharge timer
-- Pickup timer that works
+- Healthpack/Ammopack respawn timer that works
 - Hurt teammates chams when playing as medic
-- PS2/Low graphic models toggle
+- PS2/Low graphic models and flat textures toggle
 - Ping reducer with a target ping
+- Live font changer
 - Force enabled game fixes and pure bypass because why would you ever not want those
 - And possibly more
 

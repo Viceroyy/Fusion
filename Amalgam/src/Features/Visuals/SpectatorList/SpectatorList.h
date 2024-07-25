@@ -20,7 +20,6 @@ private:
 	std::unordered_map<int, float> RespawnCache;
 
 public:
-	int SpecListX = 30, SpecListY = 100;
 	bool GetSpectators(CTFPlayer* pLocal);
 	void Run(CTFPlayer* pLocal);
 };

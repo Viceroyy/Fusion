@@ -15,10 +15,8 @@ bool CSpectatorList::GetSpectators(CTFPlayer* pLocal)
 			{
 				case OBS_MODE_DEATHCAM:		{ szMode = L"Deathcam"; break; }
 				case OBS_MODE_FREEZECAM:	{ szMode = L"Freezecam"; break; }
-				case OBS_MODE_FIXED:		{ szMode = L"Fixed"; break; }
-				case OBS_MODE_FIRSTPERSON:  { szMode = L"1st"; break; }
+				case OBS_MODE_FIRSTPERSON:	{ szMode = L"1st"; break; }
 				case OBS_MODE_THIRDPERSON:	{ szMode = L"3rd"; break; }
-				case OBS_MODE_ROAMING:		{ szMode = L"Roaming"; break; }
 				default:					{ continue; }
 			}
 
@@ -75,7 +73,6 @@ void CSpectatorList::Run(CTFPlayer* pLocal)
 	EAlign align = ALIGN_TOP;
 	if (x <= (100 + 50 * Vars::Menu::DPI.Value))
 	{
-	//	iconOffset = 36;
 		x -= 42 * Vars::Menu::DPI.Value;
 		align = ALIGN_TOPLEFT;
 	}
@@ -84,11 +81,6 @@ void CSpectatorList::Run(CTFPlayer* pLocal)
 		x += 42 * Vars::Menu::DPI.Value;
 		align = ALIGN_TOPRIGHT;
 	}
-	//else
-	//	iconOffset = 16;
-
-	//if (!Vars::Menu::SpectatorAvatars.Value)
-	//	iconOffset = 0;
 
 	const auto& fFont = H::Fonts.GetFont(FONT_INDICATORS);
 
@@ -97,29 +89,6 @@ void CSpectatorList::Run(CTFPlayer* pLocal)
 	{
 		y += fFont.m_nTall + 3;
 
-		/*
-		if (Vars::Visuals::SpectatorAvatars.Value)
-		{
-			int w, h;
-
-			I::MatSystemSurface->GetTextSize(H::Fonts.GetFont(FONT_INDICATORS).dwFont,
-				(Spectator.Name + Spectator.Mode + std::to_wstring(Spectator.RespawnIn) + std::wstring{L" -  (respawn s)"}).c_str(), w, h);
-			switch (align)
-			{
-			case ALIGN_DEFAULT: w = 0; break;
-			case ALIGN_CENTERHORIZONTAL: w /= 2; break;
-			}
-
-			PlayerInfo_t pi{};
-			if (!I::EngineClient->GetPlayerInfo(Spectator.Index, &pi))
-				continue;
-
-			H::Draw.Avatar(x - w - (36 - iconOffset), y, 24, 24, pi.friendsID);
-			// center - half the width of the string
-			y += 6;
-		}
-		*/
-
 		Color_t color = Vars::Menu::Theme::Active.Value;
 		if (Spectator.Mode == std::wstring{L"1st"})
 			color = { 255, 200, 127, 255 };
@@ -127,7 +96,9 @@ void CSpectatorList::Run(CTFPlayer* pLocal)
 			color = SDK::WarningColor();
 		if (Spectator.IsFriend)
 			color = { 200, 255, 200, 255 };
-		H::Draw.String(fFont, x + iconOffset, y, color, align,
-			L"%ls - %ls (respawn %ds)", Spectator.Name.data(), Spectator.Mode.data(), Spectator.RespawnIn);
+		if (Spectator.Team == pLocal->m_iTeamNum())
+			H::Draw.String(fFont, x + iconOffset, y, color, align, L"%ls - %ls (respawn %ds)", Spectator.Name.data(), Spectator.Mode.data(), Spectator.RespawnIn);
+		else
+			H::Draw.String(fFont, x + iconOffset, y, Vars::Menu::Theme::Accent.Value, align, L"%ls - %ls", Spectator.Name.data(), Spectator.Mode.data());
 	}
 }

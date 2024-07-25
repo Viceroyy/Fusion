@@ -58,40 +58,6 @@ void CVisuals::DrawTickbaseText(CTFPlayer* pLocal)
 		H::Draw.EndClipping();
 	}
 }
-void CVisuals::DrawTickbaseBars()
-{
-	/* get rid of me
-	
-	if (!(Vars::Menu::Indicators.Value & (1 << 0)) || I::EngineVGui->IsGameUIVisible())
-		return;
-
-	auto pLocal = I::ClientEntityList->GetClientEntity(I::EngineClient->GetLocalPlayer());
-	if (!pLocal || !pLocal->As<CTFPlayer>()->IsAlive())
-		return;
-
-	const int iTicks = std::clamp(G::ShiftedTicks + G::ChokeAmount, 0, G::MaxShift);
-
-	const DragBox_t dtPos = Vars::Menu::TicksDisplay.Value;
-	const auto& fFont = H::Fonts.GetFont(FONT_INDICATORS);
-	const float ratioCurrent = (float)iTicks / (float)G::MaxShift;
-
-	float sizeX = 100 * Vars::Menu::DPI.Value, sizeY = 12 * Vars::Menu::DPI.Value, posY = dtPos.y + 5 + fFont.m_nTall;
-	ImGui::GetBackgroundDrawList()->AddRectFilled(
-		ImVec2(dtPos.x - sizeX / 2, posY), ImVec2(dtPos.x + sizeX / 2, posY + sizeY),
-		F::Render.Background, 10
-	);
-	if (iTicks && ratioCurrent)
-	{
-		sizeX = 96 * Vars::Menu::DPI.Value, sizeY = 8 * Vars::Menu::DPI.Value; posY = posY + 2 * Vars::Menu::DPI.Value;
-		ImGui::GetBackgroundDrawList()->PushClipRect(ImVec2(dtPos.x - sizeX / 2, posY), ImVec2(dtPos.x - sizeX / 2 + sizeX * ratioCurrent + 1, posY + sizeY), true);
-		ImGui::GetBackgroundDrawList()->AddRectFilled(
-			ImVec2(dtPos.x - sizeX / 2, posY), ImVec2(dtPos.x + sizeX / 2, posY + sizeY),
-			ImColor(Vars::Menu::Theme::Accent.Value.r, Vars::Menu::Theme::Accent.Value.g, Vars::Menu::Theme::Accent.Value.b, Vars::Menu::Theme::Accent.Value.a), 10
-		);
-		ImGui::GetBackgroundDrawList()->PopClipRect();
-	}
-	*/
-}
 
 void CVisuals::DrawOnScreenPing(CTFPlayer* pLocal)
 {

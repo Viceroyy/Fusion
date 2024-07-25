@@ -24,16 +24,12 @@ MAKE_HOOK(ModelRender_DrawModelExecute, U::Memory.GetVFunc(I::ModelRender, 19), 
 
 	if (Vars::Visuals::Removals::Cosmetics.Value && pInfo.pModel)
 	{
-		auto pEntity = I::ClientEntityList->GetClientEntity(pInfo.entity_index)->As<CTFPlayer>();
-		if (pEntity && pEntity != H::Entities.GetLocal())
+		const char* name = I::ModelInfoClient->GetModelName(pInfo.pModel);
+		if (name)
 		{
-			const char* name = I::ModelInfoClient->GetModelName(pInfo.pModel);
-			if (name)
-			{
-				std::string sname = name;
-				if (sname.find("player/items") != std::string::npos)
-					return;
-			}
+			std::string sname = name;
+			if (sname.find("player/items") != std::string::npos)
+				return;
 		}
 	}
 

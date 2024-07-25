@@ -24,7 +24,8 @@ MAKE_HOOK(CTFRagdoll_CreateTFRagdoll, S::CTFRagdoll_CreateTFRagdoll(), void, __f
 	if (!Vars::Visuals::Ragdolls::Enabled.Value)
 		return CALL_ORIGINAL(ecx);
 
-	if (auto pEntity = static_cast<CBaseAnimating*>(ecx))
+	auto pEntity = static_cast<CBaseAnimating*>(ecx);
+	if (pEntity)
 	{
 		if (Vars::Visuals::Ragdolls::EnemyOnly.Value)
 		{

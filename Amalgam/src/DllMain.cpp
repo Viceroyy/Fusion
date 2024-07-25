@@ -27,7 +27,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 		SetUnhandledExceptionFilter(Minidump::ExceptionFilter);
 #endif
 
-		DisableThreadLibraryCalls(hinstDLL);
+		//DisableThreadLibraryCalls(hinstDLL);
 		if (const auto hMainThread = CreateThread(nullptr, 0, MainThread, hinstDLL, 0, nullptr))
 			CloseHandle(hMainThread);
 	}

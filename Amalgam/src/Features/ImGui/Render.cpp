@@ -29,7 +29,6 @@ void CRender::Render(IDirect3DDevice9* pDevice)
 	LoadColors();
 	PushFont(FontRegular);
 
-	F::Visuals.DrawTickbaseBars();
 	F::Menu.Render();
 
 	PopFont();

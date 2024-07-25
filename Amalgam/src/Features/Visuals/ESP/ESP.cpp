@@ -566,7 +566,7 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 			// Building level
 			if (Vars::ESP::Building.Value & 1 << 6 && !bIsMini)
 			{
-				H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"LEVEL %d", pBuilding->m_iUpgradeLevel());
+				H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"%d", pBuilding->m_iUpgradeLevel());
 				rOffset += fFont.m_nTall;
 			}
 
