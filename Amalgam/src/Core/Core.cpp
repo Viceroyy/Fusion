@@ -116,6 +116,7 @@ void CCore::Load()
 	H::Fonts.Reload();
 	F::Menu.ConfigLoaded = true;
 
+	I::MatSystemSurface->PlaySound("hl1/fvox/activated.wav");
 	SDK::Output("Amalgam", "Loaded", { 175, 150, 255, 255 });
 }
 
@@ -148,6 +149,8 @@ void CCore::Unload()
 
 		Sleep(250);
 	}
+
+	I::MatSystemSurface->PlaySound("hl1/fvox/deactivated.wav");
 	SDK::Output("Amalgam", "Unloaded", { 175, 150, 255, 255 });
 }
 

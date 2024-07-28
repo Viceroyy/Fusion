@@ -22,7 +22,21 @@ float CBacktrack::GetLerp()
 // Returns the current (custom) backtrack latency
 float CBacktrack::GetFake()
 {
-	return bFakeLatency ? std::clamp(static_cast<float>(Vars::Backtrack::Latency.Value), 0.f, flMaxUnlag * 1000.f) / 1000.f : 0.f;
+	if (bFakeLatency)
+	{
+		if (Vars::Backtrack::LatencyMode.Value == 1)
+		{
+			auto pNetChan = I::EngineClient->GetNetChannelInfo();
+			if (!pNetChan)
+				return 0.0f;
+
+			return (0.2f - pNetChan->GetLatency(FLOW_OUTGOING) - 0.02f);
+		}
+		else if (Vars::Backtrack::LatencyMode.Value == 2)
+			return std::clamp(static_cast<float>(Vars::Backtrack::Latency.Value), 0.f, flMaxUnlag * 1000.f) / 1000.f;
+	}
+	else
+		return 0.0f;
 }
 
 // Returns the current real latency

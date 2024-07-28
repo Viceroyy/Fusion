@@ -26,7 +26,7 @@ bool CESP::GetDrawBounds(CBaseEntity* pEntity, int& x, int& y, int& w, int& h)
 		Vec3 vAngles = I::EngineClient->GetViewAngles();
 		vAngles.x = vAngles.z = 0.f;
 		Math::AngleMatrix(vAngles, transform);
-		Math::MatrixSetColumn(pEntity->GetAbsOrigin(), 3, transform);
+		Math::MatrixSetColumn(pEntity->GetRenderOrigin(), 3, transform);
 	}
 
 	float flLeft, flRight, flTop, flBottom;
@@ -347,16 +347,28 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 					if (Vars::ESP::Player.Value & 1 << 14)
 					{
 						if (pPlayer->IsCritBoosted())
-							drawCond("CRITS", SDK::WarningColor());
+						{
+							if (const auto& pWeapon = pPlayer->m_hActiveWeapon().Get()->As<CTFWeaponBase>())
+							{
+								if (pWeapon->m_iWeaponID() == TF_WEAPON_PARTICLE_CANNON)
+									drawCond("MINI-CRITS", { 254, 202, 87, 255 });
+								else
+									drawCond("CRITS", SDK::WarningColor());
+							}
+						}
 
-						if (pPlayer->InCond(TF_COND_ENERGY_BUFF) ||
-							pPlayer->InCond(TF_COND_NOHEALINGDAMAGEBUFF))
-							drawCond("MINI-CRITS", { 254, 202, 87, 255 });
+						if (pPlayer->IsMiniCritBoosted())
+						{
+							if (const auto& pWeapon = pPlayer->m_hActiveWeapon().Get()->As<CTFWeaponBase>())
+							{
+								if (pWeapon->m_iItemDefinitionIndex() == Sniper_t_TheBushwacka)
+									drawCond("CRITS", SDK::WarningColor());
+								else
+									drawCond("MINI-CRITS", { 254, 202, 87, 255 });
+							}
+						}
 
-						if (pPlayer->m_iHealth() > pPlayer->m_iMaxHealth())
-							drawCond("HP", Vars::Colors::Overheal.Value);
-
-						if (pPlayer->InCond(TF_COND_HEALTH_BUFF) || pPlayer->InCond(TF_COND_MEGAHEAL) || pPlayer->IsBuffedByKing())
+						if (pPlayer->m_iHealth() > pPlayer->m_iMaxHealth() || pPlayer->InCond(TF_COND_HEALTH_BUFF) || pPlayer->InCond(TF_COND_MEGAHEAL) || pPlayer->IsBuffedByKing())
 							drawCond("HP+", Vars::Colors::Overheal.Value);
 
 						if (pPlayer->InCond(TF_COND_INVULNERABLE) ||
@@ -752,7 +764,6 @@ void CESP::DrawWorld()
 			{
 				auto pIntel = pFlag->As<CCaptureFlag>();
 				int rOffset = 0; const Color_t drawColor = H::Color.GetEntityDrawColor(H::Entities.GetLocal(), pFlag, Vars::Colors::Relative.Value);
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, L"Intel");
 
 				switch (pIntel->m_nFlagStatus())
 				{
@@ -773,6 +784,8 @@ void CESP::DrawWorld()
 					break;
 				}
 				}
+
+				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, L"Intel");
 			}
 		}
 	}

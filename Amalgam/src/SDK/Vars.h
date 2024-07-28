@@ -174,6 +174,7 @@ namespace Vars
 	NAMESPACE_BEGIN(Backtrack)
 		CVar(Enabled, false)
 		CVar(PreferOnShot, false)
+		CVar(LatencyMode, 0)
 		CVar(Latency, 0)
 		CVar(Interp, 0)
 		CVar(Window, 185)

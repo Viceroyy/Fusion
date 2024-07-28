@@ -499,8 +499,6 @@ void CCritHack::Draw(CTFPlayer* pLocal)
 						const float flTime = pWeapon->m_flLastRapidFireCritCheckTime() + 1.f - TICK_INTERVAL * pLocal->m_nTickBase();
 						H::Draw.String(fFont, x, y, Vars::Menu::Theme::Active.Value, align, std::format("Wait {:.1f}s", flTime).c_str());
 					}
-					else
-						H::Draw.String(fFont, x, y, { 150, 255, 150, 255 }, align, "Crit Ready");
 				}
 				else
 				{

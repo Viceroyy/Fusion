@@ -10,7 +10,7 @@ MAKE_HOOK(NetChannel_SendDatagram, S::NetChannel_SendDatagram(), int, __fastcall
 	if (!netChannel || datagram)
 		return CALL_ORIGINAL(netChannel, datagram);
 
-	F::Backtrack.bFakeLatency = H::Entities.GetLocal() && Vars::Backtrack::Enabled.Value && Vars::Backtrack::Latency.Value;
+	F::Backtrack.bFakeLatency = H::Entities.GetLocal() && Vars::Backtrack::Enabled.Value && Vars::Backtrack::LatencyMode.Value == 1 || Vars::Backtrack::LatencyMode.Value == 2 && Vars::Backtrack::Latency.Value;
 	if (!F::Backtrack.bFakeLatency)
 		return CALL_ORIGINAL(netChannel, datagram);
 

@@ -26,7 +26,7 @@ void CMenu::DrawMenu()
 		const auto windowSize = mainWindowSize = GetWindowSize();
 
 		// Main tabs
-		FTabs({ "AIMBOT", "VISUALS", "MISC", "LOGS", "SETTINGS" }, &CurrentTab, TabSize, { 0, SubTabSize.y }, true, { ICON_MD_GROUP, ICON_MD_IMAGE, ICON_MD_PUBLIC, ICON_MD_MENU_BOOK, ICON_MD_SETTINGS });
+		FTabs({ "AIMBOT", "VISUALS", "MISC", "LOGS", "SETTINGS" }, &CurrentTab, TabSize, { 0, SubTabSize.y }, true, { ICON_MD_ADS_CLICK, ICON_MD_VISIBILITY, ICON_MD_PUBLIC, ICON_MD_MENU_BOOK, ICON_MD_SETTINGS });
 
 		// Sub tabs
 		switch (CurrentTab)
@@ -161,7 +161,10 @@ void CMenu::MenuAimbot()
 			{
 				FToggle("Enabled", Vars::Backtrack::Enabled);
 				FToggle("Prefer on shot", Vars::Backtrack::PreferOnShot, FToggle_Middle);
-				FSlider("Fake latency", Vars::Backtrack::Latency, 0, F::Backtrack.flMaxUnlag * 1000, 5, "%d", FSlider_Clamp); // unreliable above 1000 - ping probably
+				FDropdown("Latency mode", Vars::Backtrack::LatencyMode, { "Off", "Optimized", "Value" }, {}, FDropdown_Left);
+				bTransparent = FGet(Vars::Backtrack::LatencyMode) != 2;
+					FSlider("Fake latency", Vars::Backtrack::Latency, 0, F::Backtrack.flMaxUnlag * 1000, 5, "%d", FSlider_Clamp); // unreliable above 1000 - ping probably
+				bTransparent = false;
 				FSlider("Fake interp", Vars::Backtrack::Interp, 0, F::Backtrack.flMaxUnlag * 1000, 5, "%d", FSlider_Clamp);
 				FSlider("Window", Vars::Backtrack::Window, 1, 200, 5, "%d", FSlider_Clamp);
 			} EndSection();
@@ -736,7 +739,7 @@ void CMenu::MenuVisuals()
 			if (Section("World"))
 			{
 				FSDropdown("World texture", Vars::Visuals::World::WorldTexture, { "Default", "Dev", "Camo", "Black", "White", "Flat" }, FSDropdown_Custom);
-				FDropdown("Modulations", Vars::Visuals::World::Modulations, { "World", "Sky", "Prop", "Particle", "Fog" }, { }, FDropdown_Left | FDropdown_Multi);
+				FDropdown("Modulations", Vars::Visuals::World::Modulations, { "World", "Sky", "Prop", "Particle", "Fog" }, {}, FDropdown_Left | FDropdown_Multi);
 				static std::vector skyNames = {
 					"Off", "sky_tf2_04", "sky_upward", "sky_dustbowl_01", "sky_goldrush_01", "sky_granary_01", "sky_well_01", "sky_gravel_01", "sky_badlands_01",
 					"sky_hydro_01", "sky_night_01", "sky_nightfall_01", "sky_trainyard_01", "sky_stormfront_01", "sky_morningsnow_01","sky_alpinestorm_01",
@@ -1654,7 +1657,7 @@ void CMenu::MenuSettings()
 						{
 							if (FSelectable("Profile"))
 							{
-								//g_SteamInterfaces.Friends->ActivateGameOverlayToUser("steamid", CSteamID(0x0110000100000000ULL + player.FriendsID));
+								I::SteamFriends->ActivateGameOverlayToUser("steamid", CSteamID(0x0110000100000000ULL + player.FriendsID));
 							}
 
 							if (FSelectable("Votekick"))
