@@ -85,6 +85,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 		{
 			int lOffset = 0, rOffset = 0, bOffset = 2, tOffset = 0;
 			const auto& fFont = H::Fonts.GetFont(FONT_ESP);
+			const auto& fFontName = H::Fonts.GetFont(FONT_NAME);
+			const auto& fFontConds = H::Fonts.GetFont(FONT_CONDS);
 
 			const Color_t drawColor = H::Color.GetEntityDrawColor(pLocal, pPlayer, Vars::Colors::Relative.Value); //GetTeamColor(pPlayer->m_iTeamNum(), Vars::Colors::Relative.Value);
 			const int iMaxHealth = pPlayer->m_iMaxHealth(), iHealth = pPlayer->IsDormant() ? pResource->GetHealth(pPlayer->entindex()) : pPlayer->m_iHealth(), iClassNum = pPlayer->m_iClass();
@@ -153,8 +155,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 				const int middle = x + w / 2;
 				if (Vars::ESP::Player.Value & 1 << 0)
 				{
-					tOffset += fFont.m_nTall + 2;
-					H::Draw.String(fFont, middle, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, SDK::ConvertUtf8ToWide(pi.name).data());
+					tOffset += fFontName.m_nTall + 2;
+					H::Draw.String(fFontName, middle, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, SDK::ConvertUtf8ToWide(pi.name).data());
 				}
 
 				if (Vars::ESP::Player.Value & 1 << 12)
@@ -162,8 +164,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 					std::string sTag; PriorityLabel_t plTag;
 					if (F::PlayerUtils.GetSignificantTag(pi.friendsID, &sTag, &plTag, 1))
 					{
-						tOffset += fFont.m_nTall + 2;
-						H::Draw.String(fFont, middle, y - tOffset, plTag.Color, ALIGN_TOP, sTag.c_str());
+						tOffset += fFontName.m_nTall + 2;
+						H::Draw.String(fFontName, middle, y - tOffset, plTag.Color, ALIGN_TOP, sTag.c_str());
 					}
 				}
 
@@ -196,8 +198,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 
 						for (const auto& pLabel : vLabels)
 						{
-							H::Draw.String(fFont, x + w + 4, y + rOffset, pLabel.second.Color, ALIGN_TOPLEFT, pLabel.first.c_str());
-							rOffset += fFont.m_nTall;
+							H::Draw.String(fFontConds, x + w + 4, y + rOffset, pLabel.second.Color, ALIGN_TOPLEFT, pLabel.first.c_str());
+							rOffset += fFontConds.m_nTall;
 						}
 					}
 				}
@@ -213,8 +215,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 			// Class text
 			if (Vars::ESP::Player.Value & 1 << 6)
 			{
-				H::Draw.String(fFont, x + w + 4, y + rOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, L"%ls", GetPlayerClass(iClassNum));
-				rOffset += fFont.m_nTall;
+				H::Draw.String(fFontConds, x + w + 4, y + rOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, L"%ls", GetPlayerClass(iClassNum));
+				rOffset += fFontConds.m_nTall;
 			}
 
 			// Distance
@@ -300,8 +302,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 				{
 					if (F::Backtrack.mLagCompensation[pPlayer])
 					{
-						H::Draw.String(fFont, x + w + 4, y + rOffset, { 255, 95, 95, 255 }, ALIGN_TOPLEFT, "LAGCOMP");
-						rOffset += fFont.m_nTall;
+						H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 255, 95, 95, 255 }, ALIGN_TOPLEFT, "LAGCOMP");
+						rOffset += fFontConds.m_nTall;
 					}
 				}
 
@@ -314,8 +316,8 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 						int iPing = pResource->GetPing(pPlayer->entindex());
 						if (iPing && (iPing >= 200 || iPing <= 5))
 						{
-							H::Draw.String(fFont, x + w + 4, y + rOffset, SDK::WarningColor(), ALIGN_TOPLEFT, "%dMS", iPing);
-							rOffset += fFont.m_nTall;
+							H::Draw.String(fFontConds, x + w + 4, y + rOffset, SDK::WarningColor(), ALIGN_TOPLEFT, "%dMS", iPing);
+							rOffset += fFontConds.m_nTall;
 						}
 					}
 				}
@@ -330,17 +332,17 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 						const int iKDR = iKills / std::max(iDeaths, 1);
 						if (iKDR >= 10)
 						{
-							H::Draw.String(fFont, x + w + 4, y + rOffset, { 255, 95, 95, 255 }, ALIGN_TOPLEFT, "HIGH K/D [%d/%d]", iKills, iDeaths);
-							rOffset += fFont.m_nTall;
+							H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 255, 95, 95, 255 }, ALIGN_TOPLEFT, "HIGH K/D [%d/%d]", iKills, iDeaths);
+							rOffset += fFontConds.m_nTall;
 						}
 					}
 				}
 
 				{
-					auto drawCond = [x, w, y, &rOffset, &fFont](const char* text, Color_t color)
+					auto drawCond = [x, w, y, &rOffset, &fFontConds](const char* text, Color_t color)
 					{
-						H::Draw.String(fFont, x + w + 4, y + rOffset, color, ALIGN_TOPLEFT, text);
-						rOffset += fFont.m_nTall;
+						H::Draw.String(fFontConds, x + w + 4, y + rOffset, color, ALIGN_TOPLEFT, text);
+						rOffset += fFontConds.m_nTall;
 					};
 
 					// Buffs
@@ -508,6 +510,8 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 		{
 			int lOffset = 0, rOffset = 0, /*bOffset = 0, */tOffset = 0;
 			const auto& fFont = H::Fonts.GetFont(FONT_ESP);
+			const auto& fFontName = H::Fonts.GetFont(FONT_NAME);
+			const auto& fFontConds = H::Fonts.GetFont(FONT_CONDS);
 
 			const Color_t drawColor = H::Color.GetEntityDrawColor(pLocal, pOwner ? pOwner : pBuilding, Vars::Colors::Relative.Value); //GetTeamColor(pBuilding->m_iTeamNum(), Vars::ESP::Main::Relative.Value);
 			const int iMaxHealth = pBuilding->m_iMaxHealth(), iHealth = std::min(pBuilding->m_iHealth(), iMaxHealth);
@@ -551,8 +555,8 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 				default: szName = L"Unknown Building"; break;
 				}
 
-				tOffset += fFont.m_nTall + 2;
-				H::Draw.String(fFont, x + w / 2, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, szName);
+				tOffset += fFontName.m_nTall + 2;
+				H::Draw.String(fFontName, x + w / 2, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, szName);
 			}
 
 			// Distance
@@ -570,16 +574,16 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 				PlayerInfo_t pi{};
 				if (I::EngineClient->GetPlayerInfo(pOwner->entindex(), &pi))
 				{
-					tOffset += fFont.m_nTall + 2;
-					H::Draw.String(fFont, x + w / 2, y - tOffset, { 254, 202, 87, 255 }, ALIGN_TOP, L"%ls", SDK::ConvertUtf8ToWide(pi.name).data());
+					tOffset += fFontName.m_nTall + 2;
+					H::Draw.String(fFontName, x + w / 2, y - tOffset, { 254, 202, 87, 255 }, ALIGN_TOP, L"%ls", SDK::ConvertUtf8ToWide(pi.name).data());
 				}
 			}
 
 			// Building level
 			if (Vars::ESP::Building.Value & 1 << 6 && !bIsMini)
 			{
-				H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"%d", pBuilding->m_iUpgradeLevel());
-				rOffset += fFont.m_nTall;
+				H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"%d", pBuilding->m_iUpgradeLevel());
+				rOffset += fFontConds.m_nTall;
 			}
 
 			// Building conditions
@@ -590,8 +594,8 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 				const float flConstructed = pBuilding->m_flPercentageConstructed() * 100.f;
 				if (flConstructed < 100.f && static_cast<int>(flConstructed) != 0)
 				{
-					H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"CONSTRUCTING");
-					rOffset += fFont.m_nTall;
+					H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, L"CONSTRUCTING");
+					rOffset += fFontConds.m_nTall;
 				}
 
 				if (pBuilding->IsTeleporter())
@@ -599,8 +603,8 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 					const float flRechargeTime = pBuilding->As<CObjectTeleporter>()->GetRechargeTime();
 					if (flRechargeTime > 0.0f)
 					{
-						H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, std::format("RECHARGES IN {:.1f} SEC", flRechargeTime).c_str());
-						rOffset += fFont.m_nTall;
+						H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, std::format("RECHARGES IN {:.1f} SEC", flRechargeTime).c_str());
+						rOffset += fFontConds.m_nTall;
 					}
 				}
 
@@ -627,8 +631,8 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 				{
 					for (auto& condString : condStrings)
 					{
-						H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, condString.data());
-						rOffset += fFont.m_nTall;
+						H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, condString.data());
+						rOffset += fFontConds.m_nTall;
 					}
 				}
 			}
@@ -642,7 +646,9 @@ void CESP::DrawWorld()
 {
 	Vec3 vScreen = {};
 	const auto& fFont = H::Fonts.GetFont(FONT_ESP);
-	const int nTextTopOffset = fFont.m_nTall * (5 / 4);
+	const auto& fFontName = H::Fonts.GetFont(FONT_NAME);
+	const auto& fFontConds = H::Fonts.GetFont(FONT_CONDS);
+	const int nTextTopOffset = fFontName.m_nTall * (5 / 4);
 
 	I::MatSystemSurface->DrawSetAlphaMultiplier(Vars::ESP::ActiveAlpha.Value);
 
@@ -671,7 +677,7 @@ void CESP::DrawWorld()
 					szName = L"Unknown NPC"; break;
 				}
 
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::NPC.Value, ALIGN_TOP, szName);
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::NPC.Value, ALIGN_TOP, szName);
 			}
 		}
 	}
@@ -682,7 +688,7 @@ void CESP::DrawWorld()
 		{
 			int x = 0, y = 0, w = 0, h = 0;
 			if (GetDrawBounds(pHealth, x, y, w, h))
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Health.Value, ALIGN_CENTER, L"Health");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Health.Value, ALIGN_CENTER, L"Health");
 		}
 	}
 
@@ -692,7 +698,7 @@ void CESP::DrawWorld()
 		{
 			int x = 0, y = 0, w = 0, h = 0;
 			if (GetDrawBounds(pAmmo, x, y, w, h))
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Ammo.Value, ALIGN_CENTER, L"Ammo");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Ammo.Value, ALIGN_CENTER, L"Ammo");
 		}
 	}
 
@@ -703,7 +709,7 @@ void CESP::DrawWorld()
 			int x = 0, y = 0, w = 0, h = 0;
 			if (GetDrawBounds(pCash, x, y, w, h))
 			{
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Money.Value, ALIGN_TOP, L"Money");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Money.Value, ALIGN_TOP, L"Money");
 			}
 		}
 	}
@@ -726,7 +732,7 @@ void CESP::DrawWorld()
 					szName = L"Unknown Bomb"; break;
 				}
 
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Bomb.Value, ALIGN_TOP, szName);
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Bomb.Value, ALIGN_TOP, szName);
 			}
 		}
 	}
@@ -738,7 +744,7 @@ void CESP::DrawWorld()
 			int x = 0, y = 0, w = 0, h = 0;
 			if (GetDrawBounds(pBook, x, y, w, h))
 			{
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Halloween.Value, ALIGN_TOP, L"Spellbook");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Halloween.Value, ALIGN_TOP, L"Spellbook");
 			}
 		}
 	}
@@ -750,7 +756,7 @@ void CESP::DrawWorld()
 			int x = 0, y = 0, w = 0, h = 0;
 			if (GetDrawBounds(pGargy, x, y, w, h))
 			{
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, Vars::Colors::Halloween.Value, ALIGN_TOP, L"Gargoyle");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Halloween.Value, ALIGN_TOP, L"Gargoyle");
 			}
 		}
 	}
@@ -770,22 +776,22 @@ void CESP::DrawWorld()
 				default: break;
 				case TF_FLAGINFO_HOME:
 				{
-					H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, "HOME");
-					rOffset += fFont.m_nTall;
+					H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, "HOME");
+					rOffset += fFontConds.m_nTall;
 					break;
 				}
 				case TF_FLAGINFO_DROPPED:
 				{
-					H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, "DROPPED");
-					rOffset += fFont.m_nTall;
+					H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, "DROPPED");
+					rOffset += fFontConds.m_nTall;
 
-					H::Draw.String(fFont, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, std::format("RETURNS IN {:.1f} SEC", pIntel->GetReturnTime()).c_str());
-					rOffset += fFont.m_nTall;
+					H::Draw.String(fFontConds, x + w + 4, y + rOffset, { 254, 202, 87, 255 }, ALIGN_TOPLEFT, std::format("RETURNS IN {:.1f} SEC", pIntel->GetReturnTime()).c_str());
+					rOffset += fFontConds.m_nTall;
 					break;
 				}
 				}
 
-				H::Draw.String(fFont, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, L"Intel");
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, L"Intel");
 			}
 		}
 	}
