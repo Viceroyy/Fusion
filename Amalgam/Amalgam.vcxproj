@@ -240,7 +240,6 @@
     <ClCompile Include="src\Features\EnginePrediction\EnginePrediction.cpp" />
     <ClCompile Include="src\Features\ImGui\Render.cpp" />
     <ClCompile Include="src\Features\ImGui\Menu\Menu.cpp" />
-    <ClCompile Include="src\Features\Killstreak\Killstreak.cpp" />
     <ClCompile Include="src\Features\Records\Records.cpp" />
     <ClCompile Include="src\Features\Misc\Misc.cpp" />
     <ClCompile Include="src\Features\NetworkFix\NetworkFix.cpp" />
@@ -255,6 +254,7 @@
     <ClCompile Include="src\Features\Resolver\Resolver.cpp" />
     <ClCompile Include="src\Features\Simulation\MovementSimulation\MovementSimulation.cpp" />
     <ClCompile Include="src\Features\Simulation\ProjectileSimulation\ProjectileSimulation.cpp" />
+    <ClCompile Include="src\Features\SkinChanger\SkinChanger.cpp" />
     <ClCompile Include="src\Features\TickHandler\TickHandler.cpp" />
     <ClCompile Include="src\Features\Visuals\Chams\Chams.cpp" />
     <ClCompile Include="src\Features\Visuals\ESP\ESP.cpp" />
@@ -401,7 +401,6 @@
     <ClInclude Include="src\Features\CheaterDetection\CheaterDetection.h" />
     <ClInclude Include="src\Features\CritHack\CritHack.h" />
     <ClInclude Include="src\Features\EnginePrediction\EnginePrediction.h" />
-    <ClInclude Include="src\Features\Killstreak\Killstreak.h" />
     <ClInclude Include="src\Features\Misc\Misc.h" />
     <ClInclude Include="src\Features\NetworkFix\NetworkFix.h" />
     <ClInclude Include="src\Features\NoSpread\NoSpread.h" />
@@ -413,6 +412,7 @@
     <ClInclude Include="src\Features\Resolver\Resolver.h" />
     <ClInclude Include="src\Features\Simulation\MovementSimulation\MovementSimulation.h" />
     <ClInclude Include="src\Features\Simulation\ProjectileSimulation\ProjectileSimulation.h" />
+    <ClInclude Include="src\Features\SkinChanger\SkinChanger.h" />
     <ClInclude Include="src\Features\TickHandler\TickHandler.h" />
     <ClInclude Include="src\Features\Visuals\Chams\Chams.h" />
     <ClInclude Include="src\Features\Visuals\ESP\ESP.h" />

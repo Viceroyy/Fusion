@@ -594,6 +594,14 @@ namespace Vars
 	NAMESPACE_END(Radar)
 
 	NAMESPACE_BEGIN(Misc)
+		SUBNAMESPACE_BEGIN(SkinChanger)
+			CVar(SkinIndex, 0, NOSAVE)
+			CVar(UnusualIndex, 0, NOSAVE)
+			CVar(SheenIndex, 0, NOSAVE)
+			CVar(EyeIndex, 0, NOSAVE)
+			CVar(Attributes, 0, NOSAVE)
+		SUBNAMESPACE_END(SkinChanger)
+
 		SUBNAMESPACE_BEGIN(Movement)
 			CVar(AutoStrafe, 0)
 			CVar(AutoStrafeTurnScale, 0.5f)

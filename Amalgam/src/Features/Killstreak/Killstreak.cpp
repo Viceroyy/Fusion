@@ -13,7 +13,7 @@
 //
 //int CKillstreaker::GetCurrentWeaponStreak()
 //{
-//	return KillstreakMap[H::Entities.GetWeapon()->entindex()];
+//	return KillstreakMap[G::WeaponDefIndex];
 //}
 //
 //class NetworkVar_m_nStreaks
@@ -52,11 +52,14 @@
 //void CKillstreaker::ApplyKillstreak()
 //{
 //	//if (Vars::Misc::KillstreakWeapon.Value)
-//	{
+//	//{
 //		if (const auto& pLocal = H::Entities.GetLocal())
 //		{
-//			if (!H::Entities.GetPR()) return;
-//			const auto streaksResource = H::Entities.GetPR()->GetStreaks(I::EngineClient->GetLocalPlayer());
+//			auto pResource = H::Entities.GetPR();
+//			if (!pResource)
+//				return;
+//
+//			const auto streaksResource = pResource->GetStreaks(I::EngineClient->GetLocalPlayer());
 //			if (streaksResource && *streaksResource != GetCurrentStreak())
 //			{
 //				streaksResource[0] = GetCurrentStreak();
@@ -81,7 +84,7 @@
 //				streaksPlayer->Set(3, GetCurrentStreak());
 //			}
 //		}
-//	}
+//	//}
 //}
 //
 //void CKillstreaker::PlayerDeath(IGameEvent* pEvent)
@@ -97,13 +100,13 @@
 //
 //	if (attacker != I::EngineClient->GetLocalPlayer() ||
 //		attacker == userid ||
-//		!H::Entities.GetLocal() || !H::Entities.GetWeapon() || H::Entities.GetLocal()->deadflag())
+//		!H::Entities.GetLocal() || !H::Entities.GetWeapon() || !H::Entities.GetLocal()->IsAlive())
 //	{
 //		return;
 //	}
 //
 //	Killstreak++;
-//	KillstreakMap[H::Entities.GetWeapon()->entindex()]++;
+//	KillstreakMap[G::WeaponDefIndex]++;
 //
 //	pEvent->SetInt("kill_streak_total", GetCurrentStreak());
 //	pEvent->SetInt("kill_streak_wep", GetCurrentWeaponStreak());
@@ -125,7 +128,7 @@
 //void CKillstreaker::FireEvents(IGameEvent* pEvent, const FNV1A_t uNameHash)
 //{
 //	//if (Vars::Misc::KillstreakWeapon.Value)
-//	{
+//	//{
 //		if (uNameHash == FNV1A::HashConst("player_death"))
 //		{
 //			PlayerDeath(pEvent);
@@ -134,5 +137,5 @@
 //		{
 //			PlayerSpawn(pEvent);
 //		}
-//	}
+//	//}
 //}

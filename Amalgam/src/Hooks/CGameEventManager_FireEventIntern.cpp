@@ -23,10 +23,11 @@ MAKE_HOOK(CGameEventManager_FireEventIntern, S::CGameEventManager_FireEventInter
 	auto pLocal = H::Entities.GetLocal();
 	auto uHash = FNV1A::Hash(pEvent->GetName());
 
+	//F::Killstreaker.FireEvents(pEvent, uHash);
 	F::Records.Event(pEvent, uHash, pLocal);
 	F::CritHack.Event(pEvent, uHash, pLocal);
 	F::Misc.Event(pEvent, uHash);
-	//F::Killstreaker.FireEvents(pEvent, uHash);
+	
 	switch (uHash)
 	{
 	case FNV1A::HashConst("player_hurt"):

@@ -18,4 +18,4 @@
 //	void FireEvents(IGameEvent* pEvent, const FNV1A_t uNameHash);
 //};
 //
-//ADD_FEATURE(CKillstreaker, Killstreaker);
+//ADD_FEATURE(CKillstreaker, Killstreaker)

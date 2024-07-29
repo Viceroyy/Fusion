@@ -9,6 +9,7 @@
 #include "../../Visuals/Visuals.h"
 #include "../../Resolver/Resolver.h"
 #include <mutex>
+#include "../../SkinChanger/SkinChanger.h"
 
 /* The main menu */
 void CMenu::DrawMenu()
@@ -662,6 +663,81 @@ void CMenu::MenuVisuals()
 
 			/* Column 2 */
 			TableNextColumn();
+			if (Section("Skin Changer"))
+			{
+				static std::vector skinIndices{
+					0, 102, 104, 105, 106, 109, 112, 113, 114, 120, 122, 130, 139, 143, 144, 151,
+					160, 161, 163, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212,
+					213, 214, 215, 217, 218, 220, 221, 223, 224, 225, 226, 228, 230, 232, 234, 235,
+					236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251,
+					252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267,
+					268, 269, 270, 271, 272, 273, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284,
+					285, 286, 287, 289, 290, 291, 292, 293, 294, 295, 296, 297, 300, 301, 302, 303,
+					304, 305, 306, 307, 308, 309, 310, 390, 391, 400, 401, 402, 403, 404, 405, 406,
+					407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420
+				};
+				static std::vector skinNames{
+					"None", "Wrapped Reviver Mk.II", "Carpet Bomber Mk.II", "Masked Mender Mk.II", "Woodland Warrior Mk.II",
+					"Forest Fire Mk.II", "Backwoods Boomstick Mk.II", "Woodsy Widowmaker Mk.II", "Night Owl Mk.II", "Iron Wood Mk.II",
+					"Plaid Potshotter Mk.II", "Bovine Blazemaker Mk.II", "Civil Servant Mk.II", "Smalltown Bringdown Mk.II", "Civic Duty Mk.II",
+					"Dead Reckoner Mk.II", "Autumn Mk.II", "Nutcracker Mk.II", "Macabre Web Mk.II", "Bloom Buffed", "Quack Canvassed",
+					"Bank Rolled", "Merc Stained", "Kill Covered", "Fire Glazed", "Pizza Polished", "Bonk Varnished", "Star Crossed",
+					"Clover Camo'd", "Freedom Wrapped", "Cardboard Boxed", "Dream Piped", "Miami Element", "Neo Tokyo", "Geometrical Teams",
+					"Bomber Soul", "Uranium", "Cabin Fevered", "Polar Surprise", "Hana", "Dovetailed", "Cosmic Calamity", "Hazard Warning",
+					"Mosaic", "Jazzy", "Alien Tech", "Damascus and Mahogany", "Skull Study", "Haunted Ghosts", "Spectral Shimmered",
+					"Spirit of Halloween", "Horror Holiday", "Totally Boned", "Electroshocked", "Ghost Town", "Tumor Toasted", "Calavera Canvas",
+					"Snow Covered", "Frost Ornamented", "Smissmas Village", "Igloo", "Seriously Snowed", "Smissmas Camo", "Sleighin' Style",
+					"Alpine", "Gift Wrapped", "Winterland Wrapped", "Helldriver", "Organ-ically Hellraised", "Spectrum Splattered", "Candy Coated",
+					"Pumpkin Pied", "Sweet Toothed", "Crawlspace Critters", "Portal Plastered", "Death Deluxe", "Raving Dead", "Eyestalker",
+					"Spider's Cluster", "Gourdy Green", "Mummified Mimic", "Spider Season", "Gingerbread Winner", "Saccharine Striped",
+					"Elfin Enamel", "Peppermint Swirl", "Snow Globalization", "Gifting Mann's Wrapping Paper", "Snowflake Swirled", "Smissmas Spycrabs",
+					"Frozen Aurora", "Starlight Serenity", "Frosty Delivery", "Glacial Glazed", "Cookie Fortress", "Sarsaparilla Sprayed",
+					"Swashbuckled", "Skull Cracked", "Misfortunate", "Neon-ween", "Simple Spirits", "Broken Bones", "Potent Poison", "Searing Souls",
+					"Party Phantoms", "Polter-Guised", "Kiln and Conquer", "Necromanced", "Yeti Coated", "Park Pigmented", "Mannana Peeled",
+					"Macaw Masked", "Sax Waxed", "Anodized Aloha", "Bamboo Brushed", "Tiger Buffed", "Croc Dusted", "Pina Polished", "Leopard Printed",
+					"Dragon Slayer", "Smissmas Sweater", "Ghoul Blaster", "Cream Corned", "Sunriser", "Sacred Slayer", "Metalized Soul",
+					"Bonzo Gnawed", "Health and Hell", "Health and Hell (Green)", "Hypergon", "Pumpkin Plastered", "Chilly Autumn", "Steel Brushed",
+					"Secretly Serviced", "Sky Stallion", "Bomb Carrier", "Business Class", "Deadly Dragon", "Team Serviced", "Warborn",
+					"Pacific Peacemaker", "Mechanized Monster"
+				};
+				static std::vector unusualIndices{
+					0, 4, 701, 702, 703, 704
+				};
+				static std::vector unusualNames{
+					"None", "Community Sparkle", "Hot", "Isotope", "Cool", "Energy Orb"
+				};
+				static std::vector sheenNames{
+					"None", "Team Shine", "Deadly Daffodil", "Manndarin", "Mean Green", "Agonizing Emerald", "Villainous Violet", "Hot Rod"
+				};
+				static std::vector eyeNames{
+					"None", "Cerebral Discharge", "Fire Horns", "Flames", "Hypno-Beam", "Incinerator", "Singularity", "Tornado"
+				};
+
+				FDropdown("Attributes", Vars::Misc::SkinChanger::Attributes, { "Australium", "Festive", "Killstreak" }, {}, FDropdown_Multi);
+				FDropdown("Skin", Vars::Misc::SkinChanger::SkinIndex, skinNames, skinIndices, FDropdown_Left);
+				FDropdown("Unusual effect", Vars::Misc::SkinChanger::UnusualIndex, unusualNames, unusualIndices, FDropdown_Right);
+				FDropdown("Sheen", Vars::Misc::SkinChanger::SheenIndex, sheenNames, {}, FDropdown_Left);
+				FDropdown("Eye effect", Vars::Misc::SkinChanger::EyeIndex, eyeNames, {}, FDropdown_Right);
+
+				if (FButton("Apply"))
+				{
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "item_style_override", Vars::Misc::SkinChanger::Attributes.Value & 1 << 0 ? 1 : 0);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "loot_rarity", Vars::Misc::SkinChanger::Attributes.Value & 1 << 0 ? 1 : 0);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "is_australium_item", Vars::Misc::SkinChanger::Attributes.Value & 1 << 0 ? 1 : 0);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "is_festivized", Vars::Misc::SkinChanger::Attributes.Value & 1 << 1 ? 1 : 0);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "killstreak_tier", Vars::Misc::SkinChanger::Attributes.Value & 1 << 2 ? 3 : 0);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "paintkit_proto_def_index", Vars::Misc::SkinChanger::SkinIndex.Value);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "set_attached_particle", Vars::Misc::SkinChanger::UnusualIndex.Value);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "killstreak_idleeffect", Vars::Misc::SkinChanger::SheenIndex.Value);
+					F::SkinChanger.SetAttribute(G::WeaponDefIndex, "killstreak_effect", Vars::Misc::SkinChanger::EyeIndex.Value);
+				}
+
+				if (FButton("Save"))
+					F::SkinChanger.Save();
+
+				if (FButton("Load"))
+					F::SkinChanger.Load();
+			} EndSection();
 			if (Section("Other"))
 			{
 				FToggle("MEDIC: Show injured teammates", Vars::Visuals::Other::ShowInjuredTeammatesWhenMedic);

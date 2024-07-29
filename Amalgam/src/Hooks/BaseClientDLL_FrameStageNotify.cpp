@@ -8,12 +8,18 @@
 #include "../Features/Resolver/Resolver.h"
 #include "../Features/Simulation/MovementSimulation/MovementSimulation.h"
 #include "../Features/Visuals/Visuals.h"
+#include "../Features/SkinChanger/SkinChanger.h"
 
 MAKE_HOOK(BaseClientDLL_FrameStageNotify, U::Memory.GetVFunc(I::BaseClientDLL, 35), void, __fastcall,
 	void* ecx, ClientFrameStage_t curStage)
 {
 	switch (curStage)
 	{
+	case FRAME_NET_UPDATE_POSTDATAUPDATE_END:
+	{
+		F::SkinChanger.ApplySkins();
+		break;
+	}
 	case FRAME_RENDER_START:
 	{
 		G::PunchAngles = Vec3();

@@ -160,9 +160,9 @@
     <ClCompile Include="src\Hooks\CL_CheckForPureServerWhitelist.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelInit.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelShutdown.cpp" />
-    <ClCompile Include="src\Features\Killstreak\Killstreak.cpp" />
     <ClCompile Include="src\Hooks\CGameEventManager_FireEventClientSide.cpp" />
     <ClCompile Include="src\Utils\EventListener\EventListener.cpp" />
+    <ClCompile Include="src\Features\SkinChanger\SkinChanger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\UtlVector\UtlVector.h" />
@@ -421,9 +421,9 @@
     <ClInclude Include="src\SDK\Definitions\Interfaces\ViewRenderBeams.h" />
     <ClInclude Include="src\SDK\Definitions\Main\UtlMemory.h" />
     <ClInclude Include="src\SDK\Definitions\Main\UtlBlockMemory.h" />
-    <ClInclude Include="src\Features\Killstreak\Killstreak.h" />
     <ClInclude Include="src\SDK\Definitions\Main\CCaptureFlag.h" />
     <ClInclude Include="src\Utils\EventListener\EventListener.h" />
+    <ClInclude Include="src\Features\SkinChanger\SkinChanger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
