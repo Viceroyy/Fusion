@@ -1,13 +1,13 @@
 <p align="center">
-  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/AmalgamRelease.zip">
+  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionRelease.zip">
     <img src=".github/assets/download.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
-  <a href="https://nightly.link/Viceroyy/AmalgamEdits/workflows/msbuild/main/AmalgamReleaseAVX2.zip">
+  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionReleaseAVX2.zip">
     <img src=".github/assets/download_avx2.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
 </p>
 
-# Amalgam by rei-kes for Team Fortress 2
+# Fusion for Team Fortress 2, fork of Amalgam by rei-kes
 With a few more features here and there, notable changes include;
 - A killstreak changer that doesn't work
 - Backtrack to crosshair
@@ -25,6 +25,6 @@ With a few more features here and there, notable changes include;
 
 This is uploaded as an archive of my changes (and because the original repo went byebye).
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/Viceroyy/AmalgamEdits)](/../../stargazers)
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/AmalgamEdits/msbuild.yml?branch=main)](/../../actions)
-[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Viceroyy/AmalgamEdits)](/../../commits/)
+[![GitHub Repo stars](https://img.shields.io/github/stars/Viceroyy/Fusion)](/../../stargazers)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/Fusion/msbuild.yml?branch=main)](/../../actions)
+[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Viceroyy/Fusion)](/../../commits/)

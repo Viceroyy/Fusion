@@ -1,16 +1,16 @@
 ---
 name: Bug Report
-about: Create a report and help us improve AmalgamEdits!
+about: Create a report and help us improve Fusion!
 title: A quick Description of Bug
 labels: bug
 assignees: ''
 ---
 <!-- The template provided below is specifically for bug reports, if you intend to ask a question or recommend a feature/improvement, please head to the discussions tab instead. -->
-**AmalgamEdits Build Date:**    <!-- Ex: Jul 30 2024 -->  
+**Fusion Build Date:**    <!-- Ex: Jul 30 2024 -->  
 **Windows Version:**    <!-- Ex: Windows 11 Pro 23H2 See: https://learn.microsoft.com/en-us/windows/client-management/client-tools/windows-version-search -->
 
 ## Configs used:
-<!-- Upload both your normal and visual configs found in Team Fortress 2/Amalgam and Team Fortress 2/Amalgam/Visuals respectively. You can upload the contents of these files to any text-based hosting server. -->
+<!-- Upload both your normal and visual configs found in Team Fortress 2/Fusion and Team Fortress 2/Fusion/Visuals respectively. You can upload the contents of these files to any text-based hosting server. -->
 
 ## Description:
 <!-- Describe what the issue is. -->

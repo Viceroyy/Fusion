@@ -73,8 +73,8 @@ inline ConfigVar<T>::ConfigVar(T value, std::string name, int iFlags)
 namespace Vars
 {
 	NAMESPACE_BEGIN(Menu)
-		CVar(CheatName, std::string("Amalgam"), VISUAL)
-		CVar(CheatPrefix, std::string("[Amalgam]"), VISUAL)
+		CVar(CheatName, std::string("Fusion"), VISUAL)
+		CVar(CheatPrefix, std::string("[Fusion]"), VISUAL)
 		CVar(MenuPrimaryKey, VK_INSERT, NOCOND)
 		CVar(MenuSecondaryKey, VK_F3, NOCOND)
 
@@ -653,7 +653,7 @@ namespace Vars
 			CVar(EnableRPC, false)
 			CVar(OverrideMenu, false)
 			CVar(MatchGroup, 0) // 0 - Special Event; 1 - MvM Mann Up; 2 - Competitive; 3 - Casual; 4 - MvM Boot Camp;
-			CVar(MapText, std::string("Amalgam"))
+			CVar(MapText, std::string("Fusion"))
 			CVar(GroupSize, 1337)
 		SUBNAMESPACE_END(Steam)
 	NAMESPACE_END(Misc)
