@@ -25,6 +25,9 @@ With a few more features here and there, notable changes include;
 
 This is uploaded as an archive of my changes (and because the original repo went byebye).
 
+If for some reason or other you wanted to contact me, use the Discord link below.
+
+[![Discord](https://img.shields.io/discord/1267955231636062259?logo=Discord&label=discord)](https://discord.gg/4apwXtJZPH)
 [![GitHub Repo stars](https://img.shields.io/github/stars/Viceroyy/Fusion)](/../../stargazers)
 [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/Fusion/msbuild.yml?branch=main)](/../../actions)
 [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Viceroyy/Fusion)](/../../commits/)
