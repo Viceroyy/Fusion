@@ -1,7 +1,7 @@
 #pragma once
 #include "../Render.h"
 #include "Menu.h"
-#include "../MaterialDesign/IconDefinitions.h"
+#include "../FontAwesome/IconDefinitions.h"
 #include "../../Conditions/Conditions.h"
 #include "../../Visuals/Materials/Materials.h"
 #include <ImGui/imgui_internal.h>
@@ -472,7 +472,7 @@ namespace ImGui
 			SetMouseCursor(ImGuiMouseCursor_Hand);
 
 		SetCursorPos({ restorePos.x + 4, restorePos.y + 3 });
-		IconImage(*var ? ICON_MD_CHECK_BOX : ICON_MD_CHECK_BOX_OUTLINE_BLANK, true, *var ? (flags & FToggle_PlainColor ? F::Render.Active.Value : F::Render.Accent.Value) : F::Render.Inactive.Value);
+		IconImage(*var ? ICON_FA_CIRCLE_CHECK : ICON_FA_CIRCLE, true, *var ? (flags & FToggle_PlainColor ? F::Render.Active.Value : F::Render.Accent.Value) : F::Render.Inactive.Value);
 
 		SetCursorPos({ restorePos.x + 24, restorePos.y + 5 });
 		if (*var)
@@ -842,7 +842,7 @@ namespace ImGui
 					PopStyleColor();
 
 					SetCursorPos({ originalPos.x + 16, originalPos.y - 33 });
-					IconImage(flagActive ? ICON_MD_CHECK_BOX : ICON_MD_CHECK_BOX_OUTLINE_BLANK, true, flagActive ? F::Render.Accent.Value : F::Render.Inactive.Value);
+					IconImage(flagActive ? ICON_FA_CIRCLE_CHECK : ICON_FA_CIRCLE, true, flagActive ? F::Render.Accent.Value : F::Render.Inactive.Value);
 					SetCursorPos(originalPos);
 				}
 				else
@@ -882,7 +882,7 @@ namespace ImGui
 			TextUnformatted(TruncateText(preview.c_str(), sizex - 55).c_str());
 
 			SetCursorPos({ originalPos.x + sizex - 25, originalPos.y - 2 });
-			IconImage(active ? ICON_MD_ARROW_DROP_UP : ICON_MD_ARROW_DROP_DOWN, true);
+			IconImage(active ? ICON_FA_CARET_UP : ICON_FA_CARET_DOWN, true);
 
 			EndComboPreview();
 		}
@@ -1049,7 +1049,7 @@ namespace ImGui
 			if (entries.size())
 			{
 				SetCursorPos({ originalPos.x + sizex - 25, originalPos.y - 2 });
-				IconImage(mActives[label] ? ICON_MD_ARROW_DROP_UP : ICON_MD_ARROW_DROP_DOWN, true);
+				IconImage(mActives[label] ? ICON_FA_CARET_UP : ICON_FA_CARET_DOWN, true);
 			}
 
 			if (mActives[label] || flags & FSDropdown_Custom || !entries.size())
@@ -1178,7 +1178,7 @@ namespace ImGui
 			TextUnformatted(TruncateText(preview.c_str(), sizex - 55).c_str());
 
 			SetCursorPos({ originalPos.x + sizex - 25, originalPos.y - 2 });
-			IconImage(active ? ICON_MD_ARROW_DROP_UP : ICON_MD_ARROW_DROP_DOWN, true);
+			IconImage(active ? ICON_FA_CARET_UP : ICON_FA_CARET_DOWN, true);
 
 			EndComboPreview();
 		}

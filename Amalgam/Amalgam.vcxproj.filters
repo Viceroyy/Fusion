@@ -173,8 +173,6 @@
     <ClInclude Include="src\Features\CameraWindow\CameraWindow.h" />
     <ClInclude Include="src\Features\Conditions\Conditions.h" />
     <ClInclude Include="src\Features\Configs\Configs.h" />
-    <ClInclude Include="src\Features\ImGui\MaterialDesign\IconDefinitions.h" />
-    <ClInclude Include="src\Features\ImGui\MaterialDesign\MaterialIcons.h" />
     <ClInclude Include="src\Features\ImGui\Menu\Components.h" />
     <ClInclude Include="src\Features\ImGui\Menu\Menu.h" />
     <ClInclude Include="src\Features\Records\Records.h" />
@@ -424,6 +422,8 @@
     <ClInclude Include="src\Features\Killstreak\Killstreak.h" />
     <ClInclude Include="src\SDK\Definitions\Main\CCaptureFlag.h" />
     <ClInclude Include="src\Utils\EventListener\EventListener.h" />
+    <ClInclude Include="src\Features\ImGui\FontAwesome\FontAwesome.h" />
+    <ClInclude Include="src\Features\ImGui\FontAwesome\IconDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

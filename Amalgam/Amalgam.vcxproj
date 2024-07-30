@@ -401,6 +401,8 @@
     <ClInclude Include="src\Features\CheaterDetection\CheaterDetection.h" />
     <ClInclude Include="src\Features\CritHack\CritHack.h" />
     <ClInclude Include="src\Features\EnginePrediction\EnginePrediction.h" />
+    <ClInclude Include="src\Features\ImGui\FontAwesome\FontAwesome.h" />
+    <ClInclude Include="src\Features\ImGui\FontAwesome\IconDefinitions.h" />
     <ClInclude Include="src\Features\Killstreak\Killstreak.h" />
     <ClInclude Include="src\Features\Misc\Misc.h" />
     <ClInclude Include="src\Features\NetworkFix\NetworkFix.h" />
@@ -494,8 +496,6 @@
     <ClInclude Include="src\Features\Conditions\Conditions.h" />
     <ClInclude Include="src\Features\Configs\Configs.h" />
     <ClInclude Include="src\Features\ImGui\Render.h" />
-    <ClInclude Include="src\Features\ImGui\MaterialDesign\IconDefinitions.h" />
-    <ClInclude Include="src\Features\ImGui\MaterialDesign\MaterialIcons.h" />
     <ClInclude Include="src\Features\ImGui\Menu\Components.h" />
     <ClInclude Include="src\Features\ImGui\Menu\Menu.h" />
     <ClInclude Include="src\Features\Records\Records.h" />

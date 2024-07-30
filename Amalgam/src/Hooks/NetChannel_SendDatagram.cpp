@@ -7,7 +7,7 @@ MAKE_SIGNATURE(NetChannel_SendDatagram, "engine.dll", "40 55 57 41 56 48 8D AC 2
 MAKE_HOOK(NetChannel_SendDatagram, S::NetChannel_SendDatagram(), int, __fastcall,
 	CNetChannel* netChannel, bf_write* datagram)
 {
-	if (!netChannel || datagram)
+	if (!netChannel || datagram || netChannel->GetTimeSinceLastReceived() > TICK_INTERVAL * 2 || netChannel->IsTimingOut())
 		return CALL_ORIGINAL(netChannel, datagram);
 
 	F::Backtrack.bFakeLatency = H::Entities.GetLocal() && Vars::Backtrack::Enabled.Value && Vars::Backtrack::LatencyMode.Value == 1 || Vars::Backtrack::LatencyMode.Value == 2 && Vars::Backtrack::Latency.Value;

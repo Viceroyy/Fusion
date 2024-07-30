@@ -298,8 +298,6 @@ void CChams::DrawModel(CBaseEntity* pEntity, Chams_t chams, IMatRenderContext* p
 	bRendering = false;
 }
 
-
-
 void CChams::RenderMain(CTFPlayer* pLocal)
 {
 	const auto pRenderContext = I::MaterialSystem->GetRenderContext();
@@ -323,6 +321,20 @@ void CChams::RenderMain(CTFPlayer* pLocal)
 				chams.VisibleColor = { 0, 255, 0, 255 };
 				chams.OccludedColor = { 0, 255, 0, 255 };
 				DrawModel(pEntity, chams, pRenderContext);
+			}
+			else if (Vars::Chams::Player::Priority.Value && F::PlayerUtils.GetPriority(pEntity->entindex()) > F::PlayerUtils.mTags["Default"].Priority)
+			{
+				PlayerInfo_t pi{};
+				if (I::EngineClient->GetPlayerInfo(pEntity->entindex(), &pi))
+				{
+					std::string sTag; PriorityLabel_t plTag;
+					if (F::PlayerUtils.GetSignificantTag(pi.friendsID, &sTag, &plTag, 1))
+					{
+						chams.OccludedColor = plTag.Color;
+						chams.VisibleColor = plTag.Color;
+						DrawModel(pEntity, chams, pRenderContext);
+					}
+				}
 			}
 			else
 				DrawModel(pEntity, chams, pRenderContext);

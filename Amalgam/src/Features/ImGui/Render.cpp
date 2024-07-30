@@ -2,8 +2,8 @@
 
 #include "../../Hooks/Direct3DDevice9_EndScene.h"
 #include <ImGui/imgui_impl_win32.h>
-#include "MaterialDesign/MaterialIcons.h"
-#include "MaterialDesign/IconDefinitions.h"
+#include "FontAwesome/FontAwesome.h"
+#include "FontAwesome/IconDefinitions.h"
 #include "Menu/Menu.h"
 #include "../Visuals/Visuals.h"
 
@@ -131,10 +131,10 @@ void CRender::Initialize(IDirect3DDevice9* pDevice)
 
 		ImFontConfig iconConfig;
 		iconConfig.PixelSnapH = true;
-		constexpr ImWchar iconRange[]{ short(ICON_MIN_MD), short(ICON_MAX_MD), 0 };
+		constexpr ImWchar iconRange[]{ short(ICON_MIN_FA), short(ICON_MAX_FA), 0 };
 
-		IconFontRegular = io.Fonts->AddFontFromMemoryCompressedTTF(MaterialIcons_compressed_data, MaterialIcons_compressed_size, 15.f, &iconConfig, iconRange);
-		IconFontLarge = io.Fonts->AddFontFromMemoryCompressedTTF(MaterialIcons_compressed_data, MaterialIcons_compressed_size, 16.f, &iconConfig, iconRange);
+		IconFontRegular = io.Fonts->AddFontFromMemoryCompressedTTF(FontAwesome_compressed_data, FontAwesome_compressed_size, 15.f, &iconConfig, iconRange);
+		IconFontLarge = io.Fonts->AddFontFromMemoryCompressedTTF(FontAwesome_compressed_data, FontAwesome_compressed_size, 16.f, &iconConfig, iconRange);
 
 		io.Fonts->Build();
 	}

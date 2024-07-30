@@ -1,6 +1,30 @@
-<!--
-If applicable, include the following: 
-  Description of the issue
-  Config used
-  Steps to reproduce said issue
--->
+---
+name: Bug Report
+about: Create a report and help us improve AmalgamEdits!
+title: A quick Description of Bug
+labels: bug
+assignees: ''
+---
+<!-- The template provided below is specifically for bug reports, if you intend to ask a question or recommend a feature/improvement, please head to the discussions tab instead. -->
+**AmalgamEdits Build Date:**    <!-- Ex: Jul 30 2024 -->  
+**Windows Version:**    <!-- Ex: Windows 11 Pro 23H2 See: https://learn.microsoft.com/en-us/windows/client-management/client-tools/windows-version-search -->
+
+## Configs used:
+<!-- Upload both your normal and visual configs found in Team Fortress 2/Amalgam and Team Fortress 2/Amalgam/Visuals respectively. You can upload the contents of these files to any text-based hosting server. -->
+
+## Description:
+<!-- Describe what the issue is. -->
+<!-- If possible, also provide a video of the issue occurring. -->
+
+## Steps to reproduce:
+- [ ] With the steps below I can consistently reproduce this issue.
+<!-- If you are unable to consistently reproduce this issue, you must provide all other info in this template or your report will be removed. -->
+
+Steps to reproduce the behavior:  
+<!-- Example only, please delete these steps and enter your own. -->
+1. Enable X
+2. Do Y
+3. Notice Z
+
+## Additional info:
+<!-- Please provide any info relating to this issue that has not been declared previously in your report. -->

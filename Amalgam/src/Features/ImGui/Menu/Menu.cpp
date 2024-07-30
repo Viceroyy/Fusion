@@ -26,7 +26,7 @@ void CMenu::DrawMenu()
 		const auto windowSize = mainWindowSize = GetWindowSize();
 
 		// Main tabs
-		FTabs({ "AIMBOT", "VISUALS", "MISC", "LOGS", "SETTINGS" }, &CurrentTab, TabSize, { 0, SubTabSize.y }, true, { ICON_MD_ADS_CLICK, ICON_MD_VISIBILITY, ICON_MD_PUBLIC, ICON_MD_MENU_BOOK, ICON_MD_SETTINGS });
+		FTabs({ "AIMBOT", "VISUALS", "MISC", "LOGS", "SETTINGS" }, &CurrentTab, TabSize, { 0, SubTabSize.y }, true, { ICON_FA_BULLSEYE, ICON_FA_PERSON_RAYS, ICON_FA_EARTH_AMERICAS, ICON_FA_BOOK, ICON_FA_GEAR });
 
 		// Sub tabs
 		switch (CurrentTab)
@@ -101,7 +101,7 @@ void CMenu::DrawMenu()
 			GetWindowDrawList()->AddText(F::Render.FontRegular, F::Render.FontRegular->FontSize, { windowPos.x + 16.f + preSize.x, windowPos.y + 13.f }, F::Render.Accent, sCondition.c_str());
 
 			SetCursorPos({ textSize.x + 28, 11 });
-			if (IconButton(ICON_MD_CANCEL))
+			if (IconButton(ICON_FA_CIRCLE_XMARK))
 				sCondition = "default";
 
 			End();
@@ -1105,12 +1105,12 @@ void CMenu::MenuSettings()
 						int o = 26;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_DELETE))
+						if (IconButton(ICON_FA_TRASH))
 							OpenPopup(std::format("Confirmation## DeleteConfig{}", configName).c_str());
 						o += 25;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_SAVE))
+						if (IconButton(ICON_FA_FLOPPY_DISK))
 						{
 							if (configName != F::Configs.sCurrentConfig || F::Configs.sCurrentVisuals.length())
 								OpenPopup(std::format("Confirmation## SaveConfig{}", configName).c_str());
@@ -1120,7 +1120,7 @@ void CMenu::MenuSettings()
 						o += 25;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_DOWNLOAD))
+						if (IconButton(ICON_FA_DOWNLOAD))
 							F::Configs.LoadConfig(configName);
 
 						// Dialogs
@@ -1190,12 +1190,12 @@ void CMenu::MenuSettings()
 						int o = 26;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_DELETE))
+						if (IconButton(ICON_FA_TRASH))
 							OpenPopup(std::format("Confirmation## DeleteVisual{}", configName).c_str());
 						o += 25;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_SAVE))
+						if (IconButton(ICON_FA_FLOPPY_DISK))
 						{
 							if (configName != F::Configs.sCurrentVisuals)
 								OpenPopup(std::format("Confirmation## SaveVisual{}", configName).c_str());
@@ -1205,7 +1205,7 @@ void CMenu::MenuSettings()
 						o += 25;
 
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_DOWNLOAD))
+						if (IconButton(ICON_FA_DOWNLOAD))
 							F::Configs.LoadVisual(configName);
 
 						// Dialogs
@@ -1390,12 +1390,12 @@ void CMenu::MenuSettings()
 					if (sName.length() && FNV1A::Hash(sName.c_str()) != FNV1A::HashConst("default") && bParent && (!tCond.Type ? tCond.Key : true))
 					{
 						bMatch = F::Conditions.mConditions.contains(sName);
-						IconImage(bMatch ? ICON_MD_SETTINGS : ICON_MD_ADD);
+						IconImage(bMatch ? ICON_FA_GEAR : ICON_FA_CIRCLE_PLUS);
 					}
 					else
 					{
 						bTransparent = true;
-							IconImage(ICON_MD_ADD);
+							IconImage(ICON_FA_CIRCLE_PLUS);
 						bTransparent = false;
 					}
 
@@ -1407,7 +1407,7 @@ void CMenu::MenuSettings()
 					bClear = Button("##ClearButton", { 40, 40 });
 					PopStyleColor(3);
 					SetCursorPos({ GetWindowSize().x - 35, 76 });
-					IconImage(ICON_MD_CLEAR);
+					IconImage(ICON_FA_CIRCLE_XMARK);
 
 					if (bCreate)
 						F::Conditions.AddCondition(sName, tCond);
@@ -1496,10 +1496,10 @@ void CMenu::MenuSettings()
 
 						// buttons
 						SetCursorPos({ restorePos.x + width - 22, restorePos.y + 5 });
-						bDelete = IconButton(ICON_MD_DELETE);
+						bDelete = IconButton(ICON_FA_TRASH);
 
 						SetCursorPos({ restorePos.x + width - 47, restorePos.y + 5 });
-						bEdit = IconButton(ICON_MD_EDIT);
+						bEdit = IconButton(ICON_FA_PEN);
 
 						SetCursorPos(restorePos);
 						bClicked = Button(std::format("##{}", sCond).c_str(), { width, 28 });
@@ -1577,12 +1577,12 @@ void CMenu::MenuSettings()
 						if (player.Local)
 						{
 							SetCursorPos({ restorePos.x + 7, restorePos.y + 5 });
-							IconImage(ICON_MD_PERSON);
+							IconImage(ICON_FA_USER);
 						}
 						else if (player.Friend)
 						{
 							SetCursorPos({ restorePos.x + 7, restorePos.y + 5 });
-							IconImage(ICON_MD_GROUP);
+							IconImage(ICON_FA_USER_GROUP);
 						}
 						int lOffset = player.Local || player.Friend ? 29 : 10;
 						SetCursorPos({ restorePos.x + lOffset, restorePos.y + 7 });
@@ -1594,14 +1594,14 @@ void CMenu::MenuSettings()
 						{
 							// right
 							SetCursorPos({ restorePos.x + width - 22, restorePos.y + 5 });
-							bAdd = IconButton(ICON_MD_ADD);
+							bAdd = IconButton(ICON_FA_CIRCLE_PLUS);
 							if (Vars::AntiHack::Resolver::Resolver.Value && !player.Local)
 							{
 								SetCursorPos({ restorePos.x + width - 42, restorePos.y + 5 });
-								bYaw = IconButton(ICON_MD_ARROW_FORWARD);
+								bYaw = IconButton(ICON_FA_ARROW_RIGHT_LONG);
 
 								SetCursorPos({ restorePos.x + width - 62, restorePos.y + 5 });
-								bPitch = IconButton(ICON_MD_ARROW_UPWARD);
+								bPitch = IconButton(ICON_FA_ARROW_UP_LONG);
 							}
 
 							// tag bar
@@ -1628,7 +1628,7 @@ void CMenu::MenuSettings()
 									SetCursorPos({ tagPos.x + 5, tagPos.y + 4 });
 									TextUnformatted(sTag.c_str());
 									SetCursorPos({ tagPos.x + tagWidth - 18, tagPos.y + 2 });
-									if (IconButton(ICON_MD_CANCEL))
+									if (IconButton(ICON_FA_CIRCLE_XMARK))
 										F::PlayerUtils.RemoveTag(player.FriendsID, sTag, true, player.Name);
 
 									PopStyleColor();
@@ -1794,12 +1794,12 @@ void CMenu::MenuSettings()
 					if (sName.length())
 					{
 						bool bMatch = F::PlayerUtils.mTags.contains(sName);
-						IconImage(bMatch ? ICON_MD_SETTINGS : ICON_MD_ADD);
+						IconImage(bMatch ? ICON_FA_GEAR : ICON_FA_CIRCLE_PLUS);
 					}
 					else
 					{
 						bTransparent = true;
-							IconImage(ICON_MD_ADD);
+							IconImage(ICON_FA_CIRCLE_PLUS);
 						bTransparent = false;
 					}
 
@@ -1811,7 +1811,7 @@ void CMenu::MenuSettings()
 					bClear = Button("##ClearButton", { 40, 40 });
 					PopStyleColor(3);
 					SetCursorPos({ GetWindowSize().x - 35, 28 });
-					IconImage(ICON_MD_CLEAR);
+					IconImage(ICON_FA_CIRCLE_XMARK);
 
 					if (bCreate)
 					{
@@ -1857,7 +1857,7 @@ void CMenu::MenuSettings()
 					if (!plTag.Locked)
 					{
 						SetCursorPos({ restorePos.x + width - 22, restorePos.y + 5 });
-						bDelete = IconButton(ICON_MD_DELETE);
+						bDelete = IconButton(ICON_FA_TRASH);
 					}
 
 					SetCursorPos(restorePos);
@@ -1986,7 +1986,7 @@ void CMenu::MenuSettings()
 					if (!pair.second.bLocked)
 					{
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
-						if (IconButton(ICON_MD_DELETE))
+						if (IconButton(ICON_FA_TRASH))
 							OpenPopup(std::format("Confirmation## DeleteMat{}", pair.first).c_str());
 						if (BeginPopupModal(std::format("Confirmation## DeleteMat{}", pair.first).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
 						{
@@ -2006,7 +2006,7 @@ void CMenu::MenuSettings()
 					}
 
 					SetCursorPos({ GetWindowSize().x - o, current + 9 });
-					if (IconButton(ICON_MD_EDIT))
+					if (IconButton(ICON_FA_PEN))
 					{
 						CurrentMaterial = pair.first;
 						LockedMaterial = pair.second.bLocked;
