@@ -1127,7 +1127,7 @@ void CMenu::MenuSettings()
 						// Dialogs
 						{
 							// Save config dialog
-							if (BeginPopupModal(std::format("Confirmation## SaveConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiChildFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## SaveConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to override '{}'?", configName).c_str());
 
@@ -1143,7 +1143,7 @@ void CMenu::MenuSettings()
 							}
 
 							// Delete config dialog
-							if (BeginPopupModal(std::format("Confirmation## DeleteConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiChildFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## DeleteConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to delete '{}'?", configName).c_str());
 
@@ -1212,7 +1212,7 @@ void CMenu::MenuSettings()
 						// Dialogs
 						{
 							// Save config dialog
-							if (BeginPopupModal(std::format("Confirmation## SaveVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiChildFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## SaveVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to override '{}'?", configName).c_str());
 
@@ -1228,7 +1228,7 @@ void CMenu::MenuSettings()
 							}
 
 							// Delete config dialog
-							if (BeginPopupModal(std::format("Confirmation## DeleteVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiChildFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## DeleteVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to delete '{}'?", configName).c_str());
 
