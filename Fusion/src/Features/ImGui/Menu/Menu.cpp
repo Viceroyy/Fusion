@@ -957,7 +957,7 @@ void CMenu::MenuMisc()
 		} EndSection();
 		if (Section("Sound"))
 		{
-			FDropdown("Block", Vars::Misc::Sound::Block, { "Footsteps", "Noisemaker" }, {}, FDropdown_Multi);
+			FDropdown("Block", Vars::Misc::Sound::Block, { "Footsteps", "Noisemaker", "Frying Pan" }, {}, FDropdown_Multi);
 			FToggle("Giant weapon sounds", Vars::Misc::Sound::GiantWeaponSounds);
 			FToggle("Hitsound always", Vars::Misc::Sound::HitsoundAlways, FToggle_Middle);
 		} EndSection();
