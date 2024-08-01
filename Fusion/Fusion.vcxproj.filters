@@ -161,8 +161,8 @@
     <ClCompile Include="src\Hooks\ViewRender_LevelInit.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelShutdown.cpp" />
     <ClCompile Include="src\Features\Killstreak\Killstreak.cpp" />
-    <ClCompile Include="src\Hooks\CGameEventManager_FireEventClientSide.cpp" />
     <ClCompile Include="src\Utils\EventListener\EventListener.cpp" />
+    <ClCompile Include="src\Hooks\CTFWearable_ShouldDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\UtlVector\UtlVector.h" />

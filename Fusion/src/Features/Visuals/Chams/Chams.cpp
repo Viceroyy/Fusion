@@ -330,8 +330,9 @@ void CChams::RenderMain(CTFPlayer* pLocal)
 					std::string sTag; PriorityLabel_t plTag;
 					if (F::PlayerUtils.GetSignificantTag(pi.friendsID, &sTag, &plTag, 1))
 					{
-						chams.OccludedColor = plTag.Color;
-						chams.VisibleColor = plTag.Color;
+						byte OcclAlpha = chams.OccludedColor.a; byte VisAlpha = chams.VisibleColor.a;
+						chams.OccludedColor = { plTag.Color.r, plTag.Color.g, plTag.Color.b, OcclAlpha };
+						chams.VisibleColor = { plTag.Color.r, plTag.Color.g, plTag.Color.b, VisAlpha };
 						DrawModel(pEntity, chams, pRenderContext);
 					}
 				}

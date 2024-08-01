@@ -282,7 +282,7 @@ namespace ImGui
 		if (!forceHeight && lastHeights.contains(title) && lastHeights[title] > minHeight)
 			minHeight = lastHeights[title];
 		PushStyleVar(ImGuiStyleVar_CellPadding, { 0, 0 });
-		const bool active = BeginChild(title, { GetColumnWidth(), minHeight + 8 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_AlwaysUseWindowPadding);
+		const bool active = BeginChild(title, { GetColumnWidth(), minHeight + 8 }, ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 
 		PushStyleVar(ImGuiStyleVar_ItemSpacing, { 8, 0 });
 		if (title[0] != '#')
@@ -384,7 +384,7 @@ namespace ImGui
 	}
 	__inline bool FSelectable(const char* label, ImVec4 color = { 0.2f, 0.6f, 0.85f, 1.f }, bool selected = false, int flags = 0, const ImVec2& size_arg = {})
 	{
-		PushStyleVar(ImGuiStyleVar_SelectableRounding, 3.f);
+		PushStyleVar(ImGuiStyleVar_FrameRounding, 3.f);
 		PushStyleColor(ImGuiCol_HeaderHovered, color);
 		color.x *= 1.1f; color.y *= 1.1f; color.z *= 1.1f;
 		PushStyleColor(ImGuiCol_HeaderActive, color);
@@ -826,7 +826,7 @@ namespace ImGui
 				{
 					bool flagActive = *var & values[i];
 
-					if (Selectable(std::format("##{}", titles[i]).c_str(), flagActive, ImGuiSelectableFlags_DontClosePopups))
+					if (Selectable(std::format("##{}", titles[i]).c_str(), flagActive, ImGuiSelectableFlags_NoAutoClosePopups))
 					{
 						if (flagActive)
 							*var &= ~values[i];
@@ -1131,7 +1131,7 @@ namespace ImGui
 				auto find = iterators.find(titles[i]);
 				bool flagActive = find != iterators.end();
 
-				if (Selectable(std::format("##{}", titles[i]).c_str(), flagActive, ImGuiSelectableFlags_DontClosePopups))
+				if (Selectable(std::format("##{}", titles[i]).c_str(), flagActive, ImGuiSelectableFlags_NoAutoClosePopups))
 				{
 					if (flagActive)
 						var->erase(find->second);
@@ -1237,9 +1237,9 @@ namespace ImGui
 			if (flags & FColorPicker_Left)
 				pos = 14 + (offset * 12);
 			else if (flags & FColorPicker_Middle)
-				pos = GetContentRegionMax().x / 2 + 5 - (offset * 12);
+				pos = (GetContentRegionAvail() + GetCursorScreenPos() - GetWindowPos()).x / 2 + 5 - (offset * 12);
 			else
-				pos = GetContentRegionMax().x - 20 - (offset * 12);
+				pos = (GetContentRegionAvail() + GetCursorScreenPos() - GetWindowPos()).x - 20 - (offset * 12);
 			if (flags & FColorPicker_SameLine)
 				SameLine(pos);
 			else
