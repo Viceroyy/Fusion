@@ -95,9 +95,6 @@ bool CTickshiftHandler::ValidWeapon(CTFWeaponBase* pWeapon)
 	case TF_WEAPON_JAR_GAS:
 	case TF_WEAPON_LASER_POINTER:
 	case TF_WEAPON_MEDIGUN:
-	case TF_WEAPON_SNIPERRIFLE:
-	case TF_WEAPON_SNIPERRIFLE_DECAP:
-	case TF_WEAPON_SNIPERRIFLE_CLASSIC:
 	case TF_WEAPON_COMPOUND_BOW:
 	case TF_WEAPON_JAR:
 		return false;
