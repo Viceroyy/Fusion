@@ -18,7 +18,7 @@ bool CAimbotHitscan::PlayerBoneInFOV(CTFPlayer* pTarget, Vec3 vLocalPos, Vec3 vL
 		Vec3 vCurAngleTo = Math::CalcAngle(vLocalPos, vCurPos);
 		float flCurFOVTo = Math::CalcFov(vLocalAngles, vCurAngleTo);
 
-		if (flCurFOVTo < flMinFOV && flCurFOVTo < Vars::Aimbot::General::AimFOV.Value)
+		if (flCurFOVTo < Vars::Aimbot::General::AimFOV.Value)
 		{
 			bReturn = true;
 			vPos = vCurPos;
