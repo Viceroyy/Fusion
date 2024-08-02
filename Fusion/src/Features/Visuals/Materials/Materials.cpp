@@ -24,6 +24,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT += "\n{";
 		mat.sVMT += "\n	$color2 \"[0 0 0]\"";
 		mat.sVMT += "\n	$additive \"1\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -35,6 +36,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT = "\"UnlitGeneric\"";
 		mat.sVMT += "\n{";
 		mat.sVMT += "\n	$basetexture \"vgui/white_additive\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -46,6 +48,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT = "\"VertexLitGeneric\"";
 		mat.sVMT += "\n{";
 		mat.sVMT += "\n	$basetexture \"vgui/white_additive\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -58,6 +61,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT += "\n{";
 		mat.sVMT += "\n	$basetexture \"vgui/white_additive\"";
 		mat.sVMT += "\n	$wireframe \"1\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -76,6 +80,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT += "\n	$phongfresnelranges \"[0 0.5 1]\"";
 		mat.sVMT += "\n	$envmap \"skybox/sky_dustbowl_01\"";
 		mat.sVMT += "\n	$envmapfresnel \"1\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -89,6 +94,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT += "\n	$additive \"1\"";
 		mat.sVMT += "\n	$envmap \"cubemaps/cubemap_sheen002.hdr\"";
 		mat.sVMT += "\n	$envmaptint \"[1 1 1]\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;
@@ -108,6 +114,7 @@ void CMaterials::LoadMaterials()
 		mat.sVMT += "\n	$envmapfresnel \"1\"";
 		mat.sVMT += "\n	$selfillum \"1\"";
 		mat.sVMT += "\n	$selfillumtint \"[0 0 0]\"";
+		mat.sVMT += "\n	$model \"1\"";
 		mat.sVMT += "\n}";
 
 		mat.bLocked = true;

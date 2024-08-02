@@ -8,6 +8,9 @@ bool CAutoDetonate::CheckDetonation(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, E
 		if (pExplosive->m_iType() == TF_GL_MODE_REMOTE_DETONATE_PRACTICE || !pExplosive->m_bPulsed())
 			continue;
 
+		if (I::GlobalVars->curtime < pExplosive->m_flCreationTime() + SDK::AttribHookValue(0.8f, "sticky_arm_time", pLocal, 0x0, true))
+			continue;
+
 		const Vec3 vOrigin = pExplosive->GetCenter();
 		if (entityGroup == EGroupType::MISC_LOCAL_STICKIES)
 		{
