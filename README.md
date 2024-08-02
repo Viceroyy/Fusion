@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionRelease.zip">
+  <a href="https://nightly.link/Gergish001/Fusion/workflows/msbuild/main/FusionRelease.zip">
     <img src=".github/assets/download.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
-  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionReleaseAVX2.zip">
+  <a href="https://nightly.link/Gergish001/Fusion/workflows/msbuild/main/FusionReleaseAVX2.zip">
     <img src=".github/assets/download_avx2.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
 </p>
