@@ -285,7 +285,6 @@
     <ClCompile Include="src\Hooks\CBaseHudChat_ChatPrintf.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_CalcViewModelView.cpp" />
     <ClCompile Include="src\Hooks\CEconItemSchema_GetItemDefinition.cpp" />
-    <ClCompile Include="src\Hooks\CGameEventManager_FireEventClientSide.cpp" />
     <ClCompile Include="src\Hooks\CGameEventManager_FireEventIntern.cpp" />
     <ClCompile Include="src\Hooks\CHudCrosshair_GetDrawPosition.cpp" />
     <ClCompile Include="src\Hooks\CInterpolatedVarArrayBase_Interpolate.cpp" />
@@ -309,7 +308,6 @@
     <ClCompile Include="src\Hooks\CRendering3dView_EnableWorldFog.cpp" />
     <ClCompile Include="src\Hooks\CSequenceTransitioner_CheckForSequenceChange.cpp" />
     <ClCompile Include="src\Hooks\CSkyboxView_Enable3dSkyboxFog.cpp" />
-    <ClCompile Include="src\Hooks\CSoundEmitterSystem_EmitSound.cpp" />
     <ClCompile Include="src\Hooks\CStaticPropMgr_ComputePropOpacity.cpp" />
     <ClCompile Include="src\Hooks\CStaticPropMgr_DrawStaticProps.cpp" />
     <ClCompile Include="src\Hooks\CStudioRender_DrawModelStaticProp.cpp" />
@@ -324,6 +322,7 @@
     <ClCompile Include="src\Hooks\CTFRagdoll_CreateTFRagdoll.cpp" />
     <ClCompile Include="src\Hooks\CTFWeaponBase_CalcIsAttackCritical.cpp" />
     <ClCompile Include="src\Hooks\CTFWeaponBase_GetShootSound.cpp" />
+    <ClCompile Include="src\Hooks\CTFWearable_ShouldDraw.cpp" />
     <ClCompile Include="src\Hooks\CViewRender_DrawUnderwaterOverlay.cpp" />
     <ClCompile Include="src\Hooks\Direct3DDevice9_EndScene.cpp" />
     <ClCompile Include="src\Hooks\DoEnginePostProcessing.cpp" />
@@ -341,6 +340,7 @@
     <ClCompile Include="src\Hooks\StudioRender_SetAlphaModulation.cpp" />
     <ClCompile Include="src\Hooks\StudioRender_SetColorModulation.cpp" />
     <ClCompile Include="src\Hooks\S_StartDynamicSound.cpp" />
+    <ClCompile Include="src\Hooks\S_StartSound.cpp" />
     <ClCompile Include="src\Hooks\VGuiMenuBuilder_AddMenuItem.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelInit.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelShutdown.cpp" />
@@ -636,12 +636,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\boost.1.84.0\build\boost.targets" Condition="Exists('..\packages\boost.1.84.0\build\boost.targets')" />
+    <Import Project="..\packages\boost.1.85.0\build\boost.targets" Condition="Exists('..\packages\boost.1.85.0\build\boost.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\boost.1.84.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.84.0\build\boost.targets'))" />
+    <Error Condition="!Exists('..\packages\boost.1.85.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.85.0\build\boost.targets'))" />
   </Target>
 </Project>

@@ -136,7 +136,6 @@
     <ClCompile Include="src\Hooks\CNetChan_SendNetMsg.cpp" />
     <ClCompile Include="src\Hooks\CPlayerResource_GetTeamColor.cpp" />
     <ClCompile Include="src\Hooks\CSequenceTransitioner_CheckForSequenceChange.cpp" />
-    <ClCompile Include="src\Hooks\CSoundEmitterSystem_EmitSound.cpp" />
     <ClCompile Include="src\Hooks\CStudioRender_DrawModelStaticProp.cpp" />
     <ClCompile Include="src\Hooks\CTFPartyClient_BCanRequestToJoinPlayer.cpp" />
     <ClCompile Include="src\Hooks\CTFPlayer_AvoidPlayers.cpp" />
@@ -161,8 +160,9 @@
     <ClCompile Include="src\Hooks\ViewRender_LevelInit.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelShutdown.cpp" />
     <ClCompile Include="src\Features\Killstreak\Killstreak.cpp" />
-    <ClCompile Include="src\Hooks\CGameEventManager_FireEventClientSide.cpp" />
     <ClCompile Include="src\Utils\EventListener\EventListener.cpp" />
+    <ClCompile Include="src\Hooks\CTFWearable_ShouldDraw.cpp" />
+    <ClCompile Include="src\Hooks\S_StartSound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\UtlVector\UtlVector.h" />

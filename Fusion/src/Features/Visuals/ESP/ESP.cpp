@@ -415,8 +415,11 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 						if (pPlayer->InCond(TF_COND_MARKEDFORDEATH) || pPlayer->InCond(TF_COND_MARKEDFORDEATH_SILENT))
 							drawCond("MARKED", { 254, 202, 87, 255 });
 
-						if (pPlayer->InCond(TF_COND_BURNING))
+						if (pPlayer->InCond(TF_COND_BURNING) || pPlayer->InCond(TF_COND_BURNING_PYRO))
 							drawCond("BURN", { 254, 202, 87, 255 });
+
+						if (pPlayer->InCond(TF_COND_BLEEDING) || pPlayer->InCond(TF_COND_PLAGUE))
+							drawCond("BLEED", { 254, 202, 87, 255 });
 
 						if (pPlayer->InCond(TF_COND_MAD_MILK))
 							drawCond("MILK", { 254, 202, 87, 255 });

@@ -42,7 +42,7 @@ void CMenu::DrawMenu()
 		SetCursorPos({ TabSize.x, SubTabSize.y });
 		PushStyleVar(ImGuiStyleVar_WindowPadding, { 8.f, 8.f });
 		PushStyleColor(ImGuiCol_ChildBg, {});
-		if (BeginChild("Content", { windowSize.x - TabSize.x, windowSize.y - SubTabSize.y }, false, ImGuiWindowFlags_AlwaysUseWindowPadding))
+		if (BeginChild("Content", { windowSize.x - TabSize.x, windowSize.y - SubTabSize.y }, ImGuiChildFlags_AlwaysUseWindowPadding))
 		{
 			PushStyleColor(ImGuiCol_ChildBg, F::Render.Foreground.Value);
 			PushStyleVar(ImGuiStyleVar_ChildRounding, 3.f);
@@ -957,7 +957,7 @@ void CMenu::MenuMisc()
 		} EndSection();
 		if (Section("Sound"))
 		{
-			FDropdown("Block", Vars::Misc::Sound::Block, { "Footsteps", "Noisemaker" }, {}, FDropdown_Multi);
+			FDropdown("Block", Vars::Misc::Sound::Block, { "Footsteps", "Noisemaker", "Frying Pan" }, {}, FDropdown_Multi);
 			FToggle("Giant weapon sounds", Vars::Misc::Sound::GiantWeaponSounds);
 			FToggle("Hitsound always", Vars::Misc::Sound::HitsoundAlways, FToggle_Middle);
 		} EndSection();
@@ -981,6 +981,7 @@ void CMenu::MenuMisc()
 		if (Section("Chat"))
 		{
 			FToggle("Chat tags", Vars::Misc::Chat::Tags);
+			FToggle("OwOify", Vars::Misc::Chat::OwOify, FToggle_Middle);
 		} EndSection();
 		if (Section("Steam RPC"))
 		{
@@ -1012,19 +1013,19 @@ void CMenu::MenuLogs()
 		if (Section("Vote Start"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 0);
-				FDropdown("Log to", Vars::Logging::VoteStart::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::VoteStart::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 		if (Section("Vote Cast"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 1);
-				FDropdown("Log to", Vars::Logging::VoteCast::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::VoteCast::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 		if (Section("Class Change"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 2);
-				FDropdown("Log to", Vars::Logging::ClassChange::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::ClassChange::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 
@@ -1033,19 +1034,19 @@ void CMenu::MenuLogs()
 		if (Section("Damage"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 3);
-				FDropdown("Log to", Vars::Logging::Damage::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::Damage::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 		if (Section("Cheat Detection"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 4);
-				FDropdown("Log to", Vars::Logging::CheatDetection::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::CheatDetection::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 		if (Section("Tags"))
 		{
 			bTransparent = !(FGet(Vars::Logging::Logs) & 1 << 5);
-				FDropdown("Log to", Vars::Logging::Tags::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
+			FDropdown("Log to", Vars::Logging::Tags::LogTo, { "Toasts", "Chat", "Party", "Console" }, { 1 << 0, 1 << 1, 1 << 2, 1 << 3 }, FDropdown_Multi);
 			bTransparent = false;
 		} EndSection();
 
@@ -1126,7 +1127,7 @@ void CMenu::MenuSettings()
 						// Dialogs
 						{
 							// Save config dialog
-							if (BeginPopupModal(std::format("Confirmation## SaveConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## SaveConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to override '{}'?", configName).c_str());
 
@@ -1142,7 +1143,7 @@ void CMenu::MenuSettings()
 							}
 
 							// Delete config dialog
-							if (BeginPopupModal(std::format("Confirmation## DeleteConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## DeleteConfig{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to delete '{}'?", configName).c_str());
 
@@ -1211,7 +1212,7 @@ void CMenu::MenuSettings()
 						// Dialogs
 						{
 							// Save config dialog
-							if (BeginPopupModal(std::format("Confirmation## SaveVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## SaveVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to override '{}'?", configName).c_str());
 
@@ -1227,7 +1228,7 @@ void CMenu::MenuSettings()
 							}
 
 							// Delete config dialog
-							if (BeginPopupModal(std::format("Confirmation## DeleteVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+							if (BeginPopupModal(std::format("Confirmation## DeleteVisual{}", configName).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 							{
 								Text(std::format("Do you really want to delete '{}'?", configName).c_str());
 
@@ -1341,7 +1342,7 @@ void CMenu::MenuSettings()
 			{
 				/* Column 1 */
 				TableNextColumn(); SetCursorPos({ GetCursorPos().x - 8, GetCursorPos().y - 8 });
-				if (BeginChild("ConditionsTableTable1", { GetColumnWidth() + 4, 104 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoBackground))
+				if (BeginChild("ConditionsTableTable1", { GetColumnWidth() + 4, 104 }, ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
 				{
 					FSDropdown("Name", &sName, {}, FSDropdown_AutoUpdate | FDropdown_Left);
 					FSDropdown("Parent", &tCond.Parent, {}, FSDropdown_AutoUpdate | FDropdown_Right);
@@ -1356,7 +1357,7 @@ void CMenu::MenuSettings()
 
 				/* Column 2 */
 				TableNextColumn(); SetCursorPos({ GetCursorPos().x - 4, GetCursorPos().y - 8 });
-				if (BeginChild("ConditionsTableTable2", { GetColumnWidth() + 8, 104 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoBackground))
+				if (BeginChild("ConditionsTableTable2", { GetColumnWidth() + 8, 104 }, ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
 				{
 					SetCursorPos({ 8, 24 });
 					FToggle("Visible", &tCond.Visible);
@@ -1511,7 +1512,7 @@ void CMenu::MenuSettings()
 						}
 						if (bDelete)
 							OpenPopup(std::format("Confirmation## DeleteCond{}", sCond).c_str());
-						if (BeginPopupModal(std::format("Confirmation## DeleteCond{}", sCond).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+						if (BeginPopupModal(std::format("Confirmation## DeleteCond{}", sCond).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 						{
 							const bool bChildren = F::Conditions.HasChildren(sCond);
 							Text(std::format("Do you really want to delete '{}'{}?", sCond, bChildren ? " and all of its children" : "").c_str());
@@ -1606,7 +1607,7 @@ void CMenu::MenuSettings()
 
 							// tag bar
 							SetCursorPos({ restorePos.x + lOffset, restorePos.y });
-							if (BeginChild(std::format("TagBar{}", player.FriendsID).c_str(), { width - lOffset - (Vars::AntiHack::Resolver::Resolver.Value ? 68 : 28), 28 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
+							if (BeginChild(std::format("TagBar{}", player.FriendsID).c_str(), { width - lOffset - (Vars::AntiHack::Resolver::Resolver.Value ? 68 : 28), 28 }, ImGuiChildFlags_None, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
 							{
 								PushFont(F::Render.FontSmall);
 
@@ -1749,7 +1750,7 @@ void CMenu::MenuSettings()
 			{
 				/* Column 1 */
 				TableNextColumn(); SetCursorPos({ GetCursorPos().x - 8, GetCursorPos().y - 8 });
-				if (BeginChild("TagTable1", { GetColumnWidth() + 4, 56 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoBackground))
+				if (BeginChild("TagTable1", { GetColumnWidth() + 4, 56 }, ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
 				{
 					FSDropdown("Name", &sName, {}, FSDropdown_AutoUpdate | FDropdown_Left, 1);
 					FColorPicker("Color", &tTag.Color, 0, FColorPicker_Dropdown);
@@ -1766,7 +1767,7 @@ void CMenu::MenuSettings()
 
 				/* Column 2 */
 				TableNextColumn(); SetCursorPos({ GetCursorPos().x - 4, GetCursorPos().y - 8 });
-				if (BeginChild("TagTable2", { GetColumnWidth() + 8, 56 }, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_AlwaysUseWindowPadding | ImGuiWindowFlags_NoBackground))
+				if (BeginChild("TagTable2", { GetColumnWidth() + 8, 56 }, ImGuiChildFlags_AlwaysUseWindowPadding, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoBackground))
 				{
 					bTransparent = tTag.Label; // transparent if we want a label, user can still use to sort
 						SetCursorPosY(GetCursorPos().y + 12);
@@ -1988,7 +1989,7 @@ void CMenu::MenuSettings()
 						SetCursorPos({ GetWindowSize().x - o, current + 9 });
 						if (IconButton(ICON_FA_TRASH))
 							OpenPopup(std::format("Confirmation## DeleteMat{}", pair.first).c_str());
-						if (BeginPopupModal(std::format("Confirmation## DeleteMat{}", pair.first).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_AlwaysUseWindowPadding))
+						if (BeginPopupModal(std::format("Confirmation## DeleteMat{}", pair.first).c_str(), nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 						{
 							Text(std::format("Do you really want to delete '{}'?", pair.first).c_str());
 

@@ -647,6 +647,7 @@ namespace Vars
 
 		SUBNAMESPACE_BEGIN(Chat)
 			CVar(Tags, false)
+			CVar(OwOify, false)
 		SUBNAMESPACE_END(Chat)
 
 		SUBNAMESPACE_BEGIN(Steam)
