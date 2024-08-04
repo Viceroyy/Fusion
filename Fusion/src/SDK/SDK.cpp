@@ -16,7 +16,7 @@ BOOL CALLBACK TeamFortressWindow(HWND hwnd, LPARAM lParam)
 
 Color_t SDK::WarningColor()
 {
-	return I::GlobalVars->tickcount % 63 < 32 ? Color_t(220, 20, 60, 255) : Color_t(255, 255, 51, 255);
+	return I::GlobalVars->tickcount % 63 < 32 ? Color_t(250, 170, 10, 255) : Color_t(252, 92, 101, 255);
 }
 
 void SDK::Output(const char* cFunction, const char* cLog, Color_t cColor, bool bConsole, bool bChat, bool bDebug)
