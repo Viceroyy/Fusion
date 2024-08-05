@@ -31,7 +31,7 @@ std::string owoify(std::string text)
 
 	if (text.size() < 124)
 	{
-		int suffix{ I::UniformRandomStream->RandomInt(0, suffixes.size() - 1) };
+		int suffix{ I::UniformRandomStream->RandomInt(0, static_cast<int>(suffixes.size() - 1)) };
 
 		text += suffixes[suffix];
 	}

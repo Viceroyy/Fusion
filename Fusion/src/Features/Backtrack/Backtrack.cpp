@@ -35,8 +35,7 @@ float CBacktrack::GetFake()
 		else if (Vars::Backtrack::LatencyMode.Value == 2)
 			return std::clamp(static_cast<float>(Vars::Backtrack::Latency.Value), 0.f, flMaxUnlag * 1000.f) / 1000.f;
 	}
-	else
-		return 0.0f;
+	return 0.0f;
 }
 
 // Returns the current real latency
