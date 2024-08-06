@@ -113,6 +113,9 @@ void CCore::Load()
 	F::EventListener.Setup({ "item_pickup" });
 
 	F::Configs.LoadConfig(F::Configs.sCurrentConfig, false);
+
+	Sleep(150);
+
 	H::Fonts.Reload();
 	F::Menu.ConfigLoaded = true;
 
