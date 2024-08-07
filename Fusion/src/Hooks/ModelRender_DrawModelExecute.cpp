@@ -26,6 +26,9 @@ MAKE_HOOK(ModelRender_DrawModelExecute, U::Memory.GetVFunc(I::ModelRender, 19), 
 	if (Vars::Visuals::Removals::Cosmetics.Value && pEntity && pEntity->GetClassID() == ETFClassID::CTFWearable)
 		return;
 
+	if (Vars::Visuals::Other::ThePS2Inator.Value)
+		*const_cast<int*>(&pState.m_lod) = 7;
+
 	if (F::Chams.bRendering)
 		return F::Chams.RenderHandler(pState, pInfo, pBoneToWorld);
 	if (F::Glow.bRendering)
@@ -41,9 +44,6 @@ MAKE_HOOK(ModelRender_DrawModelExecute, U::Memory.GetVFunc(I::ModelRender, 19), 
 			return;
 	}
 
-	if (Vars::Visuals::Other::ThePS2Inator.Value)
-		*const_cast<int*>(&pState.m_lod) = 7;
-
 	CALL_ORIGINAL(ecx, pState, pInfo, pBoneToWorld);
 }
 
@@ -53,7 +53,7 @@ MAKE_HOOK(CBaseAnimating_DrawModel, S::CBaseAnimating_DrawModel(), int, __fastca
 	static const auto dwDrawModel = S::ViewmodelAttachment_DrawModel();
 	const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
 
-	if (Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot() || G::Unload)
+	if (I::EngineVGui->IsGameUIVisible() || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot() || G::Unload)
 		return CALL_ORIGINAL(ecx, flags);
 
 	if (dwRetAddr == dwDrawModel && flags & STUDIO_RENDER)
