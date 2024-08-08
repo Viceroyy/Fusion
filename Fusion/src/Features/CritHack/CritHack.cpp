@@ -1,7 +1,5 @@
 #include "CritHack.h"
 
-#include "../Aimbot/AutoRocketJump/AutoRocketJump.h"
-
 #define WEAPON_RANDOM_RANGE				10000
 #define TF_DAMAGE_CRIT_MULTIPLIER		3.0f
 #define TF_DAMAGE_CRIT_CHANCE			0.02f
@@ -278,6 +276,8 @@ void CCritHack::Reset()
 
 void CCritHack::Run(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pCmd)
 {
+	bRunning = false;
+
 	if (!pLocal || !pWeapon || !pLocal->IsAlive() || !I::EngineClient->IsInGame())
 		return;
 
@@ -342,7 +342,10 @@ void CCritHack::Run(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pCmd)
 		const bool bCanCrit = Storage[pWeapon->m_iSlot()].AvailableCrits > 0 && (!CritBanned || pWeapon->m_iSlot() == SLOT_MELEE) && !bStreamWait;
 		const bool bPressed = Vars::CritHack::ForceCrits.Value || pWeapon->m_iSlot() == SLOT_MELEE && Vars::CritHack::AlwaysMelee.Value;
 		if (bCanCrit && bPressed && closestCrit)
+		{
 			pCmd->command_number = closestCrit;
+			bRunning = true;
+		}
 		else if (Vars::CritHack::AvoidRandom.Value && closestSkip)
 			pCmd->command_number = closestSkip;
 
