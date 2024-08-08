@@ -625,6 +625,7 @@ void CMenu::MenuVisuals()
 				FToggle("Clean screenshots", Vars::Visuals::UI::CleanScreenshots, FToggle_Middle);
 				FToggle("Sniper sightlines", Vars::Visuals::UI::SniperSightlines);
 				FToggle("Pickup timers", Vars::Visuals::UI::PickupTimers, FToggle_Middle);
+				FToggle("Streamer mode (WIP)", Vars::Visuals::UI::StreamerMode);
 			} EndSection();
 			if (Section("Viewmodel"))
 			{
@@ -666,6 +667,13 @@ void CMenu::MenuVisuals()
 			{
 				FToggle("MEDIC: Show injured teammates", Vars::Visuals::Other::ShowInjuredTeammatesWhenMedic);
 				FToggle("Low graphics", Vars::Visuals::Other::ThePS2Inator);
+			} EndSection();
+			if (Section("Particles"))
+			{
+				FDropdown("Medigun beam", Vars::Visuals::Particle::MedigunBeamEffect, { "Off", "Dispenser heal", "PASS Time", "Bombonomicon spell", "White", "Uber" }, {}, FDropdown_Left);
+				FDropdown("Medigun charge", Vars::Visuals::Particle::MedigunChargeEffect, { "Off", "Fireball spell", "Spellbound", "Electrocuted", "Cloud 9", "Electrostatic", "Knifestorm", "Frostbite", "Haunted Phantasm Jr.", "Time Warp", "Stormy 13th Hour", "Terror-Watt", "Sunbeams", "Sunbeams new", "Disco beams", "Pumpkin" }, {}, FDropdown_Right);
+				FDropdown("Rocket trail", Vars::Visuals::Particle::RocketTrailEffect, { "Off", "Crit", "Bubbles", "Halloween", "Airstrike", "Monoculus", "Cow Mangler", "Cow Mangler charged" }, {}, FDropdown_Left);
+				FToggle("Rainbow footsteps", Vars::Visuals::Particle::RainbowFootstepEffect);
 			} EndSection();
 			if (Section("Bullet"))
 			{
@@ -738,7 +746,7 @@ void CMenu::MenuVisuals()
 			} EndSection();
 			if (Section("World"))
 			{
-				FSDropdown("World texture", Vars::Visuals::World::WorldTexture, { "Default", "Dev", "Camo", "Black", "White", "Flat" }, FSDropdown_Custom);
+				FSDropdown("World texture", Vars::Visuals::World::WorldTexture, { "Default", "Dev", "Camo", "Black", "White" }, FSDropdown_Custom);
 				FDropdown("Modulations", Vars::Visuals::World::Modulations, { "World", "Sky", "Prop", "Particle", "Fog" }, {}, FDropdown_Left | FDropdown_Multi);
 				static std::vector skyNames = {
 					"Off", "sky_tf2_04", "sky_upward", "sky_dustbowl_01", "sky_goldrush_01", "sky_granary_01", "sky_well_01", "sky_gravel_01", "sky_badlands_01",

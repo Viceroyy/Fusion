@@ -272,6 +272,7 @@
     <ClCompile Include="src\Hooks\BaseClientDLL_FrameStageNotify.cpp" />
     <ClCompile Include="src\Hooks\BaseClientDLL_Shutdown.cpp" />
     <ClCompile Include="src\Hooks\CAchievementMgr_CheckAchievementsEnabled.cpp" />
+    <ClCompile Include="src\Hooks\CAttributeManager_AttribHookValue.cpp" />
     <ClCompile Include="src\Hooks\CBaseAnimating_FrameAdvance.cpp" />
     <ClCompile Include="src\Hooks\CBaseAnimating_Interpolate.cpp" />
     <ClCompile Include="src\Hooks\CBaseAnimating_MaintainSequenceTransitions.cpp" />
@@ -284,6 +285,8 @@
     <ClCompile Include="src\Hooks\CBaseEntity_SetAbsVelocity.cpp" />
     <ClCompile Include="src\Hooks\CBaseHudChat_ChatPrintf.cpp" />
     <ClCompile Include="src\Hooks\CBasePlayer_CalcViewModelView.cpp" />
+    <ClCompile Include="src\Hooks\CClientScoreBoardDialog_UpdatePlayerAvatar.cpp" />
+    <ClCompile Include="src\Hooks\CCvar_ConsoleColorPrintf.cpp" />
     <ClCompile Include="src\Hooks\CEconItemSchema_GetItemDefinition.cpp" />
     <ClCompile Include="src\Hooks\CGameEventManager_FireEventIntern.cpp" />
     <ClCompile Include="src\Hooks\CHudCrosshair_GetDrawPosition.cpp" />
@@ -303,6 +306,7 @@
     <ClCompile Include="src\Hooks\CMaterial_Uncache.cpp" />
     <ClCompile Include="src\Hooks\CNetChan_SendNetMsg.cpp" />
     <ClCompile Include="src\Hooks\COPRenderSprites_RenderSpriteCard.cpp" />
+    <ClCompile Include="src\Hooks\CParticleProperty_Create.cpp" />
     <ClCompile Include="src\Hooks\CPlayerResource_GetTeamColor.cpp" />
     <ClCompile Include="src\Hooks\CPrediction_RunCommand.cpp" />
     <ClCompile Include="src\Hooks\CRendering3dView_EnableWorldFog.cpp" />
@@ -324,6 +328,7 @@
     <ClCompile Include="src\Hooks\CTFWeaponBase_GetShootSound.cpp" />
     <ClCompile Include="src\Hooks\CTFWearable_ShouldDraw.cpp" />
     <ClCompile Include="src\Hooks\CViewRender_DrawUnderwaterOverlay.cpp" />
+    <ClCompile Include="src\Hooks\C_PlayerResource_GetPlayerName.cpp" />
     <ClCompile Include="src\Hooks\Direct3DDevice9_EndScene.cpp" />
     <ClCompile Include="src\Hooks\DoEnginePostProcessing.cpp" />
     <ClCompile Include="src\Hooks\DSP_Process.cpp" />
@@ -341,6 +346,7 @@
     <ClCompile Include="src\Hooks\StudioRender_SetColorModulation.cpp" />
     <ClCompile Include="src\Hooks\S_StartDynamicSound.cpp" />
     <ClCompile Include="src\Hooks\S_StartSound.cpp" />
+    <ClCompile Include="src\Hooks\TF_IsHolidayActive.cpp" />
     <ClCompile Include="src\Hooks\VGuiMenuBuilder_AddMenuItem.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelInit.cpp" />
     <ClCompile Include="src\Hooks\ViewRender_LevelShutdown.cpp" />

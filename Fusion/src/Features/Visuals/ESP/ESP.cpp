@@ -156,7 +156,22 @@ void CESP::DrawPlayers(CTFPlayer* pLocal)
 				if (Vars::ESP::Player.Value & 1 << 0)
 				{
 					tOffset += fFontName.m_nTall + 2;
-					H::Draw.String(fFontName, middle, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, SDK::ConvertUtf8ToWide(pi.name).data());
+					if (Vars::Visuals::UI::StreamerMode.Value)
+					{
+						const char* name;
+						if (nIndex == I::EngineClient->GetLocalPlayer())
+							name = "You";
+						else if (H::Entities.IsFriend(nIndex))
+							name = "Friend";
+						else if (pPlayer->m_iTeamNum() != pLocal->m_iTeamNum())
+							name = "Enemy";
+						else if (pPlayer->m_iTeamNum() == pLocal->m_iTeamNum())
+							name = "Teammate";
+
+						H::Draw.String(fFontName, middle, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, name);
+					}
+					else
+						H::Draw.String(fFontName, middle, y - tOffset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, SDK::ConvertUtf8ToWide(pi.name).data());
 				}
 
 				if (Vars::ESP::Player.Value & 1 << 12)

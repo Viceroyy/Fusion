@@ -163,6 +163,12 @@
     <ClCompile Include="src\Utils\EventListener\EventListener.cpp" />
     <ClCompile Include="src\Hooks\CTFWearable_ShouldDraw.cpp" />
     <ClCompile Include="src\Hooks\S_StartSound.cpp" />
+    <ClCompile Include="src\Hooks\CParticleProperty_Create.cpp" />
+    <ClCompile Include="src\Hooks\CAttributeManager_AttribHookValue.cpp" />
+    <ClCompile Include="src\Hooks\TF_IsHolidayActive.cpp" />
+    <ClCompile Include="src\Hooks\CClientScoreBoardDialog_UpdatePlayerAvatar.cpp" />
+    <ClCompile Include="src\Hooks\C_PlayerResource_GetPlayerName.cpp" />
+    <ClCompile Include="src\Hooks\CCvar_ConsoleColorPrintf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utils\UtlVector\UtlVector.h" />

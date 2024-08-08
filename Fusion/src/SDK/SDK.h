@@ -107,6 +107,8 @@ enum DataCenter_t // i'm not sure all of these are actually used for tf2 servers
 
 namespace SDK
 {
+	Color_t Rainbow();
+	Color_t RainbowTickOffset(int nTick);
 	Color_t WarningColor();
 	void Output(const char* cFunction, const char* cLog, Color_t cColor = { 255, 255, 255, 255 }, bool bConsole = true, bool bChat = false, bool bDebug = false);
 

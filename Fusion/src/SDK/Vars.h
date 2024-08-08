@@ -415,6 +415,13 @@ namespace Vars
 			CVar(ThePS2Inator, false)
 		SUBNAMESPACE_END(Yes)
 
+		SUBNAMESPACE_BEGIN(Particle)
+			CVar(MedigunBeamEffect, 0, VISUAL)
+			CVar(MedigunChargeEffect, 0, VISUAL)
+			CVar(RocketTrailEffect, 0, VISUAL)
+			CVar(RainbowFootstepEffect, false, VISUAL)
+		SUBNAMESPACE_END(Particle)
+
 		SUBNAMESPACE_BEGIN(Removals)
 			CVar(Scope, false, VISUAL)
 			CVar(Interpolation, false)
@@ -440,6 +447,7 @@ namespace Vars
 			CVar(ScoreboardColors, false, VISUAL)
 			CVar(SniperSightlines, false, VISUAL)
 			CVar(PickupTimers, false, VISUAL)
+			CVar(StreamerMode, false, VISUAL)
 		SUBNAMESPACE_END(Viewmodel)
 
 		SUBNAMESPACE_BEGIN(Viewmodel)
@@ -716,6 +724,7 @@ namespace Vars
 		CVar(PropModulation, Color_t(255, 255, 255, 255), VISUAL)
 		CVar(ParticleModulation, Color_t(255, 255, 255, 255), VISUAL)
 		CVar(FogModulation, Color_t(255, 255, 255, 255), VISUAL)
+		CVar(FootstepParticle, Color_t(203, 166, 247, 255), VISUAL)
 
 		CVar(BulletTracer, Color_t(255, 255, 255, 255), VISUAL)
 		CVar(PredictionColor, Color_t(255, 255, 255, 255), VISUAL)

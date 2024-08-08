@@ -38,8 +38,19 @@ bool CSpectatorList::GetSpectators(CTFPlayer* pLocal)
 			PlayerInfo_t pi{};
 			if (I::EngineClient->GetPlayerInfo(pPlayer->entindex(), &pi))
 			{
+				std::wstring name = SDK::ConvertUtf8ToWide(pi.name);
+				if (Vars::Visuals::UI::StreamerMode.Value)
+				{
+					if (H::Entities.IsFriend(pPlayer->entindex()))
+						name = L"Friend";
+					else if (pPlayer->m_iTeamNum() != pLocal->m_iTeamNum())
+						name = L"Enemy";
+					else if (pPlayer->m_iTeamNum() == pLocal->m_iTeamNum())
+						name = L"Teammate";
+				}
+
 				Spectators.push_back({
-					SDK::ConvertUtf8ToWide(pi.name), szMode, respawnIn, respawnTimeIncreased, H::Entities.IsFriend(pPlayer->entindex()),
+					name, szMode, respawnIn, respawnTimeIncreased, H::Entities.IsFriend(pPlayer->entindex()),
 					pPlayer->m_iTeamNum(), pPlayer->entindex()
 				});
 			}

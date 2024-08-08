@@ -14,6 +14,28 @@ BOOL CALLBACK TeamFortressWindow(HWND hwnd, LPARAM lParam)
 	return TRUE;
 }
 
+Color_t SDK::Rainbow()
+{
+	float t = TICKS_TO_TIME(I::GlobalVars->tickcount);
+
+	int r = static_cast<int>(std::round(std::cos(I::GlobalVars->realtime + t + 0.0f) * 127.5f + 127.5f));
+	int g = static_cast<int>(std::round(std::cos(I::GlobalVars->realtime + t + 2.0f) * 127.5f + 127.5f));
+	int b = static_cast<int>(std::round(std::cos(I::GlobalVars->realtime + t + 4.0f) * 127.5f + 127.5f));
+
+	return Color_t{ static_cast<byte>(r), static_cast<byte>(g), static_cast<byte>(b), 255 };
+}
+
+Color_t SDK::RainbowTickOffset(int nTick)
+{
+	float t = TICKS_TO_TIME(nTick);
+
+	int r = static_cast<int>(std::lround(std::cos((I::GlobalVars->realtime * 2.0f) + t + 0.0f) * 127.5f + 127.5f));
+	int g = static_cast<int>(std::lround(std::cos((I::GlobalVars->realtime * 2.0f) + t + 2.0f) * 127.5f + 127.5f));
+	int b = static_cast<int>(std::lround(std::cos((I::GlobalVars->realtime * 2.0f) + t + 4.0f) * 127.5f + 127.5f));
+
+	return Color_t{ static_cast<byte>(r), static_cast<byte>(g), static_cast<byte>(b), 255 };
+}
+
 Color_t SDK::WarningColor()
 {
 	return I::GlobalVars->tickcount % 63 < 32 ? Color_t(250, 170, 10, 255) : Color_t(252, 92, 101, 255);

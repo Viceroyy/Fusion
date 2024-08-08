@@ -2,6 +2,9 @@
 
 #include "../Features/Players/PlayerUtils.h"
 
+std::string ColorRed = { '\x7', 'F', 'F', '3', 'F', '3', 'F' };
+std::string ColorBlue = { '\x7', '9', '9', 'C', 'C', 'F', 'F' };
+
 MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pChatElement, 19), void, __fastcall,
 	void* ecx, int iPlayerIndex, int iFilter, const char* fmt, ...)
 {
@@ -49,6 +52,26 @@ MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pCh
 			if (auto offset = finalMsg.find(name))
 				finalMsg = finalMsg.replace(offset + name.length(), 0, "\x1");
 		}
+	}
+
+	CTFPlayer* pEntity = I::ClientEntityList->GetClientEntity(iPlayerIndex)->As<CTFPlayer>();
+	auto pLocal = H::Entities.GetLocal();
+	if (Vars::Visuals::UI::StreamerMode.Value && pEntity && pLocal)
+	{
+		std::string changedname;
+		if (iPlayerIndex == I::EngineClient->GetLocalPlayer())
+			changedname = "You";
+		else if (H::Entities.IsFriend(iPlayerIndex))
+			changedname = "Friend";
+		else if (pEntity->m_iTeamNum() != pLocal->m_iTeamNum())
+			changedname = "Enemy";
+		else if (pEntity->m_iTeamNum() == pLocal->m_iTeamNum())
+			changedname = "Teammate";
+
+		std::string newname = pEntity->IsAlive() ? (changedname + "\x1") : changedname;
+		std::string finalname = (pEntity->m_iTeamNum() == TF_TEAM_RED ? ColorRed : ColorBlue) + newname;
+		std::string finalmessage = (pEntity->IsAlive() ? "" : "\x1*DEAD* ") + finalname;
+		finalMsg = finalMsg.replace(0, finalMsg.find(name) + name.length(), finalmessage.c_str());
 	}
 
 	CALL_ORIGINAL(ecx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
