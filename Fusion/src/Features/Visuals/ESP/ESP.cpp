@@ -593,7 +593,22 @@ void CESP::DrawBuildings(CTFPlayer* pLocal)
 				if (I::EngineClient->GetPlayerInfo(pOwner->entindex(), &pi))
 				{
 					tOffset += fFontName.m_nTall + 2;
-					H::Draw.String(fFontName, x + w / 2, y - tOffset, { 254, 202, 87, 255 }, ALIGN_TOP, L"%ls", SDK::ConvertUtf8ToWide(pi.name).data());
+					if (Vars::Visuals::UI::StreamerMode.Value)
+					{
+						const char* name;
+						if (pOwner->entindex() == I::EngineClient->GetLocalPlayer())
+							name = "You";
+						else if (H::Entities.IsFriend(pOwner->entindex()))
+							name = "Friend";
+						else if (pOwner->m_iTeamNum() != pLocal->m_iTeamNum())
+							name = "Enemy";
+						else if (pOwner->m_iTeamNum() == pLocal->m_iTeamNum())
+							name = "Teammate";
+
+						H::Draw.String(fFontName, x + w / 2, y - tOffset, { 254, 202, 87, 255 }, ALIGN_TOP, name);
+					}
+					else
+						H::Draw.String(fFontName, x + w / 2, y - tOffset, { 254, 202, 87, 255 }, ALIGN_TOP, L"%ls", SDK::ConvertUtf8ToWide(pi.name).data());
 				}
 			}
 
@@ -742,12 +757,9 @@ void CESP::DrawWorld()
 				const wchar_t* szName;
 				switch (pBomb->GetClassID())
 				{
-				case ETFClassID::CTFPumpkinBomb:
-					szName = L"Pumpkin Bomb"; break;
-				case ETFClassID::CTFGenericBomb:
-					szName = L"Bomb"; break;
-				default:
-					szName = L"Unknown Bomb"; break;
+					case ETFClassID::CTFPumpkinBomb: szName = L"Pumpkin Bomb"; break;
+					case ETFClassID::CTFGenericBomb: szName = L"Bomb"; break;
+					default: szName = L"Unknown Bomb"; break;
 				}
 
 				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, Vars::Colors::Bomb.Value, ALIGN_TOP, szName);
@@ -810,6 +822,77 @@ void CESP::DrawWorld()
 				}
 
 				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, L"Intel");
+			}
+		}
+	}
+
+	if (Vars::ESP::Draw.Value & 1 << 13)
+	{
+		for (auto Projectile : H::Entities.GetGroup(EGroupType::WORLD_PROJECTILES))
+		{
+			int x = 0, y = 0, w = 0, h = 0;
+			if (GetDrawBounds(Projectile, x, y, w, h))
+			{
+				const wchar_t* szName;
+				switch (Projectile->GetClassID())
+				{
+					case ETFClassID::CTFProjectile_Rocket:
+					case ETFClassID::CTFProjectile_SentryRocket:
+						szName = L"Rocket"; break;
+					case ETFClassID::CTFGrenadePipebombProjectile:
+					{
+						switch (Projectile->As<CTFGrenadePipebombProjectile>()->m_iType())
+						{
+							case TF_GL_MODE_REMOTE_DETONATE:
+							case TF_GL_MODE_REMOTE_DETONATE_PRACTICE:
+								szName = L"Sticky"; break;
+							case TF_GL_MODE_CANNONBALL:
+								szName = L"Cannonball"; break;
+							default: szName = L"Pipe"; break;
+						}
+						break;
+					}
+					case ETFClassID::CTFProjectile_ThrowableBreadMonster:
+						szName = L"Bread Monster"; break;
+					case ETFClassID::CTFProjectile_Jar:
+						szName = L"Jarate"; break;
+					case ETFClassID::CTFProjectile_JarGas:
+						szName = L"Gas Can"; break;
+					case ETFClassID::CTFProjectile_JarMilk:
+						szName = L"Milk"; break;
+					case ETFClassID::CTFProjectile_Arrow:
+					{
+						if (Projectile->GetAbsVelocity().IsZero())
+							continue;
+						szName = L"Arrow"; break;
+					}
+					case ETFClassID::CTFProjectile_Flare:
+						szName = L"Flare"; break;
+					case ETFClassID::CTFProjectile_Cleaver:
+						szName = L"Cleaver"; break;
+					case ETFClassID::CTFProjectile_EnergyBall:
+						szName = L"Energy Ball"; break;
+					case ETFClassID::CTFProjectile_EnergyRing:
+						szName = L"Laser"; break;
+					case ETFClassID::CTFProjectile_HealingBolt:
+						szName = L"Heal Arrow"; break;
+					case ETFClassID::CTFStunBall:
+					{
+						if (Projectile->As<CTFGrenadePipebombProjectile>()->m_bTouched())
+							continue;
+						szName = L"Baseball"; break;
+					}
+					case ETFClassID::CTFBall_Ornament:
+						szName = L"Ornament Ball"; break;
+					case ETFClassID::CTFProjectile_MechanicalArmOrb:
+						szName = L"Energy Orb"; break;
+					case ETFClassID::CTFProjectile_BallOfFire:
+						szName = L"Fireball"; break;
+					default: szName = L"Unknown Projectile"; break;
+				}
+
+				const Color_t drawColor = H::Color.GetEntityDrawColor(H::Entities.GetLocal(), Projectile, Vars::Colors::Relative.Value);
+				H::Draw.String(fFontName, x + w / 2, y - nTextTopOffset, drawColor, ALIGN_TOP, szName);
 			}
 		}
 	}

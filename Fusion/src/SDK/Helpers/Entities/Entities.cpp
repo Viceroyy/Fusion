@@ -119,6 +119,8 @@ void CEntities::Fill()
 		case ETFClassID::CTFProjectile_ThrowableBreadMonster:
 		case ETFClassID::CTFStunBall:
 		case ETFClassID::CTFBall_Ornament:
+		case ETFClassID::CTFProjectile_MechanicalArmOrb:
+		case ETFClassID::CTFProjectile_BallOfFire:
 		{
 			m_mGroups[EGroupType::WORLD_PROJECTILES].push_back(pEntity);
 

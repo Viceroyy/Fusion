@@ -342,7 +342,7 @@ void CMenu::MenuVisuals()
 			TableNextColumn();
 			if (Section("ESP"))
 			{
-				FDropdown("Draw", Vars::ESP::Draw, { "Enemy", "Team", "Local", "Friends", "Priority", "NPCs", "Health", "Ammo", "Money", "Bombs", "Spellbook", "Gargoyle", "Intel" }, {}, FDropdown_Multi);
+				FDropdown("Draw", Vars::ESP::Draw, { "Enemy", "Team", "Local", "Friends", "Priority", "NPCs", "Health", "Ammo", "Money", "Bombs", "Spellbook", "Gargoyle", "Intel", "Projectile" }, {}, FDropdown_Multi);
 				FDropdown("Player", Vars::ESP::Player, { "Name", "Health bar", "Health text", "Uber bar", "Uber text", "Class icon", "Class text", "Weapon icon", "Weapon text", "Distance", "Box", "Bones", "Priority", "Labels", "Buffs", "Debuffs", "Misc", "Lag compensation", "Ping", "KDR" }, {}, FDropdown_Multi);
 				FDropdown("Building", Vars::ESP::Building, { "Name", "Health bar", "Health text", "Distance", "Box", "Owner", "Level", "Conditions" }, {}, FDropdown_Multi);
 			} EndSection();

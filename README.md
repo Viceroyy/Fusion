@@ -9,6 +9,9 @@
 
 # Fusion for Team Fortress 2, fork of Amalgam by rei-kes
 With a few more features here and there, notable changes include;
+- Medigun and rocket trail particle changer
+- WIP Streamer mode that barely works
+- Projectile text esp
 - A killstreak changer that doesn't work
 - Backtrack to crosshair
 - Player cosmetics removal
