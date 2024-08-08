@@ -50,6 +50,7 @@ public:
 	void Store();
 	void Draw(CTFPlayer* pLocal);
 
+	bool bRunning = false;
 	std::unordered_map<int, WeaponStorage> Storage = {};
 };
 
