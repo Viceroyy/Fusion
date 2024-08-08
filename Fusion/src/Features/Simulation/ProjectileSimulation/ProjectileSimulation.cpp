@@ -300,7 +300,7 @@ bool CProjectileSimulation::Initialize(const ProjectileInfo& info, bool bSimulat
 		case TF_PROJECTILE_PIPEBOMB_PRACTICE:
 		case TF_PROJECTILE_CANNONBALL:
 			vel += up * 200.f;
-			ang_vel = { 600.f, -1200.f, 0.f };
+			ang_vel = { 600.f, Vars::Aimbot::General::NoSpread.Value ? 0.f : -1200.f, 0.f };
 			break;
 		case TF_PROJECTILE_CLEAVER:
 			vel += up * 300.f;
