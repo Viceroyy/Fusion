@@ -30,6 +30,7 @@ MAKE_HOOK(ViewRender_LevelInit, U::Memory.GetVFunc(I::ViewRender, 1), void, __fa
 			r_rootlod->SetValue(7);
 		if (mat_picmip)
 			mat_picmip->SetValue(4);
+
 	}
 	CALL_ORIGINAL(ecx);
 }
