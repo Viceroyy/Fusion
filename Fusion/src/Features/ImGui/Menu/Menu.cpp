@@ -879,7 +879,7 @@ void CMenu::MenuVisuals()
 				FSlider("Indicator font weight", Vars::Fonts::FONT_INDICATORS::nWeight, 0, 900, 100);
 
 				if (FButton("Apply fonts"))
-					H::Fonts.Reload();
+					H::Fonts.Reload(Vars::Menu::DPI.Map["default"]);
 			} EndSection();
 
 			EndTable();
