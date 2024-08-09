@@ -22,6 +22,11 @@ public:
 	NETVAR(m_iState, int, "CBaseCombatWeapon", "m_iState");
 	NETVAR(m_hOwner, EHANDLE, "CBaseCombatWeapon", "m_hOwner");
 
+	const char* GetName()
+	{
+		return U::Memory.FindVFunc<const char*(__thiscall*)(void*)>(this, 331)(this);
+	}
+
 	bool HasAmmo()
 	{
 		return S::CBaseCombatWeapon_HasAmmo.As<bool(__thiscall*)(void*)>()(this);
