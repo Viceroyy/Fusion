@@ -105,20 +105,20 @@ MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 2
 
 	// Run Features
 	F::Misc.RunPre(pLocal, pCmd);
-	F::Backtrack.Run(pCmd);
-	F::Backtrack.BacktrackToCrosshair(pCmd);
-
-	F::EnginePrediction.Start(pLocal, pCmd);
+	F::EnginePrediction.Start(pLocal, pWeapon, pCmd);
 	{
+		F::Backtrack.Run(pCmd);
+		F::Backtrack.BacktrackToCrosshair(pCmd);
 		const bool bAimRan = bSkip ? false : F::Aimbot.Run(pLocal, pWeapon, pCmd);
 		if (!bAimRan && G::CanPrimaryAttack && G::IsAttacking && !F::AimbotProjectile.bLastTickCancel)
 			F::Visuals.ProjectileTrace(pLocal, pWeapon, false);
+
+		F::CritHack.Run(pLocal, pWeapon, pCmd);
 	}
 	F::EnginePrediction.End(pLocal, pCmd);
 
 	F::PacketManip.Run(pLocal, pCmd, pSendPacket);
 	F::Ticks.MovePost(pLocal, pCmd);
-	F::CritHack.Run(pLocal, pWeapon, pCmd);
 	F::NoSpread.Run(pLocal, pWeapon, pCmd);
 	F::Misc.RunPost(pLocal, pCmd, *pSendPacket);
 	F::Resolver.CreateMove();

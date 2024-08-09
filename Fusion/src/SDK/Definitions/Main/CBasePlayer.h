@@ -81,6 +81,15 @@ public:
 	CONDGET(IsInWater, m_fFlags(), FL_INWATER);
 	CONDGET(IsDucking, m_fFlags(), FL_DUCKING);
 
+	VIRTUAL(PreThink, void, void(__thiscall*)(void*), this, 260);
+	VIRTUAL(Think, void, void(__thiscall*)(void*), this, 174);
+	VIRTUAL(PostThink, void, void(__thiscall*)(void*), this, 261);
+
+	void SelectItem(const char* ptr, int subtype)
+	{
+		U::Memory.FindVFunc<void(__thiscall*)(void*, const char*, int)>(this, 271)(this, ptr, subtype);
+	}
+
 	bool IsAlive()
 	{
 		return m_lifeState() == LIFE_ALIVE;
