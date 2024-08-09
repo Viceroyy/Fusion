@@ -15,6 +15,12 @@ public:
 		return vtable[index];
 	}
 
+	template<typename T>
+	inline T FindVFunc(void* vmt, size_t index)
+	{
+		return (*static_cast<T**>(vmt))[index];
+	}
+
 	inline std::uintptr_t RelToAbs(const std::uintptr_t address)
 	{
 		return *reinterpret_cast<std::int32_t*>(address + 0x3) + address + 0x7;
