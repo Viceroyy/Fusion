@@ -18,7 +18,7 @@ MAKE_HOOK(ViewRender_LevelInit, U::Memory.GetVFunc(I::ViewRender, 1), void, __fa
 	F::NoSpreadHitscan.Reset(true);
 	F::CheaterDetection.Reset();
 
-	/*if (Vars::Visuals::Other::ThePS2Inator.Value)
+	if (Vars::Visuals::Other::ThePS2Inator.Value)
 	{
 		static auto r_lod = I::CVar->FindVar("r_lod");
 		static auto r_rootlod = I::CVar->FindVar("r_rootlod");
@@ -30,7 +30,6 @@ MAKE_HOOK(ViewRender_LevelInit, U::Memory.GetVFunc(I::ViewRender, 1), void, __fa
 			r_rootlod->SetValue(7);
 		if (mat_picmip)
 			mat_picmip->SetValue(4);
-	}*/
-
+	}
 	CALL_ORIGINAL(ecx);
 }
