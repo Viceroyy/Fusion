@@ -263,7 +263,7 @@ void CBacktrack::CleanRecords()
 
 		//const int iOldSize = pRecords.size();
 
-		const int flDeadtime = I::GlobalVars->curtime + GetReal() - flMaxUnlag; // int ???
+		const float flDeadtime = I::GlobalVars->curtime + GetReal() - flMaxUnlag;
 		while (!mRecords[pEntity].empty())
 		{
 			if (mRecords[pEntity].back().flSimTime >= flDeadtime)
