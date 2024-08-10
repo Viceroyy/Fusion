@@ -602,6 +602,10 @@ namespace Vars
 	NAMESPACE_END(Radar)
 
 	NAMESPACE_BEGIN(Misc)
+		SUBNAMESPACE_BEGIN(Game)
+			CVar(SetupBonesOptimization, false)
+		SUBNAMESPACE_END(Game)
+
 		SUBNAMESPACE_BEGIN(Movement)
 			CVar(AutoStrafe, 0)
 			CVar(AutoStrafeTurnScale, 0.5f)

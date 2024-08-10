@@ -969,6 +969,10 @@ void CMenu::MenuMisc()
 			FToggle("Giant weapon sounds", Vars::Misc::Sound::GiantWeaponSounds);
 			FToggle("Hitsound always", Vars::Misc::Sound::HitsoundAlways, FToggle_Middle);
 		} EndSection();
+		if (Section("Game"))
+		{
+			FToggle("Optimize bones", Vars::Misc::Game::SetupBonesOptimization);
+		} EndSection();
 
 		/* Column 2 */
 		TableNextColumn();
