@@ -7,7 +7,7 @@ MAKE_SIGNATURE(CBaseAnimating_SetupBones, "client.dll", "48 8B C4 44 89 40 ? 48 
 MAKE_HOOK(CBaseAnimating_SetupBones, S::CBaseAnimating_SetupBones(), bool, __fastcall,
 	void* ecx, matrix3x4* pBoneToWorldOut, int nMaxBones, int boneMask, float currentTime)
 {
-	if (!F::Backtrack.bSettingUpBones)
+	if (Vars::Misc::Game::SetupBonesOptimization.Value && !F::Backtrack.bSettingUpBones)
 	{
 		auto pBaseEntity = reinterpret_cast<CBaseEntity*>(std::uintptr_t(ecx) - 8);
 		if (pBaseEntity)

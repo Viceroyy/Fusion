@@ -4,6 +4,8 @@
 #include "../../../Utils/Signatures/Signatures.h"
 
 MAKE_SIGNATURE(CBasePlayer_GetAmmoCount, "client.dll", "48 89 5C 24 ? 57 48 83 EC ? 48 63 DA 48 8B F9 83 FB", 0x0);
+MAKE_SIGNATURE(CBasePlayer_UsingStandardWeaponsInVehicle, "client.dll", "48 89 5C 24 ? 57 48 83 EC ? 8B 91 ? ? ? ? 48 8B F9 85 D2 74 ? B8 ? ? ? ? 83 FA ? 74 ? 0F B7 C2 4C 8B 05", 0x0);
+MAKE_SIGNATURE(CBasePlayer_UpdateButtonState, "client.dll", "44 8B 81 ? ? ? ? 89 91", 0x0);
 
 class CBasePlayer : public CBaseCombatCharacter
 {
@@ -119,6 +121,22 @@ public:
 	{
 		static int nOffset = U::NetVars.GetNetVar("CBasePlayer", "m_hConstraintEntity") - 8;
 		*reinterpret_cast<CUserCmd**>(std::uintptr_t(this) + nOffset) = pCmd;
+	}
+
+	inline bool UsingStandardWeaponsInVehicle()
+	{
+		return S::CBasePlayer_UsingStandardWeaponsInVehicle.As<bool(__thiscall*)(void*)>()(this);
+	}
+
+	inline int& m_nImpulse()
+	{
+		static const int nOffset = U::NetVars.GetNetVar("CBasePlayer", "m_iBonusChallenge") + 68;
+		return *reinterpret_cast<int*>(reinterpret_cast<DWORD_PTR>(this) + nOffset);
+	}
+
+	inline void UpdateButtonState(int nUserCmdButtonMask)
+	{
+		return S::CBasePlayer_UpdateButtonState.As<void(__thiscall*)(void*, int)>()(this, nUserCmdButtonMask);
 	}
 
 	int GetAmmoCount(int iAmmoType)
