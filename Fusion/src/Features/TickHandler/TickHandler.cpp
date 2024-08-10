@@ -46,7 +46,7 @@ void CTickshiftHandler::Teleport(CUserCmd* pCmd)
 
 	G::Warp = Vars::CL_Move::Doubletap::Warp.Value;
 	if (G::Warp && bGoalReached)
-		G::ShiftedGoal = std::max(G::ShiftedTicks - Vars::CL_Move::Doubletap::WarpRate.Value + 0);
+		G::ShiftedGoal = std::max(G::ShiftedTicks - Vars::CL_Move::Doubletap::WarpRate.Value + 1, 0);
 }
 
 void CTickshiftHandler::Doubletap(const CUserCmd* pCmd, CTFPlayer* pLocal)
