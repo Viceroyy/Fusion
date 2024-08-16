@@ -19,7 +19,7 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 	if (Vars::CL_Move::Doubletap::PassiveRecharge.Value && 0.f >= flPassiveTime)
 	{
 		bPassive = true;
-		flPassiveTime += 1.f / Vars::CL_Move::Doubletap::PassiveRecharge.Value;
+		iPassiveTick = I::GlobalVars->tickcount + 67;flPassiveTime += 1.f / Vars::CL_Move::Doubletap::PassiveRecharge.Value;
 	}
 
 	if (iDeficit && G::ShiftedTicks < G::MaxShift)
