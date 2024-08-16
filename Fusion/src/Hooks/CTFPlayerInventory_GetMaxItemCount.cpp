@@ -5,5 +5,5 @@ MAKE_SIGNATURE(CTFPlayerInventory_GetMaxItemCount, "client.dll", "40 53 48 83 EC
 MAKE_HOOK(CTFPlayerInventory_GetMaxItemCount, S::CTFPlayerInventory_GetMaxItemCount(), int, __fastcall,
 	void* ecx)
 {
-	return !Vars::Misc::Automation::BackpackExpander.Value ? CALL_ORIGINAL(ecx) : 3000;
+	return !Vars::Misc::Automation::BackpackExpander.Value ? CALL_ORIGINAL(ecx) : 4000;
 }
