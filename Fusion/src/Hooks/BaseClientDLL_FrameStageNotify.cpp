@@ -9,6 +9,10 @@
 #include "../Features/Simulation/MovementSimulation/MovementSimulation.h"
 #include "../Features/Visuals/Visuals.h"
 
+MAKE_SIGNATURE(CWeaponMedigun__UpdateEffects, "client.dll", "40 57 48 81 EC ? ? ? ? 8B 91 ? ? ? ? 48 8B F9 85 D2 0F 84 ? ? ? ? 48 89 B4 24", 0x0)
+MAKE_SIGNATURE(CWeaponMedigun__StopChargeEffect, "client.dll", "40 53 48 83 EC ? 44 0F B6 C2", 0x0)
+MAKE_SIGNATURE(CWeaponMedigun__ManageChargeEffect, "client.dll", "48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 48 8B F1 E8 ? ? ? ? 48 8B D8", 0x0)
+
 MAKE_HOOK(BaseClientDLL_FrameStageNotify, U::Memory.GetVFunc(I::BaseClientDLL, 35), void, __fastcall,
 	void* ecx, ClientFrameStage_t curStage)
 {
@@ -84,6 +88,24 @@ MAKE_HOOK(BaseClientDLL_FrameStageNotify, U::Memory.GetVFunc(I::BaseClientDLL, 3
 			break;
 		F::Visuals.SkyboxChanger();
 		F::Visuals.Modulate();
+
+		// Credits to Mad?, idek if this is the right frame for this, it works though
+		static int OldMedigunEffect = 0;
+		static int OldMedigunChargeEffect = 0;
+		if (OldMedigunEffect != Vars::Visuals::Particle::MedigunBeamEffect.Value || OldMedigunChargeEffect != Vars::Visuals::Particle::MedigunChargeEffect.Value)
+		{
+			if (H::Entities.GetLocal() && H::Entities.GetWeapon() && H::Entities.GetWeapon()->m_iWeaponID() == TF_WEAPON_MEDIGUN)
+			{
+				// update all effects
+				reinterpret_cast<void(__fastcall*)(void*)>(S::CWeaponMedigun__UpdateEffects())(H::Entities.GetWeapon());
+
+				reinterpret_cast<void(__fastcall*)(void*)>(S::CWeaponMedigun__StopChargeEffect())(H::Entities.GetWeapon());
+				reinterpret_cast<void(__fastcall*)(void*, bool)>(S::CWeaponMedigun__ManageChargeEffect())(H::Entities.GetWeapon(), false);
+			}
+
+			OldMedigunEffect = Vars::Visuals::Particle::MedigunBeamEffect.Value;
+			OldMedigunChargeEffect = Vars::Visuals::Particle::MedigunChargeEffect.Value;
+		}
 		break;
 	}
 	}
