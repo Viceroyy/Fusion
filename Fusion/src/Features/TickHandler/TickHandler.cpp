@@ -36,7 +36,7 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 
 	G::Recharge = true;
 	if (bGoalReached)
-		G::ShiftedGoal = G::MaxShift;
+		G::ShiftedGoal = G::ShiftedTicks + 1;
 }
 
 void CTickshiftHandler::Teleport(CUserCmd* pCmd)
