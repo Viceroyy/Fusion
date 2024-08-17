@@ -772,6 +772,6 @@ namespace Vars
 		CVar(Info, false, NOSAVE)
 		CVar(Logging, false, NOSAVE)
 		CVar(ServerHitbox, false, NOSAVE)
-		CVar(AntiAimLines, false, NOSAVE)
+		CVar(AntiAimLines, true)
 	NAMESPACE_END(Debug)
 }
