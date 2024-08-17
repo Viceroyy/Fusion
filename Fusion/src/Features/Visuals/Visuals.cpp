@@ -268,21 +268,26 @@ void CVisuals::DrawAntiAim(CTFPlayer* pLocal)
 		const auto& vOrigin = pLocal->GetAbsOrigin();
 
 		Vec3 vScreen1, vScreen2;
+		Vec3 vRealEnd, vFakeEnd;
+
 		if (SDK::W2S(vOrigin, vScreen1))
 		{
 			constexpr auto distance = 50.f;
-			if (SDK::W2S(Math::GetRotatedPosition(vOrigin, F::AntiAim.vRealAngles.y, distance), vScreen2))
-				H::Draw.Line(vScreen1.x, vScreen1.y, vScreen2.x, vScreen2.y, { 0, 255, 0, 255 });
+			if (SDK::W2S(Math::GetRotatedPosition(vOrigin, F::AntiAim.vRealAngles.y, distance), vRealEnd) &&
+				SDK::W2S(Math::GetRotatedPosition(vOrigin, F::AntiAim.vFakeAngles.y, distance), vFakeEnd))
+			{
+				H::Draw.Line(vScreen1.x, vScreen1.y, vRealEnd.x, vRealEnd.y, { 0, 255, 0, 255 });
+				H::Draw.Line(vScreen1.x, vScreen1.y, vFakeEnd.x, vFakeEnd.y, { 255, 0, 0, 255 });
 
-			if (SDK::W2S(Math::GetRotatedPosition(vOrigin, F::AntiAim.vFakeAngles.y, distance), vScreen2))
-				H::Draw.Line(vScreen1.x, vScreen1.y, vScreen2.x, vScreen2.y, { 255, 0, 0, 255 });
+				// https://github.com/Hanzkii/supremacy-reborn/blob/master/visuals.cpp#L303, this looked kinda cool.. i guess 
+				const Font_t& font = H::Fonts.GetFont(FONT_ESP);
+				const int textYOffset = 10;
+				H::Draw.String(font, vRealEnd.x, vRealEnd.y - textYOffset, { 0, 255, 0, 255 }, ALIGN_CENTER, "REAL");
+				H::Draw.String(font, vFakeEnd.x, vFakeEnd.y - textYOffset, { 255, 0, 0, 255 }, ALIGN_CENTER, "FAKE");
+			}
 		}
 
-		for (auto& vPair : F::AntiAim.vEdgeTrace)
-		{
-			if (SDK::W2S(vPair.first, vScreen1) && SDK::W2S(vPair.second, vScreen2))
-				H::Draw.Line(vScreen1.x, vScreen1.y, vScreen2.x, vScreen2.y, { 255, 255, 255, 255 });
-		}
+		;
 	}
 }
 
