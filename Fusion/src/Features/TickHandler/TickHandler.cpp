@@ -14,11 +14,12 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 {
 	bool bPassive = G::Recharge = false;
 
-	static float iPassiveTick = 0.f;
-	if (Vars::CL_Move::Doubletap::PassiveRecharge.Value && I::GlobalVars->tickcount >= iPassiveTick)
+	static float flPassiveTime = 0.f;
+	flPassiveTime = std::max(flPassiveTime - TICK_INTERVAL, -TICK_INTERVAL);
+	if (Vars::CL_Move::Doubletap::PassiveRecharge.Value && 0.f >= flPassiveTime)
 	{
 		bPassive = true;
-		iPassiveTick = I::GlobalVars->tickcount + 67 - Vars::CL_Move::Doubletap::PassiveRecharge.Value;
+		flPassiveTime += 1.f / Vars::CL_Move::Doubletap::PassiveRecharge.Value;
 	}
 
 	if (iDeficit && G::ShiftedTicks < G::MaxShift)
