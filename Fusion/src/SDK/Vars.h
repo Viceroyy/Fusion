@@ -179,7 +179,7 @@ namespace Vars
 		CVar(Interp, 0)
 		CVar(Window, 185)
 
-		CVar(Offset, 0, NOSAVE) // debug
+		CVar(Offset, 0) // debug
 	NAMESPACE_END(Backtrack)
 
 	NAMESPACE_BEGIN(CL_Move)
@@ -314,9 +314,9 @@ namespace Vars
 			CVar(Enabled, false, VISUAL)
 		
 			CVar(VisibleMaterial, std::vector<std::string> { "Original" }, VISUAL)
-			CVar(OccludedMaterial, std::vector<std::string> {}, NOSAVE) // unused
+			CVar(OccludedMaterial, std::vector<std::string> {}) // unused
 			CVar(VisibleColor, Color_t(255, 255, 255, 255), VISUAL)
-			CVar(OccludedColor, Color_t(255, 255, 255, 255), NOSAVE) // unused
+			CVar(OccludedColor, Color_t(255, 255, 255, 255)) // unused
 		SUBNAMESPACE_END(FakeAngle)
 
 		SUBNAMESPACE_BEGIN(Viewmodel)
@@ -324,9 +324,9 @@ namespace Vars
 			CVar(Hands, false, VISUAL)
 			
 			CVar(VisibleMaterial, std::vector<std::string> { "Original" }, VISUAL)
-			CVar(OccludedMaterial, std::vector<std::string> {}, NOSAVE) // unused
+			CVar(OccludedMaterial, std::vector<std::string> {}) // unused
 			CVar(VisibleColor, Color_t(255, 255, 255, 255), VISUAL)
-			CVar(OccludedColor, Color_t(255, 255, 255, 255), NOSAVE) // unused
+			CVar(OccludedColor, Color_t(255, 255, 255, 255)) // unused
 		SUBNAMESPACE_END(Viewmodel)
 	NAMESPACE_END(Chams)
 
@@ -512,29 +512,29 @@ namespace Vars
 		SUBNAMESPACE_END(ProjectileTrajectory)
 
 		SUBNAMESPACE_BEGIN(Trajectory)
-			CVar(Overwrite, false, NOSAVE) // debug
-			CVar(OffX, 16.f, NOSAVE) // debug
-			CVar(OffY, 8.f, NOSAVE) // debug
-			CVar(OffZ, -6.f, NOSAVE) // debug
-			CVar(Pipes, true, NOSAVE) // debug
-			CVar(Hull, 5.f, NOSAVE) // debug
-			CVar(Speed, 1200.f, NOSAVE) // debug
-			CVar(Gravity, 1.f, NOSAVE) // debug
-			CVar(NoSpin, false, NOSAVE) // debug
-			CVar(LifeTime, 2.2f, NOSAVE) // debug
-			CVar(UpVelocity, 200.f, NOSAVE) // debug
-			CVar(AngVelocityX, 600.f, NOSAVE) // debug
-			CVar(AngVelocityY, -1200.f, NOSAVE) // debug
-			CVar(AngVelocityZ, 0.f, NOSAVE) // debug
-			CVar(Drag, 1.f, NOSAVE) // debug
-			CVar(DragBasisX, 0.003902f, NOSAVE) // debug
-			CVar(DragBasisY, 0.009962f, NOSAVE) // debug
-			CVar(DragBasisZ, 0.009962f, NOSAVE) // debug
-			CVar(AngDragBasisX, 0.003618f, NOSAVE) // debug
-			CVar(AngDragBasisY, 0.001514f, NOSAVE) // debug
-			CVar(AngDragBasisZ, 0.001514f, NOSAVE) // debug
-			CVar(MaxVelocity, 2000.f, NOSAVE) // debug
-			CVar(MaxAngularVelocity, 3600.f, NOSAVE) // debug
+			CVar(Overwrite, false) // debug
+			CVar(OffX, 16.f) // debug
+			CVar(OffY, 8.f) // debug
+			CVar(OffZ, -6.f) // debug
+			CVar(Pipes, true) // debug
+			CVar(Hull, 5.f) // debug
+			CVar(Speed, 1200.f) // debug
+			CVar(Gravity, 1.f) // debug
+			CVar(NoSpin, false) // debug
+			CVar(LifeTime, 2.2f) // debug
+			CVar(UpVelocity, 200.f) // debug
+			CVar(AngVelocityX, 600.f) // debug
+			CVar(AngVelocityY, -1200.f) // debug
+			CVar(AngVelocityZ, 0.f) // debug
+			CVar(Drag, 1.f) // debug
+			CVar(DragBasisX, 0.003902f) // debug
+			CVar(DragBasisY, 0.009962f) // debug
+			CVar(DragBasisZ, 0.009962f) // debug
+			CVar(AngDragBasisX, 0.003618f) // debug
+			CVar(AngDragBasisY, 0.001514f) // debug
+			CVar(AngDragBasisZ, 0.001514f) // debug
+			CVar(MaxVelocity, 2000.f) // debug
+			CVar(MaxAngularVelocity, 3600.f) // debug
 		SUBNAMESPACE_END(ProjectileTrajectory)
 
 		SUBNAMESPACE_BEGIN(Hitbox)
