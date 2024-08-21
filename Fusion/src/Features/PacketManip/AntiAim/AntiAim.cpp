@@ -1,3 +1,10 @@
+/* 
++-----------------------------------------------------------------------------------------------+
+| TODO: make the anti aim more customizeable.. (for example make the yaw offset its own thing   |
++-----------------------------------------------------------------------------------------------+
+*/
+
+
 #include "AntiAim.h"
 
 #include "../../Players/PlayerUtils.h"
