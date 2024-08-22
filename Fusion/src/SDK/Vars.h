@@ -121,7 +121,7 @@ namespace Vars
 
 			CVar(HitscanPeek, 3) // debug
 			CVar(NoSpreadOffset, 0.f) // debug
-			CVar(NoSpreadAverage, 5,) // debug
+			CVar(NoSpreadAverage, 5) // debug
 		SUBNAMESPACE_END(Global)
 
 		SUBNAMESPACE_BEGIN(Hitscan)
@@ -145,14 +145,14 @@ namespace Vars
 
 			CVar(GroundSamples, 5) // debug
 			CVar(AirSamples, 5) // debug
-			CVar(VerticalPrediction, 5.f) // debug
-			CVar(Overshooting?, 0.f) // debug
+			CVar(VerticalShift, 5.f) // debug
+			CVar(LatencyOffset, 0.f) // debug
 			CVar(HullIncrease, 0.f) // debug
-			CVar(AirViscosity, 0.f) // debug
-			CVar(Maybe?, 0.f) // debug
-			CVar(RealOvershooting, 50.f) // debug
-			CVar(SplashMultiPoints, 80) // debug
-			CVar(SplashTargets, 5) // debug
+			CVar(DragOverride, 0.f) // debug
+			CVar(TimeOverride, 0.f) // debug
+			CVar(HuntsmanLerp, 50.f) // debug
+			CVar(SplashPoints, 80) // debug
+			CVar(SplashCount, 5) // debug
 		SUBNAMESPACE_END(Projectile)
 
 		SUBNAMESPACE_BEGIN(Melee)
