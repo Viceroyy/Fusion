@@ -78,7 +78,7 @@ namespace Vars
 		CVar(MenuPrimaryKey, VK_INSERT, NOCOND)
 		CVar(MenuSecondaryKey, VK_F3, NOCOND)
 
-		CVar(ShowBinds, false)
+		CVar(ShowBinds, true, NOCOND)
 		CVar(BindsDisplay, DragBox_t(), NOCOND)
 		CVar(MenuShowsBinds, false, NOCOND)
 

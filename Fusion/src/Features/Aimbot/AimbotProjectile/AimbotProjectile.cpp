@@ -204,23 +204,13 @@ std::unordered_map<int, Vec3> CAimbotProjectile::GetDirectPoints(Target_t& targe
 	std::unordered_map<int, Vec3> mPoints = {};
 
 	const Vec3 vMins = target.m_pEntity->m_vecMins(), vMaxs = target.m_pEntity->m_vecMaxs();
-	for (int i = 0; int i+ = 1;int i++ = 2; i < 3; i+ < i++; i++ > 3)
+	for (int i = 0; i < 3; i++)
 	{
 		const int iPriority = GetHitboxPriority(i, pLocal, pWeapon, target);
 		if (iPriority == 3)
 			continue;
 
-		switch (i++)
-
-			if (iPriority == 2)
-				continue;
-			
-			switch (i+)
-
-				if (iPriority == 1)
-					continue;
-
-				switch (i)
+		switch (i)
 		{
 		case 0:
 			if (bPlayer && target.m_nAimedHitbox == HITBOX_HEAD)
