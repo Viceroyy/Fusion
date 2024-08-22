@@ -4,7 +4,6 @@
 #include "../../Resolver/Resolver.h"
 #include "../../Visuals/Visuals.h"
 
-
 bool CAimbotHitscan::PlayerBoneInFOV(CTFPlayer* pTarget, Vec3 vLocalPos, Vec3 vLocalAngles, float& flFOVTo, Vec3& vPos, Vec3& vAngleTo) // this won't prevent shooting bones outside of fov
 {
 	bool bReturn = false;
@@ -30,7 +29,6 @@ bool CAimbotHitscan::PlayerBoneInFOV(CTFPlayer* pTarget, Vec3 vLocalPos, Vec3 vL
 
 	return bReturn;
 }
-
 
 std::vector<Target_t> CAimbotHitscan::GetTargets(CTFPlayer* pLocal, CTFWeaponBase* pWeapon)
 {
@@ -72,15 +70,14 @@ std::vector<Target_t> CAimbotHitscan::GetTargets(CTFPlayer* pLocal, CTFWeaponBas
 			if (!PlayerBoneInFOV(pPlayer, vLocalPos, vLocalAngles, flFOVTo, vPos, vAngleTo))
 				continue;
 
-			// Is player behind wall?
-			if (!SDK::VisPos(pLocal, pPlayer, vLocalPos, vPos))
-				continue;
-
 			const float flDistTo = vLocalPos.DistTo(vPos);
 			const int priority = F::AimbotGlobal.GetPriority(pPlayer->entindex());
 			validTargets.push_back({ pPlayer, ETargetType::PLAYER, vPos, vAngleTo, flFOVTo, flDistTo, priority });
 		}
 	}
+
+	if (bIsMedigun) // do not attempt to heal buildings or other
+		return validTargets;
 
 	if (Vars::Aimbot::General::Target.Value)
 	{
@@ -174,8 +171,6 @@ std::vector<Target_t> CAimbotHitscan::GetTargets(CTFPlayer* pLocal, CTFWeaponBas
 
 	return validTargets;
 }
-
-
 
 std::vector<Target_t> CAimbotHitscan::SortTargets(CTFPlayer* pLocal, CTFWeaponBase* pWeapon)
 {
@@ -354,7 +349,7 @@ int CAimbotHitscan::CanHit(Target_t& target, CTFPlayer* pLocal, CTFWeaponBase* p
 				false,
 				*reinterpret_cast<BoneMatrixes*>(&bones),
 				target.m_pEntity->m_vecOrigin()
-				});
+			});
 		}
 	}
 
@@ -489,7 +484,7 @@ int CAimbotHitscan::CanHit(Target_t& target, CTFPlayer* pLocal, CTFWeaponBase* p
 								if (target.m_TargetType == ETargetType::PLAYER)
 								{
 									//if (Vars::Backtrack::Enabled.Value)
-									target.m_bBacktrack = target.m_TargetType == ETargetType::PLAYER;
+										target.m_bBacktrack = target.m_TargetType == ETargetType::PLAYER;
 									target.m_nAimedHitbox = pair.second;
 								}
 								return true;
@@ -709,10 +704,12 @@ void CAimbotHitscan::Run(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pC
 	switch (nWeaponID)
 	{
 	case TF_WEAPON_MINIGUN:
+	{
 		pCmd->buttons |= IN_ATTACK2;
 		if (pWeapon->As<CTFMinigun>()->m_iWeaponState() != AC_STATE_FIRING && pWeapon->As<CTFMinigun>()->m_iWeaponState() != AC_STATE_SPINNING)
 			return;
 		break;
+	}
 	case TF_WEAPON_SNIPERRIFLE:
 	case TF_WEAPON_SNIPERRIFLE_DECAP:
 	{
@@ -787,7 +784,7 @@ void CAimbotHitscan::Run(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCmd* pC
 		if (G::IsAttacking)
 		{
 			if (target.m_pEntity->IsPlayer())
-				F::Resolver.Aimbot(target.m_pEntity->As<CTFPlayer>(), target.m_nAimedHitbox == 0);
+			F::Resolver.Aimbot(target.m_pEntity->As<CTFPlayer>(), target.m_nAimedHitbox == 0);
 
 			if (target.m_bBacktrack)
 				pCmd->tick_count = TIME_TO_TICKS(target.m_Tick.flSimTime) + TIME_TO_TICKS(F::Backtrack.flFakeInterp);
