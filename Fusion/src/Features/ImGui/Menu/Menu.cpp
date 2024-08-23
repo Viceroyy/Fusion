@@ -193,6 +193,7 @@ void CMenu::MenuAimbot()
 				FDropdown("Splash", Vars::Aimbot::Projectile::SplashPrediction, { "Off", "Include", "Prefer", "Only" }, {}, FDropdown_Right);
 				FDropdown("Auto detonate", Vars::Aimbot::Projectile::AutoDetonate, { "Stickies", "Flares" }, {}, FDropdown_Multi | FDropdown_Left);
 				FDropdown("Auto airblast", Vars::Aimbot::Projectile::AutoAirblast, { "Off", "Legit", "Rage" }, {}, FDropdown_Right);
+				FDropdown("Legs Priority", Vars::Aimbot::Projectile::HitboxPriority, { "Off", "OnGround", "Always"}, {}, FDropdown_Multi | FDropdown_Left);
 				FDropdown("Modifiers## Projectile", Vars::Aimbot::Projectile::Modifiers, { "Charge shot", "Cancel charge", "Bodyaim if lethal" }, {}, FDropdown_Multi);
 				FSlider("Max simulation time", Vars::Aimbot::Projectile::PredictionTime, 0.1f, 10.f, 0.1f, "%.1fs");
 				bTransparent = !FGet(Vars::Aimbot::Projectile::StrafePrediction);
@@ -203,23 +204,17 @@ void CMenu::MenuAimbot()
 				bTransparent = !FGet(Vars::Aimbot::Projectile::AutoRelease);
 					FSlider("Auto release", Vars::Aimbot::Projectile::AutoRelease, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
 				bTransparent = false;
+				FSlider("ground samples", Vars::Aimbot::Projectile::GroundSamples, 3, 66, 1, "%d", FSlider_Left);
+				FSlider("air samples", Vars::Aimbot::Projectile::AirSamples, 3, 66, 1, "%d", FSlider_Right);
+				FSlider("vertical shift", Vars::Aimbot::Projectile::VerticalShift, 0.f, 20.f, 0.5f, "%.1f", FSlider_Left);
+				FSlider("huntsman lerp", Vars::Aimbot::Projectile::HuntsmanLerp, 0.f, 100.f, 1.f, "%.0f%%", FSlider_Right);
+				FSlider("latency offset", Vars::Aimbot::Projectile::LatencyOffset, -1.f, 1.f, 0.1f, "%.1f", FSlider_Left);
+				FSlider("hull increase", Vars::Aimbot::Projectile::HullIncrease, 0.f, 3.f, 0.5f, "%.1f", FSlider_Right);
+				FSlider("drag override", Vars::Aimbot::Projectile::DragOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Left);
+				FSlider("time override", Vars::Aimbot::Projectile::TimeOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Right);
+				FSlider("splash points", Vars::Aimbot::Projectile::SplashPoints, 0, 100, 1, "%d", FSlider_Left);
+				FSlider("splash count", Vars::Aimbot::Projectile::SplashCount, 1, 5, 1, "%d", FSlider_Right);
 			} EndSection();
-			if (Vars::Debug::Info.Value)
-			{
-				if (Section("debug## projectile"))
-				{
-					FSlider("ground samples", Vars::Aimbot::Projectile::GroundSamples, 3, 66, 1, "%d", FSlider_Left);
-					FSlider("air samples", Vars::Aimbot::Projectile::AirSamples, 3, 66, 1, "%d", FSlider_Right);
-					FSlider("vertical shift", Vars::Aimbot::Projectile::VerticalShift, 0.f, 20.f, 0.5f, "%.1f", FSlider_Left);
-					FSlider("huntsman lerp", Vars::Aimbot::Projectile::HuntsmanLerp, 0.f, 100.f, 1.f, "%.0f%%", FSlider_Right);
-					FSlider("latency offset", Vars::Aimbot::Projectile::LatencyOffset, -1.f, 1.f, 0.1f, "%.1f", FSlider_Left);
-					FSlider("hull increase", Vars::Aimbot::Projectile::HullIncrease, 0.f, 3.f, 0.5f, "%.1f", FSlider_Right);
-					FSlider("drag override", Vars::Aimbot::Projectile::DragOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Left);
-					FSlider("time override", Vars::Aimbot::Projectile::TimeOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Right);
-					FSlider("splash points", Vars::Aimbot::Projectile::SplashPoints, 0, 100, 1, "%d", FSlider_Left);
-					FSlider("splash count", Vars::Aimbot::Projectile::SplashCount, 1, 5, 1, "%d", FSlider_Right);
-				} EndSection();
-			}
 			if (Section("Melee"))
 			{
 				FToggle("Auto backstab", Vars::Aimbot::Melee::AutoBackstab);

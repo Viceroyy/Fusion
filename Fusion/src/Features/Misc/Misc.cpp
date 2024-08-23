@@ -283,7 +283,7 @@ void CMisc::PingReducer()
 	if (cl_cmdrate == nullptr || netChannel == nullptr) { return; }
 
 	static Timer updateRateTimer{};
-	if (updateRateTimer.Run(250))
+	if (updateRateTimer.Run(125))
 	{
 		if (Vars::Misc::Exploits::PingReducer.Value)
 		{
