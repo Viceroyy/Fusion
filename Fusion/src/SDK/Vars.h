@@ -136,6 +136,7 @@ namespace Vars
 			CVar(SplashPrediction, 0) // 0 - Off, 1 - Obstructed, 2 - Prefer, 3 - Only
 			CVar(AutoDetonate, 0b00) // { Flares, Stickies }
 			CVar(AutoAirblast, 0) // 0 - Off, 1 - Legit, 2 - Rage
+			CVar(LegsPriority, 0) // 0 - Off, 1 - OnGround, 2 - Always
 			CVar(Modifiers, 0b010) // { Bodyaim if lethal, Cancel charge, Charge weapon }
 			CVar(PredictionTime, 2.f)
 			CVar(Hitchance, 0.f)
@@ -220,14 +221,14 @@ namespace Vars
 			CVar(RealYawOffset, 0)
 			CVar(FakeYawOffset, 0)
 			CVar(SpinSpeed, 15.f)
-			CVar(MinWalk, true)
-			CVar(AntiOverlap, false)
+			CVar(MinWalk, false)
+			CVar(AntiOverlap, true)
 			CVar(InvalidShootPitch, false)
 		SUBNAMESPACE_END(AntiAim)
 
 		SUBNAMESPACE_BEGIN(Resolver)
 			CVar(Resolver, false)
-			CVar(AutoResolveCheaters, false)
+			CVar(AutoResolveCheaters, true)
 			CVar(IgnoreAirborne, false)
 		SUBNAMESPACE_END(Resolver)
 	NAMESPACE_END(AntiHack)
