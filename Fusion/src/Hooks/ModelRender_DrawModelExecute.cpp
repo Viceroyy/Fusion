@@ -37,11 +37,14 @@ MAKE_HOOK(ModelRender_DrawModelExecute, U::Memory.GetVFunc(I::ModelRender, 19), 
 	if (F::Chams.mEntities[pInfo.entity_index])
 		return;
 
-	if (pEntity && pEntity->GetClassID() == ETFClassID::CTFViewModel)
+	if (!I::EngineVGui->IsGameUIVisible())
 	{
-		F::Glow.RenderViewmodel(pState, pInfo, pBoneToWorld);
-		if (F::Chams.RenderViewmodel(pState, pInfo, pBoneToWorld))
-			return;
+		if (pEntity && pEntity->GetClassID() == ETFClassID::CTFViewModel)
+		{
+			F::Glow.RenderViewmodel(pState, pInfo, pBoneToWorld);
+			if (F::Chams.RenderViewmodel(pState, pInfo, pBoneToWorld))
+				return;
+		}
 	}
 
 	CALL_ORIGINAL(ecx, pState, pInfo, pBoneToWorld);

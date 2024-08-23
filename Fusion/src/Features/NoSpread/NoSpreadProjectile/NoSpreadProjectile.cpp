@@ -1,4 +1,5 @@
 #include "NoSpreadProjectile.h"
+#include "../../CritHack/CritHack.h"
 
 bool CNoSpreadProjectile::ShouldRun(CTFPlayer* pLocal, CTFWeaponBase* pWeapon)
 {
@@ -47,6 +48,17 @@ void CNoSpreadProjectile::Run(CTFPlayer* pLocal, CTFWeaponBase* pWeapon, CUserCm
 		pCmd->viewangles.y -= -6 + flRand * 12.f;
 
 		G::PSilentAngles = true;
+		return;
+	}
+	case TF_WEAPON_GRENADELAUNCHER:
+	case TF_WEAPON_PIPEBOMBLAUNCHER:
+	case TF_WEAPON_CANNON:
+	{
+		// No pipe rotation
+		if ( !F::CritHack.bRunning )
+		{
+			pCmd->command_number = 132; // random seed - 317335397
+		}
 		return;
 	}
 	}
