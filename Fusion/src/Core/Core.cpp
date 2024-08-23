@@ -75,7 +75,7 @@ __forceinline bool CheckRenderIsCompatible()
 	// Check for if we are running in DXVK mode.
 	if (GetModuleHandleA("dxvk_d3d9.dll"))
 	{
-		MessageBoxA(nullptr, "You are running with graphics options that Amalgam does not support.\n"
+		MessageBoxA(nullptr, "You are running with graphics options that Fusion does not support.\n"
 			"Please remove -vulkan from your launch options and reinject.", "Error", MB_ICONERROR);
 		U::Core.bUnload = true;
 		return false;
@@ -86,7 +86,7 @@ __forceinline bool CheckRenderIsCompatible()
 	auto iLevel = cvDXLevel->GetInt();
 	if (iLevel < 90)
 	{
-		std::string fmt = std::format("You are running with graphics options that Amalgam does not support.\nPlease remove -dxlevel {} from your launch options and reinject.\0", iLevel);
+		std::string fmt = std::format("You are running with graphics options that Fusion does not support.\nPlease remove -dxlevel {} from your launch options and reinject.\0", iLevel);
 		MessageBox(nullptr, fmt.c_str(), "Error", MB_ICONERROR);
 		U::Core.bUnload = true;
 		return false;
@@ -113,10 +113,14 @@ void CCore::Load()
 	F::EventListener.Setup({ "item_pickup" });
 
 	F::Configs.LoadConfig(F::Configs.sCurrentConfig, false);
+
+	Sleep(250);
+
 	H::Fonts.Reload();
 	F::Menu.ConfigLoaded = true;
 
-	SDK::Output("Amalgam", "Loaded", { 175, 150, 255, 255 });
+	I::MatSystemSurface->PlaySound("hl1/fvox/activated.wav");
+	SDK::Output("Fusion", "Loaded", { 175, 150, 255, 255 });
 }
 
 void CCore::Unload()
@@ -148,7 +152,9 @@ void CCore::Unload()
 
 		Sleep(250);
 	}
-	SDK::Output("Amalgam", "Unloaded", { 175, 150, 255, 255 });
+
+	I::MatSystemSurface->PlaySound("hl1/fvox/deactivated.wav");
+	SDK::Output("Fusion", "Unloaded", { 175, 150, 255, 255 });
 }
 
 bool CCore::ShouldUnload()
