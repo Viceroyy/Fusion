@@ -148,12 +148,15 @@ void CMenu::MenuAimbot()
 				FToggle("Always melee", Vars::CritHack::AlwaysMelee);
 				FToggle("No spread", Vars::Aimbot::General::NoSpread, FToggle_Middle);
 			} EndSection();
-			if (Section("Advanced"))
+			if (Vars::Debug::Info.Value)
 			{
-				FSlider("hitscan peek", Vars::Aimbot::General::HitscanPeek, 0, 24);
-				FSlider("offset## nospread", Vars::Aimbot::General::NoSpreadOffset, -5.f, 5.f, 1.f, "%.1f", FSlider_Precision);
-				FSlider("average", Vars::Aimbot::General::NoSpreadAverage, 1, 24);
-			} EndSection();
+				if (Section("debug## aimbot"))
+				{
+					FSlider("hitscan peek", Vars::Aimbot::General::HitscanPeek, 0, 10);
+					FSlider("offset## nospread", Vars::Aimbot::General::NoSpreadOffset, -5.f, 5.f, 1.f, "%.1f", FSlider_Precision);
+					FSlider("average", Vars::Aimbot::General::NoSpreadAverage, 1, 25);
+				} EndSection();
+			}
 			if (Section("Backtrack"))
 			{
 				FToggle("Enabled", Vars::Backtrack::Enabled);
@@ -190,30 +193,33 @@ void CMenu::MenuAimbot()
 				FDropdown("Splash", Vars::Aimbot::Projectile::SplashPrediction, { "Off", "Include", "Prefer", "Only" }, {}, FDropdown_Right);
 				FDropdown("Auto detonate", Vars::Aimbot::Projectile::AutoDetonate, { "Stickies", "Flares" }, {}, FDropdown_Multi | FDropdown_Left);
 				FDropdown("Auto airblast", Vars::Aimbot::Projectile::AutoAirblast, { "Off", "Legit", "Rage" }, {}, FDropdown_Right);
-				FDropdown("Legs Priority", Vars::Aimbot::Projectile::HitboxPriority, { "Off", "OnGround", "Always"}, {}, FDropdown_Multi | FDropdown_Left);
 				FDropdown("Modifiers## Projectile", Vars::Aimbot::Projectile::Modifiers, { "Charge shot", "Cancel charge", "Bodyaim if lethal" }, {}, FDropdown_Multi);
 				FSlider("Max simulation time", Vars::Aimbot::Projectile::PredictionTime, 0.1f, 10.f, 0.1f, "%.1fs");
 				bTransparent = !FGet(Vars::Aimbot::Projectile::StrafePrediction);
-				FSlider("Hit chance", Vars::Aimbot::Projectile::Hitchance, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
+					FSlider("Hit chance", Vars::Aimbot::Projectile::Hitchance, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
 				bTransparent = false;
 				FSlider("Autodet radius", Vars::Aimbot::Projectile::AutodetRadius, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
 				FSlider("Splash radius", Vars::Aimbot::Projectile::SplashRadius, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
 				bTransparent = !FGet(Vars::Aimbot::Projectile::AutoRelease);
-				FSlider("Auto release", Vars::Aimbot::Projectile::AutoRelease, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
+					FSlider("Auto release", Vars::Aimbot::Projectile::AutoRelease, 0.f, 100.f, 5.f, "%.0f%%", FSlider_Clamp | FSlider_Precision);
 				bTransparent = false;
 			} EndSection();
-			if (Section("Advanced"))
-				FSlider("ground samples", Vars::Aimbot::Projectile::GroundSamples, 3, 66, 1, "%d", FSlider_Left);
-				FSlider("air samples", Vars::Aimbot::Projectile::AirSamples, 3, 66, 1, "%d", FSlider_Right);
-				FSlider("vertical shift", Vars::Aimbot::Projectile::VerticalShift, 0.f, 20.f, 0.5f, "%.1f", FSlider_Left);
-				FSlider("huntsman lerp", Vars::Aimbot::Projectile::HuntsmanLerp, 0.f, 100.f, 1.f, "%.0f%%", FSlider_Right);
-				FSlider("latency offset", Vars::Aimbot::Projectile::LatencyOffset, -1.f, 1.f, 0.1f, "%.1f", FSlider_Left);
-				FSlider("hull increase", Vars::Aimbot::Projectile::HullIncrease, 0.f, 3.f, 0.5f, "%.1f", FSlider_Right);
-				FSlider("drag override", Vars::Aimbot::Projectile::DragOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Left);
-				FSlider("time override", Vars::Aimbot::Projectile::TimeOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Right);
-				FSlider("splash points", Vars::Aimbot::Projectile::SplashPoints, 0, 100, 1, "%d", FSlider_Left);
-				FSlider("splash count", Vars::Aimbot::Projectile::SplashCount, 1, 5, 1, "%d", FSlider_Right);
-			 } EndSection();
+			if (Vars::Debug::Info.Value)
+			{
+				if (Section("debug## projectile"))
+				{
+					FSlider("ground samples", Vars::Aimbot::Projectile::GroundSamples, 3, 66, 1, "%d", FSlider_Left);
+					FSlider("air samples", Vars::Aimbot::Projectile::AirSamples, 3, 66, 1, "%d", FSlider_Right);
+					FSlider("vertical shift", Vars::Aimbot::Projectile::VerticalShift, 0.f, 20.f, 0.5f, "%.1f", FSlider_Left);
+					FSlider("huntsman lerp", Vars::Aimbot::Projectile::HuntsmanLerp, 0.f, 100.f, 1.f, "%.0f%%", FSlider_Right);
+					FSlider("latency offset", Vars::Aimbot::Projectile::LatencyOffset, -1.f, 1.f, 0.1f, "%.1f", FSlider_Left);
+					FSlider("hull increase", Vars::Aimbot::Projectile::HullIncrease, 0.f, 3.f, 0.5f, "%.1f", FSlider_Right);
+					FSlider("drag override", Vars::Aimbot::Projectile::DragOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Left);
+					FSlider("time override", Vars::Aimbot::Projectile::TimeOverride, 0.f, 1.f, 0.001f, "%.3f", FSlider_Right);
+					FSlider("splash points", Vars::Aimbot::Projectile::SplashPoints, 0, 100, 1, "%d", FSlider_Left);
+					FSlider("splash count", Vars::Aimbot::Projectile::SplashCount, 1, 5, 1, "%d", FSlider_Right);
+				} EndSection();
+			}
 			if (Section("Melee"))
 			{
 				FToggle("Auto backstab", Vars::Aimbot::Melee::AutoBackstab);
@@ -244,7 +250,7 @@ void CMenu::MenuAimbot()
 				FToggle("Recharge ticks", Vars::CL_Move::Doubletap::RechargeTicks);
 				FToggle("Anti-warp", Vars::CL_Move::Doubletap::AntiWarp, FToggle_Middle);
 				FSlider("Tick limit", Vars::CL_Move::Doubletap::TickLimit, 2, 22, 1, "%d", FSlider_Clamp);
-				FSlider("Warp rate", Vars::CL_Move::Doubletap::WarpRate, 2, 24, 1, "%d", FSlider_Clamp);
+				FSlider("Warp rate", Vars::CL_Move::Doubletap::WarpRate, 2, 22, 1, "%d", FSlider_Clamp);
 				FSlider("Passive recharge", Vars::CL_Move::Doubletap::PassiveRecharge, 0, 66, 1, "%d", FSlider_Clamp);
 			} EndSection();
 			if (Section("Fakelag"))
