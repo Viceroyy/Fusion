@@ -230,7 +230,7 @@ bool CMovementSimulation::Initialize(CBaseEntity* pEntity, PlayerStorage& player
 			if (mVelocityRecords.size() <= i + 2)
 				break;
 
-			const auto& pRecord1 = mVelocityRecords[i], &pRecord2 = mVelocityRecords[i + 1];
+			const auto& pRecord1 = mVelocityRecords[i], & pRecord2 = mVelocityRecords[i + 1];
 			const float flYaw1 = Math::VelocityToAngles(pRecord1.m_vVelocity).y, flYaw2 = Math::VelocityToAngles(pRecord2.m_vVelocity).y;
 			const float flTime1 = pRecord1.m_flSimTime, flTime2 = pRecord2.m_flSimTime;
 
@@ -302,19 +302,23 @@ bool CMovementSimulation::GetYawDifference(const std::deque<VelocityData>& mVelo
 	if (mVelocityRecords.size() <= i + 2)
 		return false;
 
-	const auto& pRecord1 = mVelocityRecords[i], &pRecord2 = mVelocityRecords[i + 1];
-	const float flYaw1 = Math::VelocityToAngles(pRecord1.m_vVelocity).y, flYaw2 = Math::VelocityToAngles(pRecord2.m_vVelocity).y;
-	const float flTime1 = pRecord1.m_flSimTime, flTime2 = pRecord2.m_flSimTime;
+	const auto& pRecord1 = mVelocityRecords[i];
+	const auto& pRecord2 = mVelocityRecords[i + 1];
+	const float flYaw1 = Math::VelocityToAngles(pRecord1.m_vVelocity).y;
+	const float flYaw2 = Math::VelocityToAngles(pRecord2.m_vVelocity).y;
+	const float flTime1 = pRecord1.m_flSimTime;
+	const float flTime2 = pRecord2.m_flSimTime;
 
 	const int iTicks = std::max(TIME_TO_TICKS(flTime1 - flTime2), 1);
 	*flYaw = (flYaw1 - flYaw2) / iTicks;
 	*flYaw = fmodf(*flYaw + 180.f, 360.f);
 	*flYaw += *flYaw < 0 ? 180.f : -180.f;
-	
+
 	static int iSign = 0;
 	const int iLastSign = iSign;
 	const int iCurSign = iSign = *flYaw > 0 ? 1 : -1;
-	if (fabsf(*flYaw) < 200.f / pRecord1.m_vVelocity.Length2D() / iTicks) // dumb way to get straight bool
+
+	if (fabsf(*flYaw) < 200.f / pRecord1.m_vVelocity.Length2D() / iTicks) // Dumb way to get straight bool
 		return false;
 
 	return !i || iLastSign == iCurSign ? true : false;
@@ -324,7 +328,9 @@ float CMovementSimulation::GetAverageYaw(const int iIndex, const int iSamples)
 {
 	const auto& mVelocityRecords = mVelocities[iIndex];
 
-	float flAverageYaw = 0.f; size_t i = 0;
+	float flAverageYaw = 0.f;
+	size_t i = 0;
+
 	for (; i < iSamples; i++)
 	{
 		float flYaw;
@@ -333,7 +339,8 @@ float CMovementSimulation::GetAverageYaw(const int iIndex, const int iSamples)
 
 		flAverageYaw += flYaw;
 	}
-	if (i < 2) // valid strafes too low
+
+	if (i < 2) // Valid strafes too low
 		return 0.f;
 
 	flAverageYaw /= i;
@@ -350,12 +357,11 @@ bool CMovementSimulation::StrafePrediction(PlayerStorage& playerStorage, const i
 
 	float flAverageYaw = GetAverageYaw(playerStorage.m_pPlayer->entindex(), iSamples);
 
-	//if (playerStorage.m_pPlayer->OnSolid() && flAverageYaw)
-	//	playerStorage.m_MoveData.m_vecViewAngles.y += 22.5f * (flAverageYaw > 0.f ? 1.f : -1.f); // fix for ground strafe delay
 	playerStorage.m_flAverageYaw = flAverageYaw;
 
 	return true;
 }
+
 
 void CMovementSimulation::RunTick(PlayerStorage& playerStorage)
 {
@@ -364,12 +370,13 @@ void CMovementSimulation::RunTick(PlayerStorage& playerStorage)
 
 	playerStorage.PredictionLines.push_back({ playerStorage.m_MoveData.m_vecAbsOrigin, Math::GetRotatedPosition(playerStorage.m_MoveData.m_vecAbsOrigin, Math::VelocityToAngles(playerStorage.m_MoveData.m_vecVelocity * Vec3(1, 1, 0)).Length2D() + 90, Vars::Visuals::Simulation::SeparatorLength.Value) });
 
-	//make sure frametime and prediction vars are right
+	// Make sure frametime and prediction vars are right
 	I::Prediction->m_bInPrediction = true;
 	I::Prediction->m_bFirstTimePredicted = false;
 	I::GlobalVars->frametime = I::Prediction->m_bEnginePaused ? 0.f : TICK_INTERVAL;
 
 	float flCorrection = 0.f;
+
 	if (playerStorage.m_flAverageYaw)
 	{
 		if (!playerStorage.m_pPlayer->OnSolid())
@@ -377,10 +384,8 @@ void CMovementSimulation::RunTick(PlayerStorage& playerStorage)
 
 		playerStorage.m_MoveData.m_vecViewAngles.y += playerStorage.m_flAverageYaw + flCorrection;
 	}
-	//else
-	//	playerStorage.m_MoveData.m_vecViewAngles.y = Math::VelocityToAngles(playerStorage.m_MoveData.m_vecVelocity).y;
 
-	I::/*TF*/GameMovement->ProcessMovement(playerStorage.m_pPlayer, &playerStorage.m_MoveData);
+	I::GameMovement->ProcessMovement(playerStorage.m_pPlayer, &playerStorage.m_MoveData);
 
 	playerStorage.m_MoveData.m_vecViewAngles.y -= flCorrection;
 }
