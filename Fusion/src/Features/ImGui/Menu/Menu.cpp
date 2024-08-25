@@ -249,8 +249,8 @@ void CMenu::MenuAimbot()
 				FToggle("Warp", Vars::CL_Move::Doubletap::Warp, FToggle_Middle);
 				FToggle("Recharge ticks", Vars::CL_Move::Doubletap::RechargeTicks);
 				FToggle("Anti-warp", Vars::CL_Move::Doubletap::AntiWarp, FToggle_Middle);
-				FSlider("Tick limit", Vars::CL_Move::Doubletap::TickLimit, 2, 22, 1, "%d", FSlider_Clamp);
-				FSlider("Warp rate", Vars::CL_Move::Doubletap::WarpRate, 2, 22, 1, "%d", FSlider_Clamp);
+				FSlider("Tick limit", Vars::CL_Move::Doubletap::TickLimit, 2, 24, 1, "%d", FSlider_Clamp);
+				FSlider("Warp rate", Vars::CL_Move::Doubletap::WarpRate, 2, 24, 1, "%d", FSlider_Clamp);
 				FSlider("Passive recharge", Vars::CL_Move::Doubletap::PassiveRecharge, 0, 66, 1, "%d", FSlider_Clamp);
 			} EndSection();
 			if (Section("Fakelag"))
