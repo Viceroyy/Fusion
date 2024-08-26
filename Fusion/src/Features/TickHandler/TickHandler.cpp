@@ -36,46 +36,28 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 
 	G::Recharge = true;
 	if (bGoalReached)
-		G::ShiftedGoal = G::MaxShift;
+		G::ShiftedGoal = G::ShiftedTicks + 1;
 }
 
 void CTickshiftHandler::Teleport(CUserCmd* pCmd)
-{
-	G::Warp = false;
-	if (!G::ShiftedTicks || G::DoubleTap || G::Recharge || bSpeedhack)
-		return;
 
-	G::Warp = Vars::CL_Move::Doubletap::Warp.Value;
-	if (G::Warp && bGoalReached)
-		G::ShiftedGoal = std::max(G::ShiftedTicks - Vars::CL_Move::Doubletap::WarpRate.Value + 1, 0);
-}
+@@ -52,16 +52,29 @@ void CTickshiftHandler::Teleport(CUserCmd* pCmd)
 
 void CTickshiftHandler::Doubletap(const CUserCmd* pCmd, CTFPlayer* pLocal)
 {
-	// Can we doubletap?
-	bool bCanDoubleTap = (G::ShiftedTicks >= std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift)) &&
-		!G::WaitForShift && !G::Warp && !G::Recharge && !bSpeedhack &&
-		G::CanPrimaryAttack &&
-		(G::WeaponType == EWeaponType::MELEE ? (pCmd->buttons & IN_ATTACK) : G::IsAttacking) &&
-		F::AutoRocketJump.iFrame == -1;
-
-	if (!bCanDoubleTap)
+	if (G::ShiftedTicks < std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift)
+		|| G::WaitForShift || G::Warp || G::Recharge || bSpeedhack
+		|| !G::CanPrimaryAttack || (G::WeaponType == EWeaponType::MELEE ? !(pCmd->buttons & IN_ATTACK) : !G::IsAttacking) || F::AutoRocketJump.iFrame != -1)
 		return;
-
 	G::DoubleTap = Vars::CL_Move::Doubletap::Doubletap.Value;
 
 	if (G::DoubleTap && Vars::CL_Move::Doubletap::AntiWarp.Value)
 		G::AntiWarp = true;
-
 	if (G::DoubleTap && bGoalReached)
-		G::ShiftedGoal = std::max(G::ShiftedTicks - Vars::CL_Move::Doubletap::TickLimit.Value, 0);
-
-	if (G::ShiftedTicks <= G::ShiftedGoal)
-	{
-		G::DoubleTap = false;
-		G::AntiWarp = false;
-	}
+		G::ShiftedGoal = G::ShiftedTicks - std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift);
 }
+
+int CTickshiftHandler::GetTicks(CTFPlayer* pLocal)
 
 int CTickshiftHandler::GetTicks(CTFPlayer* pLocal)
 {
