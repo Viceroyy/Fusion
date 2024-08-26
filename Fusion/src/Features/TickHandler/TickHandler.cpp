@@ -36,7 +36,7 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 
 	G::Recharge = true;
 	if (bGoalReached)
-		G::ShiftedGoal = G::ShiftedTicks + 1;
+		G::ShiftedGoal = G::MaxShift;
 }
 
 void CTickshiftHandler::Teleport(CUserCmd* pCmd)
@@ -52,16 +52,29 @@ void CTickshiftHandler::Teleport(CUserCmd* pCmd)
 
 void CTickshiftHandler::Doubletap(const CUserCmd* pCmd, CTFPlayer* pLocal)
 {
-	if (G::ShiftedTicks < std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift)
-		|| G::WaitForShift || G::Warp || G::Recharge || bSpeedhack
-		|| !G::CanPrimaryAttack || (G::WeaponType == EWeaponType::MELEE ? !(pCmd->buttons & IN_ATTACK) : !G::IsAttacking) || F::AutoRocketJump.iFrame != -1)
+	// Can we doubletap?
+	bool bCanDoubleTap = (G::ShiftedTicks >= std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift)) &&
+		!G::WaitForShift && !G::Warp && !G::Recharge && !bSpeedhack &&
+		G::CanPrimaryAttack &&
+		(G::WeaponType == EWeaponType::MELEE ? (pCmd->buttons & IN_ATTACK) : G::IsAttacking) &&
+		F::AutoRocketJump.iFrame == -1;
+
+	if (!bCanDoubleTap)
 		return;
 
 	G::DoubleTap = Vars::CL_Move::Doubletap::Doubletap.Value;
+
 	if (G::DoubleTap && Vars::CL_Move::Doubletap::AntiWarp.Value)
 		G::AntiWarp = true;
+
 	if (G::DoubleTap && bGoalReached)
-		G::ShiftedGoal = G::ShiftedTicks - std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift);
+		G::ShiftedGoal = std::max(G::ShiftedTicks - Vars::CL_Move::Doubletap::TickLimit.Value, 0);
+
+	if (G::ShiftedTicks <= G::ShiftedGoal)
+	{
+		G::DoubleTap = false;
+		G::AntiWarp = false;
+	}
 }
 
 int CTickshiftHandler::GetTicks(CTFPlayer* pLocal)
@@ -92,9 +105,11 @@ bool CTickshiftHandler::ValidWeapon(CTFWeaponBase* pWeapon)
 	case TF_WEAPON_JAR_MILK:
 	case TF_WEAPON_LUNCHBOX:
 	case TF_WEAPON_BUFF_ITEM:
+	case TF_WEAPON_ROCKETPACK:
 	case TF_WEAPON_JAR_GAS:
 	case TF_WEAPON_LASER_POINTER:
 	case TF_WEAPON_MEDIGUN:
+	case TF_WEAPON_SNIPERRIFLE:
 	case TF_WEAPON_SNIPERRIFLE_DECAP:
 	case TF_WEAPON_SNIPERRIFLE_CLASSIC:
 	case TF_WEAPON_COMPOUND_BOW:
