@@ -1,3 +1,10 @@
+/* 
++-----------------------------------------------------------------------------------------------+
+| TODO: make the anti aim more customizeable.. (for example make the yaw offset its own thing   |
++-----------------------------------------------------------------------------------------------+
+*/
+
+
 #include "AntiAim.h"
 
 #include "../../Players/PlayerUtils.h"
@@ -90,14 +97,24 @@ float CAntiAim::GetYawOffset(CTFPlayer* pEntity, bool bFake)
 {
 	const int iMode = bFake ? Vars::AntiHack::AntiAim::YawFake.Value : Vars::AntiHack::AntiAim::YawReal.Value;
 	const bool bUpPitch = bFake ? Vars::AntiHack::AntiAim::PitchFake.Value == 1 : Vars::AntiHack::AntiAim::PitchReal.Value == 1;
+
 	switch (iMode)
 	{
-		case 0: return 0.f;
-		case 1: return 90.f;
-		case 2: return -90.f;
-		case 3: return 180.f;
-		case 4: return fmod(I::GlobalVars->tickcount * Vars::AntiHack::AntiAim::SpinSpeed.Value + 180.f, 360.f) - 180.f;
-		case 5: return (GetEdge(pEntity, I::EngineClient->GetViewAngles().y, bUpPitch) ? 1 : -1) * (bFake ? -90 : 90);
+	case 0: return 0.f;         // Default
+	case 1: return 90.f;        // Right
+	case 2: return -90.f;       // Left
+	case 3: return 180.f;       // Backward
+	case 4: return fmod(I::GlobalVars->tickcount * Vars::AntiHack::AntiAim::SpinSpeed.Value + 180.f, 360.f) - 180.f; // Spin
+	case 5: // Edge detection mode
+	{
+		if (!bFake)
+		{
+			// ensure we dont peek real
+			return (GetEdge(pEntity, I::EngineClient->GetViewAngles().y, bUpPitch) ? 90 : -90); // btw these offsets can be fucked so just test until u get it right these work fine for me though so
+		}
+		// make sure fake yaw peeks
+		return (GetEdge(pEntity, I::EngineClient->GetViewAngles().y, bUpPitch) ? 1 : -1) * (bFake ? -90 : 90);
+	}
 	}
 	return 0.f;
 }
