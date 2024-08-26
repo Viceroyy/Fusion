@@ -36,7 +36,7 @@ void CTickshiftHandler::Recharge(CUserCmd* pCmd, CTFPlayer* pLocal)
 
 	G::Recharge = true;
 	if (bGoalReached)
-		G::ShiftedGoal = G::ShiftedTicks + 1;
+		G::ShiftedGoal = G::MaxShift;
 }
 
 void CTickshiftHandler::Teleport(CUserCmd* pCmd)
@@ -54,7 +54,7 @@ void CTickshiftHandler::Doubletap(const CUserCmd* pCmd, CTFPlayer* pLocal)
 	if (G::DoubleTap && Vars::CL_Move::Doubletap::AntiWarp.Value)
 		G::AntiWarp = true;
 	if (G::DoubleTap && bGoalReached)
-		G::ShiftedGoal = G::ShiftedTicks - std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift);
+		G::ShiftedGoal = G::ShiftedTicks - std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::ShiftedTicks + 1);
 }
 
 int CTickshiftHandler::GetTicks(CTFPlayer* pLocal)
