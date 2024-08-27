@@ -43,12 +43,13 @@ void CVisuals::DrawTickbaseText(CTFPlayer* pLocal)
 	const auto& fFont = H::Fonts.GetFont(FONT_INDICATORS);
 
 	const int offset = 7 + 12 * Vars::Menu::DPI.Value;
-	H::Draw.String(fFont, dtPos.x, dtPos.y + 2, Vars::Menu::Theme::Active.Value, ALIGN_TOP, "Doubletap", iTicks, G::MaxShift);
-	H::Draw.String(fFont, dtPos.x, dtPos.y + fFont.m_nTall + offset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, "Ticks %d / %d", iTicks, G::MaxShift);
+	H::Draw.String(fFont, dtPos.x, dtPos.y + 2, Vars::Menu::Theme::Active.Value, ALIGN_TOP, "Ticks %d / %d", iTicks, G::MaxShift);
+	if (G::WaitForShift)
+		H::Draw.String(fFont, dtPos.x, dtPos.y + fFont.m_nTall + offset, Vars::Menu::Theme::Active.Value, ALIGN_TOP, "Not Ready");
 
 	const float ratioCurrent = (float)iTicks / (float)G::MaxShift;
 	float sizeX = 100 * Vars::Menu::DPI.Value, sizeY = 12 * Vars::Menu::DPI.Value, posX = dtPos.x - sizeX / 2, posY = dtPos.y + 5 + fFont.m_nTall;
-	H::Draw.LineRect(posX, posY, sizeX, sizeY, Vars::Menu::Theme::Accent.Value);
+	H::Draw.LineRect(posX, dtPos.y + 5 + fFont.m_nTall, sizeX, sizeY, Vars::Menu::Theme::Accent.Value);
 	if (iTicks)
 	{
 		sizeX -= 4, sizeY -= 4, posX = dtPos.x - sizeX / 2;
@@ -56,10 +57,6 @@ void CVisuals::DrawTickbaseText(CTFPlayer* pLocal)
 		H::Draw.FillRect(posX, posY + 2, sizeX, sizeY, Vars::Menu::Theme::Accent.Value);
 		H::Draw.EndClipping();
 	}
-
-	float notReadyPosY = dtPos.y + fFont.m_nTall + offset + 14; 
-	if (G::WaitForShift)
-		H::Draw.String(fFont, dtPos.x, notReadyPosY, Vars::Menu::Theme::Active.Value, ALIGN_TOP, "Not Ready");
 }
 
 
