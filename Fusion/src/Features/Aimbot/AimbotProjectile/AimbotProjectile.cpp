@@ -3,7 +3,12 @@
 #include "../../Simulation/MovementSimulation/MovementSimulation.h"
 #include "../../Simulation/ProjectileSimulation/ProjectileSimulation.h"
 #include "../../Backtrack/Backtrack.h"
+#include <vector>
+#include <cmath>
 #include "../../Visuals/Visuals.h"
+
+//const float PI = 3.14159265358979323846f; // This already exists in math.h so we do not need it!
+const float GOLDEN_ANGLE = 2.39996323f;
 
 std::vector<Target_t> CAimbotProjectile::GetTargets(CTFPlayer* pLocal, CTFWeaponBase* pWeapon)
 {
@@ -235,24 +240,30 @@ std::unordered_map<int, Vec3> CAimbotProjectile::GetDirectPoints(Target_t& targe
 	return mPoints;
 }
 
+
+
 // seode
-std::vector<Vec3> ComputeSphere(float flRadius, int iSamples)
+std::vector<Vec3> ComputeSphere(float radius, int numSamples)
 {
-	std::vector<Vec3> vPoints;
-	vPoints.reserve(iSamples);
+	std::vector<Vec3> points;
+	points.reserve(numSamples);
 
-	for (int n = 0; n < iSamples; n++)
+	for (int i = 0; i < numSamples; ++i)
 	{
-		float a1 = acosf(1.f - 2.f * n / iSamples);
-		float a2 = PI * (3.f - sqrtf(5.f)) * n;
+		// golden angle
+		float theta = GOLDEN_ANGLE * i;
+		float phi = acosf(1.0f - 2.0f * (i + 0.5f) / numSamples);
 
-		Vec3 point = Vec3(sinf(a1) * cosf(a2), sinf(a1) * sinf(a2), -cosf(a1)) * flRadius;
+		Vec3 point;
+		point.x = radius * sinf(phi) * cosf(theta);
+		point.y = radius * sinf(phi) * sinf(theta);
+		point.z = radius * cosf(phi);
 
-		vPoints.push_back(point);
+		points.push_back(point);
 	}
 
-	return vPoints;
-};
+	return points;
+}
 std::vector<Point_t> CAimbotProjectile::GetSplashPoints(Target_t& target, std::vector<Vec3>& vSpherePoints, CTFPlayer* pLocal, CTFWeaponBase* pWeapon, Info_t& tInfo, int iSimTime) // possibly add air splash for autodet weapons
 {
 	std::vector<Point_t> vPoints = {};
