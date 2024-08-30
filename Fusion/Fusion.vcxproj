@@ -288,7 +288,9 @@
     <ClCompile Include="src\Hooks\CBasePlayer_CalcViewModelView.cpp" />
     <ClCompile Include="src\Hooks\CClientScoreBoardDialog_UpdatePlayerAvatar.cpp" />
     <ClCompile Include="src\Hooks\CCvar_ConsoleColorPrintf.cpp" />
+    <ClCompile Include="src\Hooks\CProxyAnimatedWeaponSheen_OnBind.cpp" />
     <ClCompile Include="src\Hooks\CEconItemSchema_GetItemDefinition.cpp" />
+    <ClCompile Include="src\Hooks\CClientState_GetTime.cpp" />
     <ClCompile Include="src\Hooks\CGameEventManager_FireEventIntern.cpp" />
     <ClCompile Include="src\Hooks\CHudCrosshair_GetDrawPosition.cpp" />
     <ClCompile Include="src\Hooks\CInterpolatedVarArrayBase_Interpolate.cpp" />
