@@ -31,12 +31,12 @@ __inline Color_t GetScoreboardColor(int iIndex, bool enableOtherColors)
 }
 
 MAKE_HOOK(CTFPlayerResource_GetPlayerConnectionState, S::CTFPlayerResource_GetPlayerConnectionState(), MM_PlayerConnectionState_t, __fastcall,
-    void* ecx, int iIndex)
+    void* rcx, int iIndex)
 {
     static auto dwDesired = S::CTFPlayer_Resource_Call();
     const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
 
-    const auto result = CALL_ORIGINAL(ecx, iIndex);
+    const auto result = CALL_ORIGINAL(rcx, iIndex);
 
     if (result != MM_WAITING_FOR_PLAYER && dwRetAddr == dwDesired)
         iCurPlayer = iIndex;
@@ -47,14 +47,14 @@ MAKE_HOOK(CTFPlayerResource_GetPlayerConnectionState, S::CTFPlayerResource_GetPl
 }
 
 MAKE_HOOK(CPlayerResource_GetTeamColor, S::CPlayerResource_GetTeamColor(), unsigned char*, __fastcall,
-    void* ecx, int iIndex)
+    void* rcx, int iIndex)
 {
     if (!Vars::Visuals::UI::ScoreboardColors.Value || !iCurPlayer || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
-        return CALL_ORIGINAL(ecx, iIndex);
+        return CALL_ORIGINAL(rcx, iIndex);
 
     const Color_t cReturn = GetScoreboardColor(iCurPlayer, Vars::Colors::Relative.Value);
     if (!cReturn.a)
-        return CALL_ORIGINAL(ecx, iIndex);
+        return CALL_ORIGINAL(rcx, iIndex);
 
     _color[0] = cReturn.r; _color[1] = cReturn.g; _color[2] = cReturn.b; _color[3] = 255;
     return _color;

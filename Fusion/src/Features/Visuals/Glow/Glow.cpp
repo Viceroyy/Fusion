@@ -559,7 +559,7 @@ void CGlow::RenderHandler(const DrawModelState_t& pState, const ModelRenderInfo_
 	}
 }
 
-void CGlow::RenderViewmodel(void* ecx, int flags)
+void CGlow::RenderViewmodel(void* rcx, int flags)
 {
 	if (!Vars::Glow::Viewmodel::Weapon.Value || !Vars::Glow::Viewmodel::Stencil.Value && !Vars::Glow::Viewmodel::Blur.Value)
 		return;
@@ -582,12 +582,12 @@ void CGlow::RenderViewmodel(void* ecx, int flags)
 
 
 
-	auto drawModel = [CBaseAnimating_DrawModel, ecx, flags](bool bModel)
+	auto drawModel = [CBaseAnimating_DrawModel, rcx, flags](bool bModel)
 		{
 			if (bModel)
 				I::RenderView->SetBlend(0.f);
 
-			CBaseAnimating_DrawModel->Original<int(__thiscall*)(void*, int)>()(ecx, flags);
+			CBaseAnimating_DrawModel->Original<int(__thiscall*)(void*, int)>()(rcx, flags);
 
 			if (bModel)
 				I::RenderView->SetBlend(1.f);

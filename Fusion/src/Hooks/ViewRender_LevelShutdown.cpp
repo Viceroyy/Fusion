@@ -3,9 +3,9 @@
 #include "../Features/Visuals/Materials/Materials.h"
 
 MAKE_HOOK(ViewRender_LevelShutdown, U::Memory.GetVFunc(I::ViewRender, 2), void, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	F::Materials.UnloadMaterials();
 
-	CALL_ORIGINAL(ecx);
+	CALL_ORIGINAL(rcx);
 }

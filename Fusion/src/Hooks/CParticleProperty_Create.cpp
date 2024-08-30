@@ -11,10 +11,10 @@ MAKE_SIGNATURE(ManageChargeEffectCall, "client.dll", "E8 ? ? ? ? 48 89 86 ? ? ? 
 MAKE_SIGNATURE(Rockettrail_UnderwaterCall, "client.dll", "E8 ? ? ? ? 48 8B 5C 24 ? 40 38 B7", 0x5);
 
 MAKE_HOOK(CParticleProperty_Create, S::CParticleProperty_Create(), int, __fastcall,
-	void* ecx, const char* pszParticleName, ParticleAttachment_t iAttachType, const char* pszAttachmentName)
+	void* rcx, const char* pszParticleName, ParticleAttachment_t iAttachType, const char* pszAttachmentName)
 {
 	if (I::EngineClient->IsTakingScreenshot() && Vars::Visuals::UI::CleanScreenshots.Value)
-        return CALL_ORIGINAL(ecx, pszParticleName, iAttachType, pszAttachmentName);
+        return CALL_ORIGINAL(rcx, pszParticleName, iAttachType, pszAttachmentName);
 
     if (auto pLocal = H::Entities.GetLocal())
     {
@@ -77,7 +77,7 @@ MAKE_HOOK(CParticleProperty_Create, S::CParticleProperty_Create(), int, __fastca
         }
     }
 
-    return CALL_ORIGINAL(ecx, pszParticleName, iAttachType, pszAttachmentName);
+    return CALL_ORIGINAL(rcx, pszParticleName, iAttachType, pszAttachmentName);
 }
 
 MAKE_SIGNATURE(CParticleProperty_Create2, "client.dll", "44 89 4C 24 ? 44 89 44 24 ? 53", 0x0);
@@ -88,10 +88,10 @@ MAKE_SIGNATURE(Halloween_RockettrailCall, "client.dll", "E8 ? ? ? ? E9 ? ? ? ? 4
 MAKE_SIGNATURE(CTFProjectile_EnergyBallCall, "client.dll", "E8 ? ? ? ? 48 8B 7C 24 ? 48 89 83", 0x5);
 
 MAKE_HOOK(CParticleProperty_Create2, S::CParticleProperty_Create2(), int, __fastcall,
-    void* ecx, const char* pszParticleName, ParticleAttachment_t iAttachType, int iAttachmentPoint, Vector vecOriginOffset)
+    void* rcx, const char* pszParticleName, ParticleAttachment_t iAttachType, int iAttachmentPoint, Vector vecOriginOffset)
 {
     if (I::EngineClient->IsTakingScreenshot() && Vars::Visuals::UI::CleanScreenshots.Value)
-        return CALL_ORIGINAL(ecx, pszParticleName, iAttachType, iAttachmentPoint, vecOriginOffset);
+        return CALL_ORIGINAL(rcx, pszParticleName, iAttachType, iAttachmentPoint, vecOriginOffset);
 
     if (auto pLocal = H::Entities.GetLocal())
     {
@@ -118,5 +118,5 @@ MAKE_HOOK(CParticleProperty_Create2, S::CParticleProperty_Create2(), int, __fast
         }
     }
 
-    return CALL_ORIGINAL(ecx, pszParticleName, iAttachType, iAttachmentPoint, vecOriginOffset);
+    return CALL_ORIGINAL(rcx, pszParticleName, iAttachType, iAttachmentPoint, vecOriginOffset);
 }

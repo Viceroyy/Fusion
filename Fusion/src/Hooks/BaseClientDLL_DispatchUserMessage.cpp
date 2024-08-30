@@ -7,7 +7,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 MAKE_HOOK(BaseClientDLL_DispatchUserMessage, U::Memory.GetVFunc(I::BaseClientDLL, 36), bool, __fastcall,
-	void* ecx, UserMessageType type, bf_read& msgData)
+	void* rcx, UserMessageType type, bf_read& msgData)
 {
 	const auto bufData = reinterpret_cast<const char*>(msgData.m_pData);
 	msgData.SetAssertOnOverflow(false);
@@ -70,18 +70,18 @@ MAKE_HOOK(BaseClientDLL_DispatchUserMessage, U::Memory.GetVFunc(I::BaseClientDLL
 
 		break;
 	case ForcePlayerViewAngles:
-		return Vars::Visuals::Removals::AngleForcing.Value ? true : CALL_ORIGINAL(ecx, type, msgData);
+		return Vars::Visuals::Removals::AngleForcing.Value ? true : CALL_ORIGINAL(rcx, type, msgData);
 	case SpawnFlyingBird:
 	case PlayerGodRayEffect:
 	case PlayerTauntSoundLoopStart:
 	case PlayerTauntSoundLoopEnd:
-		return Vars::Visuals::Removals::Taunts.Value ? true : CALL_ORIGINAL(ecx, type, msgData);
+		return Vars::Visuals::Removals::Taunts.Value ? true : CALL_ORIGINAL(rcx, type, msgData);
 	case Shake:
 	case Fade:
 	case Rumble:
-		return Vars::Visuals::Removals::ScreenEffects.Value ? true : CALL_ORIGINAL(ecx, type, msgData);
+		return Vars::Visuals::Removals::ScreenEffects.Value ? true : CALL_ORIGINAL(rcx, type, msgData);
 	}
 	   
 	msgData.Seek(0);
-	return CALL_ORIGINAL(ecx, type, msgData);
+	return CALL_ORIGINAL(rcx, type, msgData);
 }

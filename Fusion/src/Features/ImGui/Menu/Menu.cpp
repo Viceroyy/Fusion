@@ -674,6 +674,7 @@ void CMenu::MenuVisuals()
 				FDropdown("Medigun charge", Vars::Visuals::Particle::MedigunChargeEffect, { "Off", "Fireball spell", "Spellbound", "Electrocuted", "Cloud 9", "Electrostatic", "Knifestorm", "Frostbite", "Haunted Phantasm Jr.", "Time Warp", "Stormy 13th Hour", "Terror-Watt", "Sunbeams", "Sunbeams new", "Disco beams", "Pumpkin" }, {}, FDropdown_Right);
 				FDropdown("Rocket trail", Vars::Visuals::Particle::RocketTrailEffect, { "Off", "Crit", "Bubbles", "Halloween", "Airstrike", "Monoculus", "Cow Mangler", "Cow Mangler charged" }, {}, FDropdown_Left);
 				FToggle("Rainbow footsteps", Vars::Visuals::Particle::RainbowFootstepEffect);
+				FToggle("Rainbow killstreak sheen", Vars::Visuals::Particle::RainbowKillstreakSheen, FToggle_Middle);
 			} EndSection();
 			if (Section("Bullet"))
 			{

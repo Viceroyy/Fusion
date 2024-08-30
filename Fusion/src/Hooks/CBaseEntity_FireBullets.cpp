@@ -5,12 +5,12 @@
 MAKE_SIGNATURE(CBaseEntity_FireBullets, "client.dll", "48 89 74 24 ? 55 57 41 55 41 56 41 57 48 8D AC 24 ? ? ? ? 48 81 EC ? ? ? ? F3 41 0F 10 58", 0x0);
 
 MAKE_HOOK(CBaseEntity_FireBullets, S::CBaseEntity_FireBullets(), void, __fastcall,
-	void* ecx, CBaseCombatWeapon* pWeapon, const FireBulletsInfo_t& info, bool bDoEffects, int nDamageType, int nCustomDamageType)
+	void* rcx, CBaseCombatWeapon* pWeapon, const FireBulletsInfo_t& info, bool bDoEffects, int nDamageType, int nCustomDamageType)
 {
 	auto pLocal = H::Entities.GetLocal();
-	auto pPlayer = reinterpret_cast<CBaseEntity*>(ecx);
+	auto pPlayer = reinterpret_cast<CBaseEntity*>(rcx);
 	if (!pLocal || pPlayer != pLocal)
-		return CALL_ORIGINAL(ecx, pWeapon, info, bDoEffects, nDamageType, nCustomDamageType);
+		return CALL_ORIGINAL(rcx, pWeapon, info, bDoEffects, nDamageType, nCustomDamageType);
 
 	const Vec3 vStart = info.m_vecSrc;
 	const Vec3 vEnd = vStart + info.m_vecDirShooting * info.m_flDistance;
@@ -28,7 +28,7 @@ MAKE_HOOK(CBaseEntity_FireBullets, S::CBaseEntity_FireBullets(), void, __fastcal
 	auto& sString = bCrit ? Vars::Visuals::Tracers::ParticleTracerCrits.Value : Vars::Visuals::Tracers::ParticleTracer.Value;
 	auto uHash = FNV1A::Hash(sString.c_str());
 	if (!pLocal->IsInValidTeam() || uHash == FNV1A::HashConst("Off") || uHash == FNV1A::HashConst("Default"))
-		CALL_ORIGINAL(ecx, pWeapon, info, bDoEffects, nDamageType, nCustomDamageType);
+		CALL_ORIGINAL(rcx, pWeapon, info, bDoEffects, nDamageType, nCustomDamageType);
 	else if (uHash == FNV1A::HashConst("Machina"))
 		H::Particles.ParticleTracer(iTeam == TF_TEAM_RED ? "dxhr_sniper_rail_red" : "dxhr_sniper_rail_blue", trace.startpos, trace.endpos, pLocal->entindex(), iAttachment, true);
 	else if (uHash == FNV1A::HashConst("C.A.P.P.E.R"))

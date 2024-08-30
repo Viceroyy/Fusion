@@ -6,19 +6,19 @@ MAKE_SIGNATURE(WearableShouldDraw, "client.dll", "E8 ? ? ? ? 84 C0 0F 85 ? ? ? ?
 MAKE_SIGNATURE(HudScopeShouldDraw, "client.dll", "84 C0 74 ? 48 8B CB E8 ? ? ? ? 48 85 C0 74 ? 48 8B CB E8 ? ? ? ? 48 8B C8 48 8B 10 FF 92 ? ? ? ? 83 F8 ? 0F 94 C0", 0x0);
 
 MAKE_HOOK(CTFPlayerShared_InCond, S::CTFPlayerShared_InCond(), bool, __fastcall,
-	void* ecx, ETFCond nCond)
+	void* rcx, ETFCond nCond)
 {
 	static const auto dwPlayerShouldDraw = S::PlayerShouldDraw();
 	static const auto dwWearableShouldDraw = S::WearableShouldDraw();
 	static const auto dwHudScopeShouldDraw = S::HudScopeShouldDraw();
 	const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
 
-	auto GetOuter = [&ecx]() -> CBaseEntity*
+	auto GetOuter = [&rcx]() -> CBaseEntity*
 		{
 			static const auto dwShared = U::NetVars.GetNetVar("CTFPlayer", "m_Shared");
 			static const auto dwBombHeadStage = U::NetVars.GetNetVar("CTFPlayer", "m_nHalloweenBombHeadStage");
 			static const auto dwOff = (dwBombHeadStage - dwShared) + 0x4;
-			return *reinterpret_cast<CBaseEntity**>(std::uintptr_t(ecx) + dwOff);
+			return *reinterpret_cast<CBaseEntity**>(std::uintptr_t(rcx) + dwOff);
 		};
 
 	switch (nCond)
@@ -47,5 +47,5 @@ MAKE_HOOK(CTFPlayerShared_InCond, S::CTFPlayerShared_InCond(), bool, __fastcall,
 			return false;
 	}
 
-	return CALL_ORIGINAL(ecx, nCond);
+	return CALL_ORIGINAL(rcx, nCond);
 }
