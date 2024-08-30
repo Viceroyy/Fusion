@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugAVX2|x64">
@@ -118,7 +118,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <SupportJustMyCode>true</SupportJustMyCode>
-      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,7 +146,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>true</SupportJustMyCode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,7 +171,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -186,18 +186,19 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;ZYDIS_STATIC_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>false</OmitFramePointers>
+      <OmitFramePointers>
+      </OmitFramePointers>
       <StringPooling>true</StringPooling>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard_C>stdclatest</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -300,7 +301,6 @@
     <ClCompile Include="src\Hooks\ClientState_GetClientInterpAmount.cpp" />
     <ClCompile Include="src\Hooks\ClientState_ProcessFixAngle.cpp" />
     <ClCompile Include="src\Hooks\CL_CheckForPureServerWhitelist.cpp" />
-    <ClCompile Include="src\Hooks\CClientState_GetTime.cpp" />
     <ClCompile Include="src\Hooks\CL_Move.cpp" />
     <ClCompile Include="src\Hooks\CL_ReadPackets.cpp" />
     <ClCompile Include="src\Hooks\CMatchInviteNotification_OnTick.cpp" />
@@ -310,7 +310,6 @@
     <ClCompile Include="src\Hooks\CParticleProperty_Create.cpp" />
     <ClCompile Include="src\Hooks\CPlayerResource_GetTeamColor.cpp" />
     <ClCompile Include="src\Hooks\CPrediction_RunCommand.cpp" />
-    <ClCompile Include="src\Hooks\CProxyAnimatedWeaponSheen_OnBind.cpp" />
     <ClCompile Include="src\Hooks\CRendering3dView_EnableWorldFog.cpp" />
     <ClCompile Include="src\Hooks\CSequenceTransitioner_CheckForSequenceChange.cpp" />
     <ClCompile Include="src\Hooks\CSkyboxView_Enable3dSkyboxFog.cpp" />
