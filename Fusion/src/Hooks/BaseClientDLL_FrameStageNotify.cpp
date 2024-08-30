@@ -14,7 +14,7 @@ MAKE_SIGNATURE(CWeaponMedigun__StopChargeEffect, "client.dll", "40 53 48 83 EC ?
 MAKE_SIGNATURE(CWeaponMedigun__ManageChargeEffect, "client.dll", "48 89 5C 24 ? 48 89 74 24 ? 57 48 81 EC ? ? ? ? 48 8B F1 E8 ? ? ? ? 48 8B D8", 0x0)
 
 MAKE_HOOK(BaseClientDLL_FrameStageNotify, U::Memory.GetVFunc(I::BaseClientDLL, 35), void, __fastcall,
-	void* ecx, ClientFrameStage_t curStage)
+	void* rcx, ClientFrameStage_t curStage)
 {
 	switch (curStage)
 	{
@@ -35,7 +35,7 @@ MAKE_HOOK(BaseClientDLL_FrameStageNotify, U::Memory.GetVFunc(I::BaseClientDLL, 3
 	}
 	}
 	
-	CALL_ORIGINAL(ecx, curStage);
+	CALL_ORIGINAL(rcx, curStage);
 
 	switch (curStage)
 	{

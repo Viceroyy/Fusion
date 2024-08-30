@@ -2,7 +2,7 @@
 #include "../SDK/SDK.h"
 
 MAKE_HOOK(Panel_PaintTraverse, U::Memory.GetVFunc(I::VGuiPanel, 41), void, __fastcall,
-	void* ecx, unsigned int VGuiPanel, bool forceRepaint, bool allowForce)
+	void* rcx, unsigned int VGuiPanel, bool forceRepaint, bool allowForce)
 {
 	/*const auto PanelName			= I::VGuiPanel->GetName(VGuiPanel);
 
@@ -14,5 +14,5 @@ MAKE_HOOK(Panel_PaintTraverse, U::Memory.GetVFunc(I::VGuiPanel, 41), void, __fas
 		return;
 
 	SDK::Output("PaintTraverse", I::VGuiPanel->GetName(VGuiPanel));
-	CALL_ORIGINAL(ecx, VGuiPanel, forceRepaint, allowForce);
+	CALL_ORIGINAL(rcx, VGuiPanel, forceRepaint, allowForce);
 }

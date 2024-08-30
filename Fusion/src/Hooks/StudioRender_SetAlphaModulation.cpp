@@ -1,7 +1,7 @@
 #include "../SDK/SDK.h"
 
 MAKE_HOOK(StudioRender_SetAlphaModulation, U::Memory.GetVFunc(I::StudioRender, 28), void, __fastcall,
-	void* ecx, float flAlpha)
+	void* rcx, float flAlpha)
 {
 	if (Vars::Visuals::World::Modulations.Value & (1 << 2) &&
 		G::DrawingProps && !(Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot()))
@@ -13,8 +13,8 @@ MAKE_HOOK(StudioRender_SetAlphaModulation, U::Memory.GetVFunc(I::StudioRender, 2
 		if (PropVal || flHookAlpha)
 		{
 			auto flVal = PropVal / 255.f * flHookAlpha;
-			return CALL_ORIGINAL(ecx, flVal);
+			return CALL_ORIGINAL(rcx, flVal);
 		}
 	}
-	CALL_ORIGINAL(ecx, flAlpha);
+	CALL_ORIGINAL(rcx, flAlpha);
 }

@@ -4,7 +4,7 @@ MAKE_SIGNATURE(CTFPlayerPanel_GetTeam, "client.dll", "8B 91 ? ? ? ? 83 FA ? 74 ?
 MAKE_SIGNATURE(CTFPlayerPanel_GetTeam_Desired, "client.dll", "8B 9F ? ? ? ? 40 32 F6", 0x0);
 
 MAKE_HOOK(CTFPlayerPanel_GetTeam, S::CTFPlayerPanel_GetTeam(), int, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	static auto dwDesired = S::CTFPlayerPanel_GetTeam_Desired();
 	const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
@@ -16,5 +16,5 @@ MAKE_HOOK(CTFPlayerPanel_GetTeam, S::CTFPlayerPanel_GetTeam(), int, __fastcall,
 			return pResource->GetTeam(I::EngineClient->GetLocalPlayer());
 	}
 
-	return CALL_ORIGINAL(ecx);
+	return CALL_ORIGINAL(rcx);
 }

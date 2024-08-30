@@ -13,16 +13,16 @@
 #include "../Features/Visuals/FakeAngle/FakeAngle.h"
 
 MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 21), bool, __fastcall,
-	CClientModeShared* ecx, float flInputSampleTime, CUserCmd* pCmd)
+	CClientModeShared* rcx, float flInputSampleTime, CUserCmd* pCmd)
 {
 	G::PSilentAngles = G::SilentAngles = G::IsAttacking = false;
 	G::Buttons = pCmd ? pCmd->buttons : G::Buttons;
-	const bool bReturn = CALL_ORIGINAL(ecx, flInputSampleTime, pCmd);
+	const bool bReturn = CALL_ORIGINAL(rcx, flInputSampleTime, pCmd);
 	if (!pCmd || !pCmd->command_number)
 		return bReturn;
 
-	auto ebp = *reinterpret_cast<uintptr_t*>(uintptr_t(_AddressOfReturnAddress()) - sizeof(void*));
-	bool* pSendPacket = reinterpret_cast<bool*>(ebp + 0xA7);
+	auto rbp = *reinterpret_cast<uintptr_t*>(uintptr_t(_AddressOfReturnAddress()) - sizeof(void*));
+	bool* pSendPacket = reinterpret_cast<bool*>(rbp + 0xA7);
 
 	I::Prediction->Update(I::ClientState->m_nDeltaTick, I::ClientState->m_nDeltaTick > 0, I::ClientState->last_command_ack, I::ClientState->lastoutgoingcommand + I::ClientState->chokedcommands);
 
@@ -141,6 +141,6 @@ MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 2
 	G::LastUserCmd = pCmd;
 
 	//const bool bShouldSkip = G::PSilentAngles || G::SilentAngles || G::AntiAim || G::AvoidingBackstab;
-	//return bShouldSkip ? false : CALL_ORIGINAL(ecx, edx, input_sample_frametime, pCmd);
+	//return bShouldSkip ? false : CALL_ORIGINAL(rcx, flInputSampleTime, pCmd);
 	return false;
 }

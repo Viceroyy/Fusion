@@ -3,7 +3,7 @@
 #include "../Features/Visuals/Visuals.h"
 
 MAKE_HOOK(ClientModeShared_ShouldDrawViewModel, U::Memory.GetVFunc(I::ClientModeShared, 24), bool, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	if (auto pLocal = H::Entities.GetLocal())
 	{
@@ -11,5 +11,5 @@ MAKE_HOOK(ClientModeShared_ShouldDrawViewModel, U::Memory.GetVFunc(I::ClientMode
 			return true;
 	}
 
-	return CALL_ORIGINAL(ecx);
+	return CALL_ORIGINAL(rcx);
 }

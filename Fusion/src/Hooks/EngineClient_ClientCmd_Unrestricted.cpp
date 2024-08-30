@@ -58,7 +58,7 @@ private:
 };
 
 MAKE_HOOK(EngineClient_ClientCmd_Unrestricted, U::Memory.GetVFunc(I::EngineClient, 106), void, __fastcall,
-	void* ecx, const char* szCmdString)
+	void* rcx, const char* szCmdString)
 {
 	if (Vars::Misc::Chat::OwOify.Value)
 	{
@@ -68,7 +68,7 @@ MAKE_HOOK(EngineClient_ClientCmd_Unrestricted, U::Memory.GetVFunc(I::EngineClien
 
 			if (cmdString.rfind("say", 0) != 0)
 			{
-				return CALL_ORIGINAL(ecx, szCmdString);
+				return CALL_ORIGINAL(rcx, szCmdString);
 			}
 
 			std::smatch match{};
@@ -76,7 +76,7 @@ MAKE_HOOK(EngineClient_ClientCmd_Unrestricted, U::Memory.GetVFunc(I::EngineClien
 
 			cmdString = match[1].str() + "\"" + owoify(match[2].str()) + "\"";
 
-			return CALL_ORIGINAL(ecx, cmdString.c_str());
+			return CALL_ORIGINAL(rcx, cmdString.c_str());
 		}
 	}
 
@@ -92,5 +92,5 @@ MAKE_HOOK(EngineClient_ClientCmd_Unrestricted, U::Memory.GetVFunc(I::EngineClien
 			return;
 	}
 
-	CALL_ORIGINAL(ecx, cmdString.c_str());
+	CALL_ORIGINAL(rcx, cmdString.c_str());
 }

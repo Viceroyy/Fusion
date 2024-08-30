@@ -33,7 +33,7 @@ struct SpriteRenderInfo_t
 };
 
 MAKE_HOOK(COPRenderSprites_RenderSpriteCard, S::COPRenderSprites_RenderSpriteCard(), void, __fastcall,
-    void* ecx, void* meshBuilder, void* pCtx, SpriteRenderInfo_t& info, int hParticle, void* pSortList, void* pCamera)
+    void* rcx, void* meshBuilder, void* pCtx, SpriteRenderInfo_t& info, int hParticle, void* pSortList, void* pCamera)
 {
     if (Vars::Visuals::World::Modulations.Value & 1 << 3 && !(Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot()))
     {
@@ -42,5 +42,5 @@ MAKE_HOOK(COPRenderSprites_RenderSpriteCard, S::COPRenderSprites_RenderSpriteCar
         info.m_pRGB[((hParticle / 4) * info.m_nRGBStride) + 2].m128_f32[hParticle & 0x3] = float(Vars::Colors::ParticleModulation.Value.b) / 255.f; // blue
     }
 
-    CALL_ORIGINAL(ecx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
+    CALL_ORIGINAL(rcx, meshBuilder, pCtx, info, hParticle, pSortList, pCamera);
 }

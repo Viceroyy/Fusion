@@ -16,22 +16,22 @@ void ClearEffects(CBaseEntity* pEntity)
 }
 
 MAKE_HOOK(CTFRagdoll_CreateTFRagdoll, S::CTFRagdoll_CreateTFRagdoll(), void, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	if (Vars::Visuals::Ragdolls::NoRagdolls.Value)
 		return;
 
 	if (!Vars::Visuals::Ragdolls::Enabled.Value)
-		return CALL_ORIGINAL(ecx);
+		return CALL_ORIGINAL(rcx);
 
-	auto pEntity = static_cast<CBaseAnimating*>(ecx);
+	auto pEntity = static_cast<CBaseAnimating*>(rcx);
 	if (pEntity)
 	{
 		if (Vars::Visuals::Ragdolls::EnemyOnly.Value)
 		{
 			auto pLocal = H::Entities.GetLocal();
 			if (pLocal && Offset(int*, pEntity, 4208) == pLocal->m_iTeamNum()) // Team offset
-				return CALL_ORIGINAL(ecx);
+				return CALL_ORIGINAL(rcx);
 		}
 
 		ClearEffects(pEntity);
@@ -49,5 +49,5 @@ MAKE_HOOK(CTFRagdoll_CreateTFRagdoll, S::CTFRagdoll_CreateTFRagdoll(), void, __f
 		pEntity->m_vecForce().z *= Vars::Visuals::Ragdolls::ForceVertical.Value;
 	}
 
-	CALL_ORIGINAL(ecx);
+	CALL_ORIGINAL(rcx);
 }

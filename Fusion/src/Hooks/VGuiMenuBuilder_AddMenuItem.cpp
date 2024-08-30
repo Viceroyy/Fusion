@@ -13,32 +13,32 @@ static std::string PlayerName;
 static uint32_t FriendsID;
 
 MAKE_HOOK(CVoiceStatus_IsPlayerBlocked, S::CVoiceStatus_IsPlayerBlocked(), bool, __fastcall,
-    void* ecx, int playerIndex)
+    void* rcx, int playerIndex)
 {
     static auto dwDesired = S::CVoiceStatus_IsPlayerBlocked_Call();
     const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
 
     if (!Vars::Visuals::UI::ScoreboardPlayerlist.Value || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
-        return CALL_ORIGINAL(ecx, playerIndex);
+        return CALL_ORIGINAL(rcx, playerIndex);
 
     if (dwRetAddr == dwDesired)
         PlayerIndex = playerIndex;
 
-    return CALL_ORIGINAL(ecx, playerIndex);
+    return CALL_ORIGINAL(rcx, playerIndex);
 }
 
 MAKE_HOOK(VGuiMenuBuilder_AddMenuItem, S::VGuiMenuBuilder_AddMenuItem(), void*, __fastcall,
-    void* ecx, const char* pszButtonText, const char* pszCommand, const char* pszCategoryName)
+    void* rcx, const char* pszButtonText, const char* pszCommand, const char* pszCategoryName)
 {
     static auto dwDesired = S::VGuiMenuBuilder_AddMenuItem_Call();
     const auto dwRetAddr = std::uintptr_t(_ReturnAddress());
 
     if (!Vars::Visuals::UI::ScoreboardPlayerlist.Value || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
-        return CALL_ORIGINAL(ecx, pszButtonText, pszCommand, pszCategoryName);
+        return CALL_ORIGINAL(rcx, pszButtonText, pszCommand, pszCategoryName);
 
     if (dwRetAddr == dwDesired && PlayerIndex != -1)
     {
-        auto ret = CALL_ORIGINAL(ecx, pszButtonText, pszCommand, pszCategoryName);
+        auto ret = CALL_ORIGINAL(rcx, pszButtonText, pszCommand, pszCategoryName);
 
         PlayerInfo_t pi{};
         if (I::EngineClient->GetPlayerInfo(PlayerIndex, &pi) && !pi.fakeplayer)
@@ -49,21 +49,21 @@ MAKE_HOOK(VGuiMenuBuilder_AddMenuItem, S::VGuiMenuBuilder_AddMenuItem(), void*, 
             const bool bIgnored = F::PlayerUtils.HasTag(FriendsID, "Ignored");
             const bool bCheater = F::PlayerUtils.HasTag(FriendsID, "Cheater");
 
-            CALL_ORIGINAL(ecx, std::format("{} {}", bIgnored ? "Unignore" : "Ignore", PlayerName).c_str(), "ignoreplayer", "tags");
-            CALL_ORIGINAL(ecx, std::format("{} {}", bCheater ? "Unmark" : "Mark", PlayerName).c_str(), "markplayer", "tags");
+            CALL_ORIGINAL(rcx, std::format("{} {}", bIgnored ? "Unignore" : "Ignore", PlayerName).c_str(), "ignoreplayer", "tags");
+            CALL_ORIGINAL(rcx, std::format("{} {}", bCheater ? "Unmark" : "Mark", PlayerName).c_str(), "markplayer", "tags");
         }
 
         return ret;
     }
 
-    return CALL_ORIGINAL(ecx, pszButtonText, pszCommand, pszCategoryName);
+    return CALL_ORIGINAL(rcx, pszButtonText, pszCommand, pszCategoryName);
 }
 
 MAKE_HOOK(CTFClientScoreBoardDialog_OnCommand, S::CTFClientScoreBoardDialog_OnCommand(), void, __fastcall,
-    void* ecx, const char* command)
+    void* rcx, const char* command)
 {
     if (!Vars::Visuals::UI::ScoreboardPlayerlist.Value || Vars::Visuals::UI::CleanScreenshots.Value && I::EngineClient->IsTakingScreenshot())
-        return CALL_ORIGINAL(ecx, command);
+        return CALL_ORIGINAL(rcx, command);
 
     auto uHash = FNV1A::Hash(command);
     if (uHash == FNV1A::HashConst("ignoreplayer"))
@@ -81,5 +81,5 @@ MAKE_HOOK(CTFClientScoreBoardDialog_OnCommand, S::CTFClientScoreBoardDialog_OnCo
             F::PlayerUtils.RemoveTag(FriendsID, "Cheater", true, PlayerName);
     }
 
-    CALL_ORIGINAL(ecx, command);
+    CALL_ORIGINAL(rcx, command);
 }

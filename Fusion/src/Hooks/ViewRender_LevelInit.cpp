@@ -8,7 +8,7 @@
 #include "../Features/TickHandler/TickHandler.h"
 
 MAKE_HOOK(ViewRender_LevelInit, U::Memory.GetVFunc(I::ViewRender, 1), void, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	F::Materials.ReloadMaterials();
 	F::Visuals.OverrideWorldTextures();
@@ -18,5 +18,5 @@ MAKE_HOOK(ViewRender_LevelInit, U::Memory.GetVFunc(I::ViewRender, 1), void, __fa
 	F::NoSpreadHitscan.Reset(true);
 	F::CheaterDetection.Reset();
 
-	CALL_ORIGINAL(ecx);
+	CALL_ORIGINAL(rcx);
 }
