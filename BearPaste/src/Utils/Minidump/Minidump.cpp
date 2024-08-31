@@ -44,7 +44,7 @@ LONG __stdcall Minidump::ExceptionFilter(PEXCEPTION_POINTERS exPtr)
 	// Create a file handle
 	TCHAR fileName[MAX_PATH];
 	const int curTime = static_cast<int>(time(nullptr) % 100000);
-	wsprintf(fileName, _T("%s\\Crash_Fusion_%x.dmp"), buf, curTime);
+	wsprintf(fileName, _T("%s\\Crash_BearPaste_%x.dmp"), buf, curTime);
 	const HANDLE hFile = CreateFile(fileName, GENERIC_READ | GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
 	if (hFile == INVALID_HANDLE_VALUE)
