@@ -142,11 +142,17 @@ void CMenu::MenuAimbot()
 				bTransparent = false;
 				FColorPicker("Aimbot FOV circle", Vars::Colors::FOVCircle);
 				FToggle("Autoshoot", Vars::Aimbot::General::AutoShoot);
+				// Existing toggles
 				FToggle("FOV Circle", Vars::Aimbot::General::FOVCircle, FToggle_Middle);
 				FToggle("Force crits", Vars::CritHack::ForceCrits);
 				FToggle("Avoid random crits", Vars::CritHack::AvoidRandom, FToggle_Middle);
 				FToggle("Always melee", Vars::CritHack::AlwaysMelee);
 				FToggle("No spread", Vars::Aimbot::General::NoSpread, FToggle_Middle);
+
+				// New AutoUber toggles and slider
+				//oggle("Enable AutoUber", Vars::AutoUber::EnableAutoUber);
+				//lider("Health Threshold", Vars::AutoUber::HealthThreshold, 0.0f, 100.0f, 1.0f, "%.0f%%", FSlider_Clamp);
+
 			} EndSection();
 			if (Vars::Debug::Info.Value)
 			{
@@ -963,6 +969,12 @@ void CMenu::MenuMisc()
 			FToggle("Taunt control", Vars::Misc::Automation::TauntControl);
 			FToggle("Kart control", Vars::Misc::Automation::KartControl, FToggle_Middle);
 			FToggle("Backpack expander", Vars::Misc::Automation::BackpackExpander);
+		} EndSection();
+
+		if (Section("AutoUber"))
+		{
+			FToggle("Enable AutoUber", Vars::AutoUber::AutoUberEnabled); 
+			FSlider("AutoUber Interval (ms)", Vars::AutoUber::AutoUberIntervalMs, 1.0f, 50.0f); 
 		} EndSection();
 		if (Section("Sound"))
 		{
