@@ -83,7 +83,7 @@ int CTickshiftHandler::GetTicks(CTFPlayer* pLocal)
 		return G::ShiftedTicks - G::ShiftedGoal;
 
 	if (!Vars::CL_Move::Doubletap::Doubletap.Value
-		|| G::ShiftedTicks < std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::MaxShift)
+		|| G::ShiftedTicks < std::min(Vars::CL_Move::Doubletap::TickLimit.Value - 1, G::ShiftedTicks + 1)
 		|| G::WaitForShift || G::Warp || G::Recharge || bSpeedhack || F::AutoRocketJump.iFrame != -1)
 		return 0;
 
@@ -105,13 +105,9 @@ bool CTickshiftHandler::ValidWeapon(CTFWeaponBase* pWeapon)
 	case TF_WEAPON_JAR_MILK:
 	case TF_WEAPON_LUNCHBOX:
 	case TF_WEAPON_BUFF_ITEM:
-	case TF_WEAPON_ROCKETPACK:
 	case TF_WEAPON_JAR_GAS:
 	case TF_WEAPON_LASER_POINTER:
 	case TF_WEAPON_MEDIGUN:
-	case TF_WEAPON_SNIPERRIFLE:
-	case TF_WEAPON_SNIPERRIFLE_DECAP:
-	case TF_WEAPON_SNIPERRIFLE_CLASSIC:
 	case TF_WEAPON_COMPOUND_BOW:
 	case TF_WEAPON_JAR:
 		return false;
@@ -166,8 +162,8 @@ void CTickshiftHandler::MoveMain(float accumulated_extra_samples, bool bFinalTic
 
 	static auto sv_maxusrcmdprocessticks = U::ConVars.FindVar("sv_maxusrcmdprocessticks");
 	G::MaxShift = sv_maxusrcmdprocessticks ? sv_maxusrcmdprocessticks->GetInt() : 24;
-	if (F::AntiAim.YawOn())
-		G::MaxShift -= 3;
+		if (F::AntiAim.YawOn())
+			G::MaxShift -= 3;
 
 	while (G::ShiftedTicks > G::MaxShift)
 		CLMoveFunc(accumulated_extra_samples, false); // skim any excess ticks

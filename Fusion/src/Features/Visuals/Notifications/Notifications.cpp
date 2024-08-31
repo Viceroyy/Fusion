@@ -49,3 +49,4 @@ void CNotifications::Draw()
         y += h + 2;
     }
 }
+}
