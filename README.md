@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://nightly.link/Gergish001/Fusion/workflows/msbuild/main/FusionRelease.zip">
+  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionRelease.zip">
     <img src=".github/assets/download.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
-  <a href="https://nightly.link/Gergish001/Fusion/workflows/msbuild/main/FusionReleaseAVX2.zip">
+  <a href="https://nightly.link/Viceroyy/Fusion/workflows/msbuild/main/FusionReleaseAVX2.zip">
     <img src=".github/assets/download_avx2.png" alt="Download Button" width="auto" height="auto" align="center">
   </a>
 </p>
@@ -31,6 +31,6 @@ This is uploaded as an archive of my changes (and because the original repo went
 If for some reason or other you wanted to contact me, use the Discord link below.
 
 [![Discord](https://img.shields.io/discord/1267955231636062259?logo=Discord&label=discord)](https://discord.gg/4apwXtJZPH)
-[![GitHub Repo stars](https://img.shields.io/github/stars/Gergish001/Fusion)](/../../stargazers)
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Gergish001/Fusion/msbuild.yml?branch=main)](/../../actions)
-[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Gergish001/Fusion)](/../../commits/)
+[![GitHub Repo stars](https://img.shields.io/github/stars/Viceroyy/Fusion)](/../../stargazers)
+[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Viceroyy/Fusion/msbuild.yml?branch=main)](/../../actions)
+[![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Viceroyy/Fusion)](/../../commits/)

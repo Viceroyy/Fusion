@@ -238,7 +238,7 @@ void CConfigs::LoadJson(boost::property_tree::ptree& mapTree, const char* name, 
 
 CConfigs::CConfigs()
 {
-	sConfigPath = std::filesystem::current_path().string() + "\\BearPaste";
+	sConfigPath = std::filesystem::current_path().string() + "\\Fusion";
 	sVisualsPath = sConfigPath + "\\Visuals";
 
 	if (!std::filesystem::exists(sConfigPath))
