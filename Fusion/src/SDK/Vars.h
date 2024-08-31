@@ -171,6 +171,18 @@ namespace Vars
 		CVar(AlwaysMelee, false)
 	NAMESPACE_END(CritHack)
 
+			NAMESPACE_BEGIN(AutoUber)
+			CVar(AutoUberEnabled, true)               
+			CVar(AutoUberIntervalMs, 12.0f)           
+			//CVar(UberSelfEnabled, false)              
+		//	CVar(ApplyToTeammatesOnly, true)          
+		//	CVar(AutoUberMode, 0)                     
+			NAMESPACE_END(AutoUber)
+
+
+
+
+
 	NAMESPACE_BEGIN(Backtrack)
 		CVar(Enabled, false)
 		CVar(PreferOnShot, false)
