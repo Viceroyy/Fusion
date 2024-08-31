@@ -489,7 +489,7 @@ void CChams::RenderHandler(const DrawModelState_t& pState, const ModelRenderInfo
 	}
 }
 
-bool CChams::RenderViewmodel(void* ecx, int flags, int* iReturn)
+bool CChams::RenderViewmodel(void* rcx, int flags, int* iReturn)
 {
 	if (!Vars::Chams::Viewmodel::Weapon.Value)
 		return false;
@@ -509,7 +509,7 @@ bool CChams::RenderViewmodel(void* ecx, int flags, int* iReturn)
 
 		F::Materials.SetColor(material, sColor, it + 1 == vMaterials.end());
 		I::ModelRender->ForcedMaterialOverride(material ? material : nullptr);
-		*iReturn = CBaseAnimating_DrawModel->Original<int(__thiscall*)(void*, int)>()(ecx, flags);
+		*iReturn = CBaseAnimating_DrawModel->Original<int(__thiscall*)(void*, int)>()(rcx, flags);
 	}
 
 	I::RenderView->SetColorModulation(1.f, 1.f, 1.f);

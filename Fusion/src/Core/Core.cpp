@@ -163,9 +163,9 @@ bool CCore::ShouldUnload()
 }
 
 MAKE_HOOK(IMaterialSystem_FindTexture, U::Memory.GetVFunc(I::MaterialSystem, 81), ITexture*, __fastcall,
-	void* ecx, char const* pTextureName, const char* pTextureGroupName, bool complain, int nAdditionalCreationFlags)
+	void* rcx, char const* pTextureName, const char* pTextureGroupName, bool complain, int nAdditionalCreationFlags)
 {
-	ITexture* const result{ CALL_ORIGINAL(ecx, pTextureName, pTextureGroupName, complain, nAdditionalCreationFlags) };
+	ITexture* const result{ CALL_ORIGINAL(rcx, pTextureName, pTextureGroupName, complain, nAdditionalCreationFlags) };
 
 	if (Vars::Visuals::Other::ThePS2Inator.Value)
 	{

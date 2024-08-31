@@ -6,7 +6,7 @@ std::string ColorRed = { '\x7', 'F', 'F', '3', 'F', '3', 'F' };
 std::string ColorBlue = { '\x7', '9', '9', 'C', 'C', 'F', 'F' };
 
 MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pChatElement, 19), void, __fastcall,
-	void* ecx, int iPlayerIndex, int iFilter, const char* fmt, ...)
+	void* rcx, int iPlayerIndex, int iFilter, const char* fmt, ...)
 {
 	va_list marker;
 	char buffer[4096];
@@ -26,11 +26,11 @@ MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pCh
 
 	PlayerInfo_t pi{};
 	if (!I::EngineClient->GetPlayerInfo(iPlayerIndex, &pi))
-		return CALL_ORIGINAL(ecx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
+		return CALL_ORIGINAL(rcx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
 
 	name = pi.name;
 	if (finalMsg.find(name) == std::string::npos)
-		return CALL_ORIGINAL(ecx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
+		return CALL_ORIGINAL(rcx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
 
 	if (iPlayerIndex && Vars::Misc::Chat::Tags.Value)
 	{
@@ -67,6 +67,8 @@ MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pCh
 			changedname = "Enemy";
 		else if (pEntity->m_iTeamNum() == pLocal->m_iTeamNum())
 			changedname = "Teammate";
+		else
+			changedname = "Player";
 
 		std::string newname = pEntity->IsAlive() ? (changedname + "\x1") : changedname;
 		std::string finalname = (pEntity->m_iTeamNum() == TF_TEAM_RED ? ColorRed : ColorBlue) + newname;
@@ -74,5 +76,5 @@ MAKE_HOOK(CBaseHudChat_ChatPrintf, U::Memory.GetVFunc(I::ClientModeShared->m_pCh
 		finalMsg = finalMsg.replace(0, finalMsg.find(name) + name.length(), finalmessage.c_str());
 	}
 
-	CALL_ORIGINAL(ecx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
+	CALL_ORIGINAL(rcx, iPlayerIndex, iFilter, "%s", finalMsg.c_str());
 }

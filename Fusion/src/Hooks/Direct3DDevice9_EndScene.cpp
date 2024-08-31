@@ -62,16 +62,16 @@ LONG __stdcall WndProc::Func(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 }
 
 MAKE_HOOK(VGuiSurface_LockCursor, U::Memory.GetVFunc(I::MatSystemSurface, 62), void, __fastcall,
-	void* ecx)
+	void* rcx)
 {
 	if (F::Menu.IsOpen)
 		return I::MatSystemSurface->UnlockCursor();
 
-	CALL_ORIGINAL(ecx);
+	CALL_ORIGINAL(rcx);
 }
 
 MAKE_HOOK(VGuiSurface_SetCursor, U::Memory.GetVFunc(I::MatSystemSurface, 51), void, __fastcall,
-	void* ecx, HCursor cursor)
+	void* rcx, HCursor cursor)
 {
 	if (F::Menu.IsOpen)
 	{
@@ -87,10 +87,10 @@ MAKE_HOOK(VGuiSurface_SetCursor, U::Memory.GetVFunc(I::MatSystemSurface, 51), vo
 		case 7: cursor = 14; break;
 		case 8: cursor = 13; break;
 		}
-		return CALL_ORIGINAL(ecx, cursor);
+		return CALL_ORIGINAL(rcx, cursor);
 	}
 
-	CALL_ORIGINAL(ecx, cursor);
+	CALL_ORIGINAL(rcx, cursor);
 }
 
 void WndProc::Initialize()

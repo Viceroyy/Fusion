@@ -3,9 +3,9 @@
 std::vector<Vec3> vAngles;
 
 MAKE_HOOK(CPrediction_RunCommand, U::Memory.GetVFunc(I::Prediction, 17), void, __fastcall,
-	void* ecx, CTFPlayer* pPlayer, CUserCmd* pCmd, IMoveHelper* moveHelper)
+	void* rcx, CTFPlayer* pPlayer, CUserCmd* pCmd, IMoveHelper* moveHelper)
 {
-	CALL_ORIGINAL(ecx, pPlayer, pCmd, moveHelper);
+	CALL_ORIGINAL(rcx, pPlayer, pCmd, moveHelper);
 
 	// credits: KGB
 	if (pPlayer != H::Entities.GetLocal() || G::Recharge || pCmd->hasbeenpredicted)

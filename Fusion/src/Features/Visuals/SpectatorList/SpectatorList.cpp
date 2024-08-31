@@ -47,6 +47,8 @@ bool CSpectatorList::GetSpectators(CTFPlayer* pLocal)
 						name = L"Enemy";
 					else if (pPlayer->m_iTeamNum() == pLocal->m_iTeamNum())
 						name = L"Teammate";
+					else
+						name = L"Player";
 				}
 
 				Spectators.push_back({

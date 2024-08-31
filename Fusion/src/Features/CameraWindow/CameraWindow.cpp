@@ -32,7 +32,7 @@ void CCameraWindow::Draw()
 }
 
 // Renders another view onto a texture
-void CCameraWindow::RenderView(void* ecx, const CViewSetup& pViewSetup)
+void CCameraWindow::RenderView(void* rcx, const CViewSetup& pViewSetup)
 {
 	if (!ShouldDraw || !CameraTex)
 		return;
@@ -51,10 +51,10 @@ void CCameraWindow::RenderView(void* ecx, const CViewSetup& pViewSetup)
 	viewSetup.m_flAspectRatio = static_cast<float>(viewSetup.width) / static_cast<float>(viewSetup.height);
 	viewSetup.fov = 90;
 
-	RenderCustomView(ecx, viewSetup, CameraTex);
+	RenderCustomView(rcx, viewSetup, CameraTex);
 }
 
-void CCameraWindow::RenderCustomView(void* ecx, const CViewSetup& pViewSetup, ITexture* pTexture)
+void CCameraWindow::RenderCustomView(void* rcx, const CViewSetup& pViewSetup, ITexture* pTexture)
 {
 	const auto renderCtx = I::MaterialSystem->GetRenderContext();
 
@@ -63,7 +63,7 @@ void CCameraWindow::RenderCustomView(void* ecx, const CViewSetup& pViewSetup, IT
 
 	static auto ViewRender_RenderView = U::Hooks.m_mHooks["ViewRender_RenderView"];
 	if (ViewRender_RenderView)
-		ViewRender_RenderView->Original<void(__fastcall*)(void*, const CViewSetup&, int, int)>()(ecx, pViewSetup, VIEW_CLEAR_COLOR | VIEW_CLEAR_DEPTH, RENDERVIEW_UNSPECIFIED);
+		ViewRender_RenderView->Original<void(__fastcall*)(void*, const CViewSetup&, int, int)>()(rcx, pViewSetup, VIEW_CLEAR_COLOR | VIEW_CLEAR_DEPTH, RENDERVIEW_UNSPECIFIED);
 
 	renderCtx->PopRenderTargetAndViewport();
 	renderCtx->Release();

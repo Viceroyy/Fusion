@@ -1,7 +1,7 @@
 #include "../SDK/SDK.h"
 
 MAKE_HOOK(CCvar_ConsoleColorPrintf, U::Memory.GetVFunc(I::CVar, 23), void, __fastcall,
-	void* ecx, const Color_t& clr, const char* pFormat, ...)
+	void* rcx, const Color_t& clr, const char* pFormat, ...)
 {
 	va_list marker;
 	char buffer[4096];
@@ -14,5 +14,5 @@ MAKE_HOOK(CCvar_ConsoleColorPrintf, U::Memory.GetVFunc(I::CVar, 23), void, __fas
 
 	std::string Message = msg;
 
-	return CALL_ORIGINAL(ecx, clr, "%s", Message.c_str());
+	return CALL_ORIGINAL(rcx, clr, "%s", Message.c_str());
 }
