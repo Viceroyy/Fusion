@@ -35,8 +35,18 @@ MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 2
 	if (G::Buttons & IN_DUCK) // lol
 		pCmd->buttons |= IN_DUCK;
 
-	auto pLocal = H::Entities.GetLocal();
-	auto pWeapon = H::Entities.GetWeapon();
+	CTFPlayer* pLocal = nullptr;
+	CTFWeaponBase* pWeapon = nullptr;
+
+	if (!H::Players.GetLocal()) {
+		pLocal = I::ClientEntityList->GetClientEntity(I::EngineClient->GetLocalPlayer())->As<CTFPlayer>();
+		pWeapon = pLocal->m_hActiveWeapon().Get()->As<CTFWeaponBase>();
+	}
+	else {
+		pLocal = H::Players.GetLocal();
+		pWeapon = H::Players.GetWeapon();
+	}
+
 	if (pLocal && pWeapon)
 	{	// Update Global Info
 		int nOldDefIndex = G::WeaponDefIndex;
