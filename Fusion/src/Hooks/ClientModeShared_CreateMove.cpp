@@ -38,13 +38,13 @@ MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 2
 	CTFPlayer* pLocal = nullptr;
 	CTFWeaponBase* pWeapon = nullptr;
 
-	if (!H::Players.GetLocal()) {
+	if (!H::Entities.GetLocal()) {
 		pLocal = I::ClientEntityList->GetClientEntity(I::EngineClient->GetLocalPlayer())->As<CTFPlayer>();
 		pWeapon = pLocal->m_hActiveWeapon().Get()->As<CTFWeaponBase>();
 	}
 	else {
-		pLocal = H::Players.GetLocal();
-		pWeapon = H::Players.GetWeapon();
+		pLocal = H::Entities.GetLocal();
+		pWeapon = H::Entities.GetWeapon();
 	}
 
 	if (pLocal && pWeapon)
