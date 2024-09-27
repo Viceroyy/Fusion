@@ -26,17 +26,21 @@ MAKE_HOOK(ClientModeShared_CreateMove, U::Memory.GetVFunc(I::ClientModeShared, 2
 
 	I::Prediction->Update(I::ClientState->m_nDeltaTick, I::ClientState->m_nDeltaTick > 0, I::ClientState->last_command_ack, I::ClientState->lastoutgoingcommand + I::ClientState->chokedcommands);
 
+	auto pLocal = H::Entities.GetLocal();
+	auto pWeapon = H::Entities.GetWeapon();
+
 	G::CurrentUserCmd = pCmd;
-	if (!G::LastUserCmd)
+	if (!G::LastUserCmd) {
 		G::LastUserCmd = pCmd;
+		pLocal = I::ClientEntityList->GetClientEntity(I::EngineClient->GetLocalPlayer())->As<CTFPlayer>();
+		pWeapon = pLocal->m_hActiveWeapon().Get()->As<CTFWeaponBase>();
+	}
 
 	// correct tick_count for fakeinterp / nointerp
 	pCmd->tick_count += TICKS_TO_TIME(F::Backtrack.flFakeInterp) - (Vars::Visuals::Removals::Interpolation.Value ? 0 : TICKS_TO_TIME(G::Lerp));
 	if (G::Buttons & IN_DUCK) // lol
 		pCmd->buttons |= IN_DUCK;
 
-	auto pLocal = H::Entities.GetLocal();
-	auto pWeapon = H::Entities.GetWeapon();
 	if (pLocal && pWeapon)
 	{	// Update Global Info
 		int nOldDefIndex = G::WeaponDefIndex;
