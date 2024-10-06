@@ -4,7 +4,7 @@
 
 DWORD WINAPI MainThread(LPVOID lpParam)
 {
-	while (!GetModuleHandleA("GameUI.dll"))
+	while (!GetModuleHandleA("serverbrowser.dll"))
 		Sleep(2000);
 
 	U::Core.Load();
