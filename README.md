@@ -7,6 +7,8 @@
   </a>
 </p>
 
+# This cheat is out of order due to lack of time to work on it, use https://github.com/rei-2/Amalgam instead
+
 # Fusion for Team Fortress 2, fork of Amalgam by rei-kes
 With a few more features here and there, notable changes include;
 - Medigun and rocket trail particle changer
